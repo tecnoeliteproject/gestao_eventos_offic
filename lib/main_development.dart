@@ -4,3 +4,4 @@ import 'package:gestao_eventos/bootstrap.dart';
 void main() {
   bootstrap(() => const App());
 }
+
