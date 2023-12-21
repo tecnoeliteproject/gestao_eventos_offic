@@ -11,6 +11,8 @@ class CicloDeVida {
 
   @override
   String toString() {
-    return 'CicloDeVida(dataDeLancamento: $dataDeLancamento, dataDeDescontinuacao: $dataDeDescontinuacao, motivoDaDescontinuacao: $motivoDaDescontinuacao)';
+    return 'CicloDeVida(dataDeLancamento: $dataDeLancamento, '
+        'dataDeDescontinuacao: $dataDeDescontinuacao,'
+        ' motivoDaDescontinuacao: $motivoDaDescontinuacao)';
   }
 }
