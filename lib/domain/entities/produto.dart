@@ -1,7 +1,6 @@
 import 'package:gestao_eventos/domain/entities/categoria.dart';
 import 'package:gestao_eventos/domain/entities/ciclo_de_vida.dart';
 import 'package:gestao_eventos/domain/entities/estoque.dart';
-import 'package:gestao_eventos/domain/entities/imagem.dart';
 
 class Produto {
   Produto({
@@ -10,7 +9,7 @@ class Produto {
     required this.descricao,
     required this.categoria,
     required this.preco,
-    required this.imagem,
+    required this.imagemUrl,
     required this.estoque,
     required this.cicloDeVida,
   });
@@ -20,14 +19,14 @@ class Produto {
   String descricao;
   Categoria categoria;
   double preco;
-  Imagem imagem;
+  String imagemUrl;
   Estoque estoque;
   CicloDeVida cicloDeVida;
 
   @override
   String toString() {
     return 'Produto(nome: $nome, descricao: $descricao, categoria: $categoria,'
-        ' preco: $preco, imagem: $imagem, estoque: $estoque,'
+        ' preco: $preco, imagemUrl: $imagemUrl, estoque: $estoque,'
         ' cicloDeVida: $cicloDeVida)';
   }
 }
