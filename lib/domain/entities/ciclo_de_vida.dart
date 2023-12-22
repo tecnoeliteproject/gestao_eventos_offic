@@ -1,11 +1,11 @@
 class CicloDeVida {
   CicloDeVida({
-    required this.dataDeLancamento,
+    this.dataDeLancamento,
     this.dataDeDescontinuacao,
     this.motivoDaDescontinuacao = '',
   });
 
-  DateTime dataDeLancamento;
+  DateTime? dataDeLancamento;
   DateTime? dataDeDescontinuacao;
   String? motivoDaDescontinuacao;
 

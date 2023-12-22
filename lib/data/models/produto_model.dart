@@ -66,7 +66,7 @@ class ProdutoModel extends Produto {
       'id': id,
       'nome': nome,
       'descricao': descricao,
-      'categoria': categoria.toMap(),
+      'categoriaId': categoria.id.toString(),
       'preco': preco,
       'imagemUrl': imagemUrl,
       'estoque': estoque.toMap(),

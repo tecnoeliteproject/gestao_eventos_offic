@@ -14,7 +14,7 @@ class ProdutoRepository extends IProdutoRepository {
   }
 
   @override
-  Future<Produto> getProduto(int id) {
+  Future<Produto?> getProduto(int id) {
     return _produtoDataSource.getProduto(id);
   }
 

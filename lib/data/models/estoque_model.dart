@@ -4,18 +4,15 @@ import 'dart:convert';
 import 'package:gestao_eventos/domain/entities/estoque.dart';
 
 class EstoqueModel extends Estoque {
-  final int id;
   final int quantidade;
   final DateTime? dataDeEntrada;
   final DateTime? dataDeSaida;
 
   EstoqueModel({
-    required this.id,
     required this.quantidade,
     this.dataDeEntrada,
     this.dataDeSaida,
   }) : super(
-          id: id,
           quantidade: quantidade,
           dataDeEntrada: dataDeEntrada,
           dataDeSaida: dataDeSaida,
@@ -23,7 +20,6 @@ class EstoqueModel extends Estoque {
 
   factory EstoqueModel.fromEntity(Estoque entity) {
     return EstoqueModel(
-      id: entity.id,
       quantidade: entity.quantidade,
       dataDeEntrada: entity.dataDeEntrada,
       dataDeSaida: entity.dataDeSaida,
@@ -32,7 +28,6 @@ class EstoqueModel extends Estoque {
 
   Estoque toEntity() {
     return Estoque(
-      id: id,
       quantidade: quantidade,
       dataDeEntrada: dataDeEntrada,
       dataDeSaida: dataDeSaida,
@@ -46,7 +41,6 @@ class EstoqueModel extends Estoque {
     DateTime? dataDeSaida,
   }) {
     return EstoqueModel(
-      id: id ?? this.id,
       quantidade: quantidade ?? this.quantidade,
       dataDeEntrada: dataDeEntrada ?? this.dataDeEntrada,
       dataDeSaida: dataDeSaida ?? this.dataDeSaida,
@@ -55,7 +49,6 @@ class EstoqueModel extends Estoque {
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'id': id,
       'quantidade': quantidade,
       'dataDeEntrada': dataDeEntrada?.millisecondsSinceEpoch,
       'dataDeSaida': dataDeSaida?.millisecondsSinceEpoch,
@@ -64,7 +57,6 @@ class EstoqueModel extends Estoque {
 
   factory EstoqueModel.fromMap(Map<String, dynamic> map) {
     return EstoqueModel(
-      id: map['id'] as int,
       quantidade: map['quantidade'] as int,
       dataDeEntrada: map['dataDeEntrada'] != null
           ? DateTime.fromMillisecondsSinceEpoch(map['dataDeEntrada'] as int)
@@ -82,24 +74,20 @@ class EstoqueModel extends Estoque {
 
   @override
   String toString() {
-    return 'EstoqueModel(id: $id, quantidade: $quantidade, dataDeEntrada: $dataDeEntrada, dataDeSaida: $dataDeSaida)';
+    return 'EstoqueModel(quantidade: $quantidade, dataDeEntrada: $dataDeEntrada, dataDeSaida: $dataDeSaida)';
   }
 
   @override
   bool operator ==(covariant EstoqueModel other) {
     if (identical(this, other)) return true;
 
-    return other.id == id &&
-        other.quantidade == quantidade &&
+    return other.quantidade == quantidade &&
         other.dataDeEntrada == dataDeEntrada &&
         other.dataDeSaida == dataDeSaida;
   }
 
   @override
   int get hashCode {
-    return id.hashCode ^
-        quantidade.hashCode ^
-        dataDeEntrada.hashCode ^
-        dataDeSaida.hashCode;
+    return quantidade.hashCode ^ dataDeEntrada.hashCode ^ dataDeSaida.hashCode;
   }
 }

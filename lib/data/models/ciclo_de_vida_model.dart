@@ -5,14 +5,14 @@ import 'package:gestao_eventos/domain/entities/ciclo_de_vida.dart';
 
 class CicloDeVidaModel extends CicloDeVida {
   @override
-  final DateTime dataDeLancamento;
+  final DateTime? dataDeLancamento;
   @override
   final DateTime? dataDeDescontinuacao;
   @override
   final String? motivoDaDescontinuacao;
 
   CicloDeVidaModel({
-    required this.dataDeLancamento,
+    this.dataDeLancamento,
     this.dataDeDescontinuacao,
     this.motivoDaDescontinuacao,
   }) : super(
@@ -52,7 +52,7 @@ class CicloDeVidaModel extends CicloDeVida {
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'dataDeLancamento': dataDeLancamento.millisecondsSinceEpoch,
+      'dataDeLancamento': dataDeLancamento?.millisecondsSinceEpoch,
       'dataDeDescontinuacao': dataDeDescontinuacao?.millisecondsSinceEpoch,
       'motivoDaDescontinuacao': motivoDaDescontinuacao,
     };

@@ -13,7 +13,7 @@ class ProdutoUseCases implements IProdutoUseCases {
   }
 
   @override
-  Future<Produto> getProduto(int id) {
+  Future<Produto?> getProduto(int id) {
     return _produtoRepository.getProduto(id);
   }
 
