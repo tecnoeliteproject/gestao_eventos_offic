@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:gestao_eventos/data/datasources/remoto/firebase/produto_datasource.dart';
-import 'package:gestao_eventos/data/repositories/produto_repository.dart';
+import 'package:gestao_eventos/data/datasources/remoto/firebase/evento_datasource.dart';
+import 'package:gestao_eventos/data/repositories/i_evento_repository.dart';
 import 'package:gestao_eventos/domain/entities/categoria.dart';
 import 'package:gestao_eventos/domain/entities/ciclo_de_vida.dart';
 import 'package:gestao_eventos/domain/entities/estoque.dart';
