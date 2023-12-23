@@ -1,16 +1,18 @@
+import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+
 class Categoria {
   Categoria({
     required this.id,
-    this.nome = '',
-    this.descricao = '',
-  });
+    required this.nome,
+    required this.descricao,
+    Color? color,
+    this.icon,
+  }) : color = color?.value;
 
-  int id;
-  String nome;
-  String descricao;
-
-  @override
-  String toString() {
-    return 'Categoria(nome: $nome, descricao: $descricao)';
-  }
+  final int id;
+  final String nome;
+  final String descricao;
+  final int? color;
+  final IconData? icon;
 }
