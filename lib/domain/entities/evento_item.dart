@@ -1,5 +1,8 @@
 class EventoItem {
-  EventoItem(this.id, this.nome);
+  EventoItem({
+    required this.id,
+    required this.nome,
+  });
 
   final String id;
   final String nome;

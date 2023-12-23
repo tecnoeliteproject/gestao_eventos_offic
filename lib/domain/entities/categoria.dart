@@ -6,13 +6,13 @@ class Categoria {
     required this.id,
     required this.nome,
     required this.descricao,
-    Color? color,
-    this.icon,
-  }) : color = color?.value;
+    required this.color,
+    required this.icon,
+  });
 
-  final int id;
+  final String id;
   final String nome;
   final String descricao;
-  final int? color;
-  final IconData? icon;
+  final int color;
+  final IconData icon;
 }
