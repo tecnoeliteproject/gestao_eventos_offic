@@ -5,13 +5,13 @@ import 'package:gestao_eventos/presentation/login/widgets/login_body.dart';
 /// {@template login_page}
 /// A description for LoginPage
 /// {@endtemplate}
-class LoginPage extends StatelessWidget {
+class SignInPage extends StatelessWidget {
   /// {@macro login_page}
-  const LoginPage({super.key});
+  const SignInPage({super.key});
 
   /// The static route for LoginPage
   static Route<dynamic> route() {
-    return MaterialPageRoute<dynamic>(builder: (_) => const LoginPage());
+    return MaterialPageRoute<dynamic>(builder: (_) => const SignInPage());
   }
 
   @override
@@ -22,7 +22,7 @@ class LoginPage extends StatelessWidget {
         body: LoginView(),
       ),
     );
-  }    
+  }
 }
 
 /// {@template login_view}

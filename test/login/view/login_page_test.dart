@@ -8,12 +8,12 @@ void main() {
   group('LoginPage', () {
     group('route', () {
       test('is routable', () {
-        expect(LoginPage.route(), isA<MaterialPageRoute>());
+        expect(SignInPage.route(), isA<MaterialPageRoute>());
       });
     });
 
     testWidgets('renders LoginView', (tester) async {
-      await tester.pumpWidget(MaterialApp(home: LoginPage()));
+      await tester.pumpWidget(MaterialApp(home: SignInPage()));
       expect(find.byType(LoginView), findsOneWidget);
     });
   });
