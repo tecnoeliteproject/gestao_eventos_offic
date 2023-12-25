@@ -17,7 +17,7 @@ class App extends StatelessWidget {
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
       onGenerateRoute: GlobalRouter.onGenerateRoute,
-      initialRoute: '/login',
+      initialRoute: '/auth_guard',
     );
   }
 }

@@ -16,7 +16,7 @@ class HomeBody extends StatelessWidget {
       builder: (context, state) {
         return Center(
           child: Text(
-            'Home page',
+            'Home',
             style: Theme.of(context).textTheme.headlineMedium,
           ),
         );
