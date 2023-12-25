@@ -27,9 +27,12 @@ class App extends StatelessWidget {
         child: TextButton(
           onPressed: () async {
             final db = FirebaseFirestore.instance;
-            final pds = FirebaseProdutoDataSource(firestore: db);
-            final rp = ProdutoRepository(pds);
-            final uc = ProdutoUseCases(rp);
+            final pds = FirebaseEventoDataSource(
+              firestore: db,
+              categoriaDataSource: FirebaseCategoriaDataSource(db),
+            );
+            final rp = EventoRepository(pds);
+            final uc = EventoUseCases(rp);
 
             final produto = Produto(
               id: 2,
