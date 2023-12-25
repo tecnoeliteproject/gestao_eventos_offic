@@ -2,6 +2,7 @@
 // ignore_for_file: overridden_fields, avoid_equals_and_hash_code_on_mutable_classes
 import 'dart:convert';
 
+import 'package:flutter/widgets.dart';
 import 'package:gestao_eventos/domain/entities/categoria.dart';
 
 class CategoriaModel extends Categoria {
@@ -9,24 +10,34 @@ class CategoriaModel extends Categoria {
     required this.id,
     required this.nome,
     required this.descricao,
+    required this.color,
+    required this.icon,
   }) : super(
           id: id,
           nome: nome,
           descricao: descricao,
+          color: color,
+          icon: icon,
         );
 
   @override
-  final int id;
+  final String id;
   @override
   final String nome;
   @override
   final String descricao;
+  @override
+  final int color;
+  @override
+  final IconData icon;
 
   factory CategoriaModel.fromEntity(Categoria entity) {
     return CategoriaModel(
       id: entity.id,
       nome: entity.nome,
       descricao: entity.descricao,
+      color: entity.color,
+      icon: entity.icon,
     );
   }
 
@@ -35,18 +46,24 @@ class CategoriaModel extends Categoria {
       id: id,
       nome: nome,
       descricao: descricao,
+      color: color,
+      icon: icon,
     );
   }
 
   CategoriaModel copyWith({
-    int? id,
+    String? id,
     String? nome,
     String? descricao,
+    int? color,
+    IconData? icon,
   }) {
     return CategoriaModel(
       id: id ?? this.id,
       nome: nome ?? this.nome,
       descricao: descricao ?? this.descricao,
+      color: color ?? this.color,
+      icon: icon ?? this.icon,
     );
   }
 
@@ -55,14 +72,18 @@ class CategoriaModel extends Categoria {
       'id': id,
       'nome': nome,
       'descricao': descricao,
+      'color': color,
+      'icon': icon.codePoint,
     };
   }
 
   factory CategoriaModel.fromMap(Map<String, dynamic> map) {
     return CategoriaModel(
-      id: map['id'] as int,
+      id: map['id'] as String,
       nome: map['nome'] as String,
       descricao: map['descricao'] as String,
+      color: map['color'] as int,
+      icon: IconData(map['icon'] as int, fontFamily: 'MaterialIcons'),
     );
   }
 
