@@ -1,7 +1,7 @@
 abstract class Failure {
-  final String message;
 
   const Failure(this.message);
+  final String message;
 }
 
 class ServerFailure extends Failure {

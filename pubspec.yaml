@@ -8,6 +8,7 @@ environment:
 
 dependencies:
   bloc: ^8.1.2
+  cached_network_image: ^3.3.0
   cloud_firestore: ^4.13.6
   device_preview: ^1.1.0
   equatable: ^2.0.5
@@ -17,10 +18,13 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_bloc: ^8.1.3
+  flutter_gutter: ^1.0.0
+  flutter_hooks: ^0.20.4
   flutter_localizations:
     sdk: flutter
   flutter_svg: ^2.0.9
   font_awesome_flutter: ^10.6.0
+  google_fonts: ^6.1.0
   hive: ^2.2.3
   hive_flutter: ^1.1.0
   intl: ^0.18.0
@@ -36,3 +40,5 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   generate: true
+  assets:
+    - assets/imgs/eventos/pedidos/
