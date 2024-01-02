@@ -1,5 +1,5 @@
-
 import 'package:flutter/material.dart';
+import 'package:flutter_gutter/flutter_gutter.dart';
 import 'package:gestao_eventos/presentation/home/widgets/evento_categoria_item_widget.dart';
 
 class EventCategoriaAreaWidget extends StatelessWidget {
@@ -12,6 +12,7 @@ class EventCategoriaAreaWidget extends StatelessWidget {
       child: ListView(
         scrollDirection: Axis.horizontal,
         children: const [
+          Gutter(),
           EventoCategoriaItem(
             icon: Icons.portable_wifi_off,
             text: Text('Pedidos'),

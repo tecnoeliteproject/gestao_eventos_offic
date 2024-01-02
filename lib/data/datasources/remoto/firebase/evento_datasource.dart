@@ -28,17 +28,21 @@ class FirebaseEventoDataSource implements IEventoDataSource {
   }
 
   @override
-  Future<bool> deleteEvento(EventoModel evento) {
-    // TODO: implement deleteEvento
-    throw UnimplementedError();
+  Future<bool> deleteEvento(EventoModel evento) async {
+    try {
+      await _firestore.collection(_collectionName).doc(evento.id).delete();
+      return true;
+    } catch (e) {
+      return false;
+    }
   }
 
   @override
-  Future<EventoModel?> getEvento(int id) async {
+  Future<EventoModel?> getEvento(String id) async {
     try {
       final result = await _firestore
           .collection(_collectionName)
-          .doc(id.toString())
+          .doc(id)
           .get()
           .then((doc) async {
         final categoria = await _categoriaDataSource.getCategoria(
@@ -58,13 +62,28 @@ class FirebaseEventoDataSource implements IEventoDataSource {
 
   @override
   Future<List<EventoModel>> getEventos() {
-    // TODO: implement getEventos
-    throw UnimplementedError();
+    try {
+      final eventos = _firestore.collection(_collectionName).get().then(
+            (value) =>
+                value.docs.map((e) => EventoModel.fromMap(e.data())).toList(),
+          );
+      return eventos;
+    } catch (e) {
+      return Future.error(e);
+    }
   }
 
   @override
-  Future<EventoModel> updateEvento(EventoModel evento) {
-    // TODO: implement updateEvento
-    throw UnimplementedError();
+  Future<EventoModel> updateEvento(EventoModel evento) async {
+    try {
+      await _firestore
+          .collection(_collectionName)
+          .doc(evento.id)
+          .update(evento.toMap());
+      final novoEvento = await getEvento(evento.id);
+      return novoEvento!;
+    } catch (e) {
+      return Future.error(e);
+    }
   }
 }

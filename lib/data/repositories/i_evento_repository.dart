@@ -14,7 +14,7 @@ class EventoRepository extends IEventoRepository {
   }
 
   @override
-  Future<Evento?> getEvento(int id) {
+  Future<Evento?> getEvento(String id) {
     return _eventoDataSource.getEvento(id);
   }
 

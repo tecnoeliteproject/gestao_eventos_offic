@@ -18,7 +18,7 @@ class EventoUseCase extends IEventoUseCases {
   }
 
   @override
-  Future<Evento?> getEvento(int id) {
+  Future<Evento?> getEvento(String id) {
     return _repository.getEvento(id);
   }
 
