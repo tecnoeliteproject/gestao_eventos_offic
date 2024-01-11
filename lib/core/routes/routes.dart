@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:gestao_eventos/presentation/auth/sign_in/view/sign_in_screen.dart';
 import 'package:gestao_eventos/presentation/home/view/home_page.dart';
-import 'package:gestao_eventos/presentation/login/view/auth_guard.dart';
-import 'package:gestao_eventos/presentation/login/view/sign_in_page.dart';
+import 'package:gestao_eventos/presentation/splash/splash_screen.dart';
 
 class GlobalRouter {
   static Route<dynamic>? onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
-      case '/auth_guard':
-        return MaterialPageRoute(builder: (context) => const AuthGuard());
-      case '/login':
-        return MaterialPageRoute(builder: (context) => const SignInPage());
+      case '/splash':
+        return MaterialPageRoute(builder: (context) => const SplashScreen());
+      case '/sign_in':
+        return MaterialPageRoute(builder: (context) => SignInScreen());
       case '/home':
         return MaterialPageRoute(builder: (context) => const HomePage());
       default:
@@ -17,3 +17,8 @@ class GlobalRouter {
     }
   }
 }
+
+final Map<String, WidgetBuilder> routes = {
+  SplashScreen.routeName: (context) => const SplashScreen(),
+  SignInScreen.routeName: (context) => const SignInScreen(),
+};
