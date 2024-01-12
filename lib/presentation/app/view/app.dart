@@ -11,15 +11,15 @@ class App extends StatelessWidget {
   const App({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext contexts) {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
           create: (context) => SignInBloc(InitialState()),
-        )
+        ),
       ],
       child: MaterialApp(
-        theme: AppTheme.lightTheme(context),
+        theme: AppTheme.lightTheme(contexts),
         scrollBehavior: const ScrollBehavior().copyWith(
           dragDevices: {
             PointerDeviceKind.touch,
