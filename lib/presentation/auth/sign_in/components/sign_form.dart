@@ -138,7 +138,7 @@ class _SignFormState extends State<SignForm> {
                   onTap: () => Navigator.pushNamed(
                       context, 'ForgotPasswordScreen.routeName'),
                   child: const Text(
-                    "Esqueci minha senha",
+                    'Esqueci minha senha',
                     style: TextStyle(decoration: TextDecoration.underline),
                   ),
                 )
@@ -146,15 +146,36 @@ class _SignFormState extends State<SignForm> {
             ),
             FormError(errors: errors),
             const SizedBox(height: 16),
-            ElevatedButton(
-              onPressed: () {
-                if (_formKey.currentState!.validate()) {
-                  _formKey.currentState!.save();
-                  _bloc.add(SignInEvent(email: email!, password: password!));
-                  KeyboardUtil.hideKeyboard(context);
+            BlocBuilder<SignInBloc, SignInState>(
+              bloc: _bloc,
+              builder: (context, state) {
+                if (state is SignInLoading) {
+                  return const CircularProgressIndicator();
                 }
+                if (state is SignInError){
+                  return Text(state.message, style: const TextStyle(color: Colors.red),);
+                }
+                return Container();
               },
-              child: const Text('Entrar'),
+            ),
+            const SizedBox(height: 10,),
+            BlocBuilder<SignInBloc, SignInState>(
+              bloc: _bloc,
+              builder: (context, state) {
+                if (state is SignInLoading) {
+                  return Container();
+                }
+                return ElevatedButton(
+                  onPressed: () {
+                    if (_formKey.currentState!.validate()) {
+                      _formKey.currentState!.save();
+                      _bloc.add(SignInEvent(email: email!, password: password!));
+                      KeyboardUtil.hideKeyboard(context);
+                    }
+                  },
+                  child: const Text('Entrar'),
+                );
+              },
             ),
           ],
         ),

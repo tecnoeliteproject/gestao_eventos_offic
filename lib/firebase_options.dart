@@ -21,7 +21,10 @@ class DefaultFirebaseOptions {
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
-        return android;
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for android - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
       case TargetPlatform.iOS:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for ios - '
@@ -50,20 +53,12 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyA7hRt-3Fa0DmAKYKlc3JILfCqXkhYV-bs',
-    appId: '1:606815910887:web:b56fc4b92dde18323e9b42',
-    messagingSenderId: '606815910887',
-    projectId: 'gestao-evento',
-    authDomain: 'gestao-evento.firebaseapp.com',
-    storageBucket: 'gestao-evento.appspot.com',
-    measurementId: 'G-2TJWKMT7KP',
-  );
-
-  static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyB8u-Ww3KXUrLCYHueVpzBd3iAallQuiJ8',
-    appId: '1:606815910887:android:5fe9edb09ea7b0b73e9b42',
-    messagingSenderId: '606815910887',
-    projectId: 'gestao-evento',
-    storageBucket: 'gestao-evento.appspot.com',
+    apiKey: 'AIzaSyAV7dco64MdqOjyFR5Y2gBvZAEXOuRNGqk',
+    appId: '1:290981595970:web:0f9ed5858fdc336086d6db',
+    messagingSenderId: '290981595970',
+    projectId: 'gestao-eventoss',
+    authDomain: 'gestao-eventoss.firebaseapp.com',
+    storageBucket: 'gestao-eventoss.appspot.com',
+    measurementId: 'G-V9JRYYK3RG',
   );
 }

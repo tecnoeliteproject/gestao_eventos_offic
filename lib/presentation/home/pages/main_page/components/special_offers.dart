@@ -14,7 +14,7 @@ class SpecialOffers extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: SectionTitle(
-            title: "Special for you",
+            title: 'Serviços Top',
             press: () {},
           ),
         ),
@@ -23,17 +23,17 @@ class SpecialOffers extends StatelessWidget {
           child: Row(
             children: [
               SpecialOfferCard(
-                image: "assets/images/Image Banner 2.png",
-                category: "Smartphone",
-                numOfBrands: 18,
+                image: 'assets/images/Image Banner 2.png',
+                category: 'Casamento',
+                numOfBrands: 100,
                 press: () {
                   Navigator.pushNamed(context, 'ProductsScreen.routeName');
                 },
               ),
               SpecialOfferCard(
-                image: "assets/images/Image Banner 3.png",
-                category: "Fashion",
-                numOfBrands: 24,
+                image: 'assets/images/Image Banner 3.png',
+                category: 'Alambamento',
+                numOfBrands: 30,
                 press: () {
                   Navigator.pushNamed(context, 'ProductsScreen.routeName');
                 },
@@ -101,13 +101,13 @@ class SpecialOfferCard extends StatelessWidget {
                       style: const TextStyle(color: Colors.white),
                       children: [
                         TextSpan(
-                          text: "$category\n",
+                          text: '$category\n',
                           style: const TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        TextSpan(text: "$numOfBrands Brands")
+                        TextSpan(text: '$numOfBrands Convidados')
                       ],
                     ),
                   ),
