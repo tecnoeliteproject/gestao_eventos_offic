@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:gestao_eventos/core/error/auth_exceptions.dart';
 import 'package:gestao_eventos/core/helpers/generic_functions.dart';
 import 'package:gestao_eventos/data/repositories_interfaces/i_auth_repository.dart';
@@ -46,10 +47,11 @@ class FirebaseAuthRepository implements IAuthRepository {
   @override
   Future<bool> signUp(String email, String password) async {
     try {
-      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+      var data = await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
+      
       return true;
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {

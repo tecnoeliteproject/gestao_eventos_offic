@@ -8,7 +8,9 @@ import 'package:gestao_eventos/presentation/auth/sign_in/bloc/bloc.dart';
 import 'package:gestao_eventos/presentation/auth/sign_in/bloc/sign_in_state.dart';
 import 'package:gestao_eventos/presentation/auth/sign_up/bloc/bloc.dart';
 import 'package:gestao_eventos/presentation/auth/sign_up/bloc/sign_up_state.dart';
-import 'package:gestao_eventos/presentation/home/cubit/home_cubit.dart';
+import 'package:gestao_eventos/presentation/painels/admin/bloc/admin_state.dart';
+import 'package:gestao_eventos/presentation/painels/admin/bloc/bloc.dart';
+import 'package:gestao_eventos/presentation/painels/home/cubit/home_cubit.dart';
 
 class App extends StatelessWidget {
   const App({super.key});
@@ -26,6 +28,9 @@ class App extends StatelessWidget {
         BlocProvider(
           create: (context) => HomeCubit(),
         ),
+        BlocProvider(
+          create: (context) => AdminBloc(AdminInitialState()),
+        ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -40,7 +45,7 @@ class App extends StatelessWidget {
         localizationsDelegates: AppLocalizations.localizationsDelegates,
         supportedLocales: AppLocalizations.supportedLocales,
         onGenerateRoute: GlobalRouter.onGenerateRoute,
-        initialRoute: '/home',
+        initialRoute: '/admin',
       ),
     );
   }

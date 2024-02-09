@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:gestao_eventos/presentation/auth/sign_in/view/sign_in_screen.dart';
 import 'package:gestao_eventos/presentation/auth/sign_up/sign_up_screen.dart';
-import 'package:gestao_eventos/presentation/home/home_screen.dart';
+import 'package:gestao_eventos/presentation/painels/admin/view/admin_screen.dart';
+import 'package:gestao_eventos/presentation/painels/home/home_screen.dart';
 import 'package:gestao_eventos/presentation/splash/splash_screen.dart';
 
 class GlobalRouter {
@@ -15,6 +16,8 @@ class GlobalRouter {
         return MaterialPageRoute(builder: (context) => const SignUpScreen());
       case '/home':
         return MaterialPageRoute(builder: (context) => const HomeScreen());
+      case '/admin':
+        return MaterialPageRoute(builder: (context) => const AdminScreen());
       default:
         return null;
     }

@@ -1,49 +1,48 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:gestao_eventos/core/helpers/constants.dart';
-import 'package:gestao_eventos/presentation/home/cubit/home_cubit.dart';
-import 'package:gestao_eventos/presentation/home/pages/main_page/main_page.dart';
-import 'package:gestao_eventos/presentation/home/pages/profile_page/profile_page.dart';
+import 'package:gestao_eventos/presentation/general_components/profile_page/profile_page.dart';
+import 'package:gestao_eventos/presentation/painels/admin/bloc/bloc.dart';
 
 const Color inActiveIconColor = Color(0xFFB6B6B6);
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+class AdminScreen extends StatefulWidget {
+  const AdminScreen({super.key});
 
   static String routeName = '/home_screen';
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<AdminScreen> createState() => _AdminScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
-  late HomeCubit _homeCubit;
+class _AdminScreenState extends State<AdminScreen> {
+  late AdminBloc _bloc;
 
   @override
   void initState() {
     super.initState();
-    _homeCubit = BlocProvider.of<HomeCubit>(context);
+    _bloc = BlocProvider.of<AdminBloc>(context);
   }
 
 
   void updateCurrentIndex(int index) {
-    _homeCubit.changePage(index);
+    
   }
 
   final pages = [
-    const MainPage(),
-    const MainPage(),
     const ProfilePage()
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: pages[context.select((HomeCubit cubit) => cubit.state)],
+      body: pages[_bloc.pageIndex],
       bottomNavigationBar: BottomNavigationBar(
         onTap: updateCurrentIndex,
-        currentIndex: context.select((HomeCubit cubit) => cubit.state),
+        currentIndex: _bloc.pageIndex,
         showSelectedLabels: false,
         showUnselectedLabels: false,
         type: BottomNavigationBarType.fixed,
