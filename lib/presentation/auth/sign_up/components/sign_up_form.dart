@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gestao_eventos/core/helpers/constants.dart';
+import 'package:gestao_eventos/domain/entities/permission_level.dart';
 import 'package:gestao_eventos/presentation/auth/sign_up/bloc/bloc.dart';
 import 'package:gestao_eventos/presentation/auth/sign_up/bloc/sign_up_event.dart';
 import 'package:gestao_eventos/presentation/auth/sign_up/bloc/sign_up_state.dart';
 import 'package:gestao_eventos/presentation/general_components/custom_surfix_icon.dart';
 import 'package:gestao_eventos/presentation/general_components/form_error.dart';
+import 'package:gestao_eventos/presentation/painels/admin/view/admin_screen.dart';
+import 'package:gestao_eventos/presentation/painels/client/client_home_screen.dart';
 
 class SignUpForm extends StatefulWidget {
   const SignUpForm({super.key});
@@ -52,7 +55,15 @@ class _SignUpFormState extends State<SignUpForm> {
         bloc: _bloc,
         listener: (context, state) {
           if (state is SignUpSucess) {
-            Navigator.pushReplacementNamed(context, '/home');
+            if (state.user.level == PermissionLevel.ADMIN) {
+              Navigator.pushReplacementNamed(context, AdminScreen.routeName);
+              return;
+            }
+            if (state.user.level == PermissionLevel.MANAGER) {
+              Navigator.pushReplacementNamed(context, '/manager');
+              return;
+            }
+            Navigator.pushReplacementNamed(context, ClientHomeScreen.routeName);
           }
         },
         child: Form(
@@ -161,7 +172,7 @@ class _SignUpFormState extends State<SignUpForm> {
                   if (state is SignUpLoading) {
                     return const CircularProgressIndicator();
                   }
-                  if (state is SignUpError) {
+                  if (state is SigningUpError) {
                     return Text(
                       state.message,
                       style: const TextStyle(color: Colors.red),

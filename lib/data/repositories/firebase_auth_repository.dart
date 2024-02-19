@@ -1,10 +1,20 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_database/firebase_database.dart';
 import 'package:gestao_eventos/core/error/auth_exceptions.dart';
 import 'package:gestao_eventos/core/helpers/generic_functions.dart';
+import 'package:gestao_eventos/data/models/user_model.dart';
 import 'package:gestao_eventos/data/repositories_interfaces/i_auth_repository.dart';
 
 class FirebaseAuthRepository implements IAuthRepository {
+
+  FirebaseAuthRepository() {
+     _usersReference = FirebaseFirestore.instance.collection('users').withConverter<UserModel>(
+      fromFirestore: (snapshot, _) => UserModel.fromMap(snapshot.data()!),
+      toFirestore: (model, _) => model.toMap(),
+    );
+  }
+
+  late CollectionReference<UserModel> _usersReference;
   @override
   Future<bool> signIn(String email, String password) async {
     try {
@@ -51,7 +61,6 @@ class FirebaseAuthRepository implements IAuthRepository {
         email: email,
         password: password,
       );
-      
       return true;
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
@@ -81,5 +90,21 @@ class FirebaseAuthRepository implements IAuthRepository {
   @override
   Future<bool> updatePassword(String password) {
     throw UnimplementedError();
+  }
+
+  @override
+  Future<UserModel?> getUserByEmail(String email) async {
+    final data = await _usersReference.doc(email).get();
+    final res = data.data();
+    if(res ==null){
+      return null;
+    }
+    return res;
+  }
+  
+  @override
+  Future<UserModel> createUser(UserModel model) async{
+    await FirebaseFirestore.instance.collection('users').doc(model.email).set(model.toMap());
+    return UserModel.fromMap(model.toMap());
   }
 }

@@ -2,22 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gestao_eventos/core/helpers/constants.dart';
-import 'package:gestao_eventos/presentation/painels/home/cubit/home_cubit.dart';
-import 'package:gestao_eventos/presentation/painels/home/pages/main_page/main_page.dart';
+import 'package:gestao_eventos/presentation/painels/client/cubit/home_cubit.dart';
+import 'package:gestao_eventos/presentation/painels/client/pages/main_page/main_page.dart';
 import 'package:gestao_eventos/presentation/general_components/profile_page/profile_page.dart';
 
 const Color inActiveIconColor = Color(0xFFB6B6B6);
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+class ClientHomeScreen extends StatefulWidget {
+  const ClientHomeScreen({super.key});
 
-  static String routeName = '/home_screen';
+  static const String routeName = '/client_home_screen';
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<ClientHomeScreen> createState() => _ClientHomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _ClientHomeScreenState extends State<ClientHomeScreen> {
   late HomeCubit _homeCubit;
 
   @override

@@ -12,7 +12,7 @@ const Color inActiveIconColor = Color(0xFFB6B6B6);
 class AdminScreen extends StatefulWidget {
   const AdminScreen({super.key});
 
-  static String routeName = '/home_screen';
+  static const String routeName = '/admin_home_screen';
 
   @override
   State<AdminScreen> createState() => _AdminScreenState();

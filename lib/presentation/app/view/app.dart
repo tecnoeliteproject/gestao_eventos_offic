@@ -6,11 +6,12 @@ import 'package:gestao_eventos/core/theme/theme.dart';
 import 'package:gestao_eventos/l10n/l10n.dart';
 import 'package:gestao_eventos/presentation/auth/sign_in/bloc/bloc.dart';
 import 'package:gestao_eventos/presentation/auth/sign_in/bloc/sign_in_state.dart';
+import 'package:gestao_eventos/presentation/auth/sign_in/view/sign_in_screen.dart';
 import 'package:gestao_eventos/presentation/auth/sign_up/bloc/bloc.dart';
 import 'package:gestao_eventos/presentation/auth/sign_up/bloc/sign_up_state.dart';
 import 'package:gestao_eventos/presentation/painels/admin/bloc/admin_state.dart';
 import 'package:gestao_eventos/presentation/painels/admin/bloc/bloc.dart';
-import 'package:gestao_eventos/presentation/painels/home/cubit/home_cubit.dart';
+import 'package:gestao_eventos/presentation/painels/client/cubit/home_cubit.dart';
 
 class App extends StatelessWidget {
   const App({super.key});
@@ -45,7 +46,7 @@ class App extends StatelessWidget {
         localizationsDelegates: AppLocalizations.localizationsDelegates,
         supportedLocales: AppLocalizations.supportedLocales,
         onGenerateRoute: GlobalRouter.onGenerateRoute,
-        initialRoute: '/admin',
+        initialRoute: SignInScreen.routeName,
       ),
     );
   }

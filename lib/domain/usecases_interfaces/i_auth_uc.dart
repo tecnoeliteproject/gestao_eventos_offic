@@ -1,6 +1,8 @@
+import 'package:gestao_eventos/domain/entities/user.dart';
+
 abstract class IAuthUC {
-  Future<bool> signIn(String email, String password);
-  Future<bool> signUp(String email, String password);
+  Future<User?> signIn(String email, String password);
+  Future<User> signUp(String email, String password);
   Future<bool> signOut();
   Future<bool> resetPassword(String email);
   Future<bool> updatePassword(String password);

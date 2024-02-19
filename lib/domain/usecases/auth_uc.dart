@@ -1,4 +1,9 @@
+import 'package:gestao_eventos/core/error/auth_exceptions.dart';
+import 'package:gestao_eventos/core/helpers/generic_functions.dart';
+import 'package:gestao_eventos/data/models/user_model.dart';
 import 'package:gestao_eventos/data/repositories_interfaces/i_auth_repository.dart';
+import 'package:gestao_eventos/domain/entities/permission_level.dart';
+import 'package:gestao_eventos/domain/entities/user.dart';
 import 'package:gestao_eventos/domain/usecases_interfaces/i_auth_uc.dart';
 
 class AuthUC implements IAuthUC {
@@ -18,8 +23,12 @@ class AuthUC implements IAuthUC {
   }
 
   @override
-  Future<bool> signIn(String email, String password) async{
-    return _repository.signIn(email, password);
+  Future<User?> signIn(String email, String password) async{
+    final res = await _repository.signIn(email, password);
+    if (res == true){ 
+      return _repository.getUserByEmail(email);
+    }
+    return null;
   }
 
   @override
@@ -29,8 +38,9 @@ class AuthUC implements IAuthUC {
   }
 
   @override
-  Future<bool> signUp(String email, String password) async{
-    return _repository.signUp(email, password);
+  Future<User> signUp(String email, String password) async{
+    final res = await _repository.signUp(email, password);
+    return UserModel.toEntity(await _repository.createUser(UserModel(email: email, level: User.CLIENT)));
   }
 
   @override

@@ -5,7 +5,7 @@ import 'package:gestao_eventos/presentation/auth/sign_in/view/sign_in_screen.dar
 import 'components/splash_content.dart';
 
 class SplashScreen extends StatefulWidget {
-  static String routeName = "/splash";
+  static const String routeName = "/splash";
 
   const SplashScreen({super.key});
 

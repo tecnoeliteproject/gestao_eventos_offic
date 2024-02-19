@@ -5,7 +5,7 @@ import 'package:gestao_eventos/presentation/general_components/socal_card.dart';
 import 'components/sign_up_form.dart';
 
 class SignUpScreen extends StatelessWidget {
-  static String routeName = "/sign_up";
+  static const String routeName = "/sign_up_screen";
 
   const SignUpScreen({super.key});
   @override
