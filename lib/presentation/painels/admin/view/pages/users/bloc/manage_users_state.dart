@@ -7,16 +7,18 @@ class DownloadedUsersState extends ManageUsersState {
   final List<User> users;}
 
 class GettingUsersState extends ManageUsersState {}
+class RemovingUserState extends ManageUsersState {
+  RemovingUserState({required this.users});
+
+  final List<User> users;}
 class EmptyUsersListState extends ManageUsersState {}
+class RemovedUserState extends ManageUsersState {
+  RemovedUserState({required this.users});
+
+  final List<User> users;
+}
 
 class GetUsersInError extends ManageUsersState {
   GetUsersInError(this.message);
   final String message;
-}
-
-class ChangeUserPermissionLevelState extends ManageUsersState {
-  ChangeUserPermissionLevelState({required this.users, required this.level, required this.email});
-  final int level;
-  final String email;
-  final List<User> users;
 }

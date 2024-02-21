@@ -133,4 +133,16 @@ class FirebaseAuthRepository implements IAuthRepository {
     user.level = level;
     await FirebaseFirestore.instance.collection('users').doc(email).set(user.toMap());
   }
+  
+  @override
+  Future<bool> removeUser(UserModel userModel) async{
+    await FirebaseFirestore.instance.collection('users').doc(userModel.email).delete();
+    return true;
+  }
+  
+  @override
+  Future<bool> removeAccountUser() async{
+    await FirebaseAuth.instance.currentUser!.delete();
+    return true;
+  }
 }

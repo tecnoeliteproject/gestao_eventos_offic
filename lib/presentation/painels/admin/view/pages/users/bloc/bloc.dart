@@ -7,29 +7,34 @@ import 'package:gestao_eventos/presentation/painels/admin/view/pages/users/bloc/
 
 class ManageUsersBloc extends Bloc<ManageUsersEvent, ManageUsersState> {
   ManageUsersBloc(super.initialState){
-    initAllDependencies();
-    initAllEvents();
+    _initAllDependencies();
+    _initAllEvents();
   }
   
-  void initAllEvents() {
+  void _initAllEvents() {
     on<GetUsersEvent>((event, emit)async{
-      final res = await _authUC.getAllUsers();
-      emit(DownloadedUsersState(res));
+      await _getAllUsers(emit);
     });
     
-    
-    // on<GetUsersEvent>((event, emit)async{
-    //   final res = await _authUC.getAllUsers();
-    //   emit(DownloadedUsersState(res));
-    // });
-    
-    on<ChangeUserPermissionLevelEvent>((event, emit)async{
-      await _authUC.changeUserPermissionLevelEvent(event.email, event.level);
-      emit(ChangeUserPermissionLevelState(email: event.email, level: event.level, users: event.users, ));
+    on<RemoveUserEvent>((event, emit)async{
+      await _removeUser(event, emit);
     });
   }
+
+  Future<void> _getAllUsers(Emitter<ManageUsersState> emit) async {
+    emit(GettingUsersState());
+    final res = await _authUC.getAllUsers();
+    emit(DownloadedUsersState(res));
+  }
   
-  void initAllDependencies() {
+  Future<void> _removeUser(RemoveUserEvent event, Emitter<ManageUsersState> emit) async {
+    emit(RemovingUserState(users: event.users));
+    await _authUC.removeUser(event.user);
+    event.users.removeWhere((element) => element.email == event.user.email,);
+    emit(RemovedUserState(users: event.users));
+  }
+  
+  void _initAllDependencies() {
     _authUC = AuthUC(repository: FirebaseAuthRepository());
   }
 

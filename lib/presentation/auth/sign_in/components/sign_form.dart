@@ -30,9 +30,9 @@ class _SignFormState extends State<SignForm> {
 
   @override
   void initState(){
+    super.initState();
     _bloc = BlocProvider.of<SignInBloc>(context);
     _bloc.add(SigningInEvent(email: 'mario@gmail.com', password: '11111111'));
-    super.initState();
   }
 
   void addError({String? error}) {

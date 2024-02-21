@@ -15,4 +15,7 @@ abstract class IAuthRepository {
   Future<UserModel> createUser(UserModel model);
 
   Future<void> changeUserPermissionLevelEvent(String email, int level);
+
+  Future<bool> removeUser(UserModel userModel);
+  Future<bool> removeAccountUser();
 }

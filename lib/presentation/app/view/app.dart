@@ -13,6 +13,7 @@ import 'package:gestao_eventos/presentation/painels/admin/bloc/admin_state.dart'
 import 'package:gestao_eventos/presentation/painels/admin/bloc/bloc.dart';
 import 'package:gestao_eventos/presentation/painels/admin/view/pages/users/bloc/bloc.dart';
 import 'package:gestao_eventos/presentation/painels/admin/view/pages/users/bloc/manage_users_state.dart';
+import 'package:gestao_eventos/presentation/painels/admin/view/pages/users/components/bloc/user_bloc.dart';
 import 'package:gestao_eventos/presentation/painels/client/cubit/home_cubit.dart';
 
 class App extends StatelessWidget {

@@ -60,5 +60,16 @@ class AuthUC implements IAuthUC {
     await _repository.changeUserPermissionLevelEvent(email, level);
   }
   
+  @override
+  Future<bool> removeUser(User user) async{
+    await removeAccountUser();
+    return _repository.removeUser(UserModel.fromEntity(user));
+  }
+  
+  
+  Future<bool> removeAccountUser() {
+    return _repository.removeAccountUser();
+  }
+  
   
 }

@@ -6,11 +6,9 @@ class SetUserAsAdminEvent extends ManageUsersEvent{}
 class SetUserAsManagerEvent extends ManageUsersEvent{}
 class SetUserAsClientEvent extends ManageUsersEvent{}
 class MoreUserOptionEvent extends ManageUsersEvent{}
-class RemoveUserEvent extends ManageUsersEvent{}
-class ChangeUserPermissionLevelEvent extends ManageUsersEvent{
-  ChangeUserPermissionLevelEvent({required this.users, required this.email, required this.level});
+class RemoveUserEvent extends ManageUsersEvent{
+  RemoveUserEvent({required this.user, required this.users});
 
-  final int level;
-  final String email;
   final List<User> users;
+  final User user;
 }

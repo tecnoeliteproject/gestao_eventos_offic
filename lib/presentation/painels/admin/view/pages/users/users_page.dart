@@ -6,6 +6,7 @@ import 'package:gestao_eventos/presentation/painels/admin/view/admin_screen.dart
 import 'package:gestao_eventos/presentation/painels/admin/view/pages/users/bloc/bloc.dart';
 import 'package:gestao_eventos/presentation/painels/admin/view/pages/users/bloc/manage_users_event.dart';
 import 'package:gestao_eventos/presentation/painels/admin/view/pages/users/bloc/manage_users_state.dart';
+import 'package:gestao_eventos/presentation/painels/admin/view/pages/users/components/user_item.dart';
 
 class UsersPage extends StatefulWidget {
   @override
@@ -37,76 +38,42 @@ class _UsersPageState extends State<UsersPage> {
           if (state is EmptyUsersListState) {
             return const Center(child: Text('Sem usuários'));
           } else if (state is GettingUsersState) {
-            return const CircularProgressIndicator();
+            return const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20),
+              child: LinearProgressIndicator(),
+            );
+          }else if (state is RemovingUserState) {
+            users = state.users;
           } else if (state is DownloadedUsersState) {
             users = state.users;
-          }else{
-            users = (state as ChangeUserPermissionLevelState).users;
+          }else if (state is RemovedUserState) {
+            users = state.users;
           }
-          return ListView.builder(
-              itemCount: users.length,
-              itemBuilder: (context, index) {
-                return Padding(
-                  padding: const EdgeInsets.all(20),
-                  child: Card(
-                    elevation: 4,
-                    child: Padding(
-                      padding: const EdgeInsets.all(20),
-                      child: Row(
-                        children: [
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text('Email: ${users[index].email ?? 'Sem email'}'),
-                              Text('Permissão: ${UserModel.nivelToText(users[index].level!)}'),
-                            ],
-                          ),
-                          const Spacer(),
-                          SizedBox(
-                            width: 40,
-                            child: InkWell(
-                              child: const Icon(Icons.delete,
-                                  color: inActiveIconColor),
-                              onTap: () {
-                                _bloc.add(RemoveUserEvent());
-                              },
-                            ),
-                          ),
-                          const SizedBox(
-                            width: 20,
-                          ),
-                          Container(
-                            width: 40,
-                            child: PopupMenuButton(
-                                child: const Icon(Icons.more_vert,
-                                    color: inActiveIconColor),
-                                onSelected: (value) {
-                                  _bloc.add(ChangeUserPermissionLevelEvent(level: value, email: users[index].email!, users: users));
-                                },
-                                itemBuilder: (context) {
-                                  return [
-                                    const PopupMenuItem(
-                                        value: 0,
-                                        child:
-                                            Text('Definir como administrador')),
-                                    const PopupMenuItem(
-                                      value: 1,
-                                      child: Text('Definir como Gerente'),
-                                    ),
-                                    const PopupMenuItem(
-                                      value: 2,
-                                      child: Text('Definir como Cliente'),
-                                    ),
-                                  ];
-                                }),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                );
-              });
+          return Column(
+            children: [
+              BlocBuilder<ManageUsersBloc, ManageUsersState>(
+                builder: (context, state) {
+                  if (state is RemovingUserState) {
+                    return const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 20),
+                      child: LinearProgressIndicator(),
+                    );
+                  }
+                  return Container();
+                },
+              ),
+              Flexible(
+                child: ListView.builder(
+                    itemCount: users.length,
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: const EdgeInsets.all(20),
+                        child: UserItem(users: users, index: index),
+                      );
+                    }),
+              ),
+            ],
+          );
         },
       ),
     );
