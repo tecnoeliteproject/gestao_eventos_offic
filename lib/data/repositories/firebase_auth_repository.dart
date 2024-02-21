@@ -32,6 +32,12 @@ class FirebaseAuthRepository implements IAuthRepository {
       }else if (e.code == 'invalid-credential') {
         throw AuthException(
             message: 'Credenciais inválidas!');
+      }else if (e.code == 'network-request-failed') {
+        throw AuthException(
+            message: 'Falha de Intenet!');
+      }else if (e.code == 'code=unavailable') {
+        throw AuthException(
+            message: 'Falha de Intenet!');
       }
       showLog(messsage: e.code);
       showLog(messsage: e.message??'Erro ao fazer login');
@@ -50,8 +56,9 @@ class FirebaseAuthRepository implements IAuthRepository {
   }
 
   @override
-  Future<bool> signOut() {
-    throw UnimplementedError();
+  Future<bool> signOut() async{
+    await FirebaseAuth.instance.signOut();
+    return true;
   }
 
   @override
@@ -71,6 +78,12 @@ class FirebaseAuthRepository implements IAuthRepository {
       }else if (e.code == 'invalid-email') {
         throw AuthException(
             message: 'Email inválido!');
+      }else if (e.code == 'network-request-failed') {
+        throw AuthException(
+            message: 'Falha de Intenet!');
+      }else if (e.code == 'code=unavailable') {
+        throw AuthException(
+            message: 'Falha de Intenet!');
       }
       
       showLog(messsage: e.code);
@@ -96,7 +109,7 @@ class FirebaseAuthRepository implements IAuthRepository {
   Future<UserModel?> getUserByEmail(String email) async {
     final data = await _usersReference.doc(email).get();
     final res = data.data();
-    if(res ==null){
+    if(res == null){
       return null;
     }
     return res;
@@ -106,5 +119,18 @@ class FirebaseAuthRepository implements IAuthRepository {
   Future<UserModel> createUser(UserModel model) async{
     await FirebaseFirestore.instance.collection('users').doc(model.email).set(model.toMap());
     return UserModel.fromMap(model.toMap());
+  }
+  
+  @override
+  Future<List<Map<String, dynamic>>> getAllUsers() async{
+    final res = await FirebaseFirestore.instance.collection('users').get();
+    return res.docs.map((e) => e.data()).toList();
+  }
+  
+  @override
+  Future<void> changeUserPermissionLevelEvent(String email, int level) async{
+    var user = (await getUserByEmail(email))!;
+    user.level = level;
+    await FirebaseFirestore.instance.collection('users').doc(email).set(user.toMap());
   }
 }

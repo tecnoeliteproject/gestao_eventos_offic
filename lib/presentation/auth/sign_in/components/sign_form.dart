@@ -6,6 +6,7 @@ import 'package:gestao_eventos/domain/entities/permission_level.dart';
 import 'package:gestao_eventos/presentation/auth/sign_in/bloc/bloc.dart';
 import 'package:gestao_eventos/presentation/auth/sign_in/bloc/sign_in_event.dart';
 import 'package:gestao_eventos/presentation/auth/sign_in/bloc/sign_in_state.dart';
+import 'package:gestao_eventos/presentation/auth/sign_in/view/sign_in_screen.dart';
 import 'package:gestao_eventos/presentation/general_components/custom_surfix_icon.dart';
 import 'package:gestao_eventos/presentation/general_components/form_error.dart';
 import 'package:gestao_eventos/presentation/painels/admin/view/admin_screen.dart';
@@ -30,6 +31,7 @@ class _SignFormState extends State<SignForm> {
   @override
   void initState(){
     _bloc = BlocProvider.of<SignInBloc>(context);
+    _bloc.add(SigningInEvent(email: 'mario@gmail.com', password: '11111111'));
     super.initState();
   }
 
@@ -63,6 +65,10 @@ class _SignFormState extends State<SignForm> {
             return;
           }
           Navigator.pushReplacementNamed(context, ClientHomeScreen.routeName);
+        }
+        if (state is SigningOutState){
+          Navigator.pushReplacementNamed(context, SignInScreen.routeName);
+          return ;
         }
       },
       child: Form(
@@ -159,7 +165,7 @@ class _SignFormState extends State<SignForm> {
             BlocBuilder<SignInBloc, SignInState>(
               bloc: _bloc,
               builder: (context, state) {
-                if (state is SignInLoading) {
+                if (state is SigningInState) {
                   return const CircularProgressIndicator();
                 }
                 if (state is SigningInError){
@@ -172,14 +178,14 @@ class _SignFormState extends State<SignForm> {
             BlocBuilder<SignInBloc, SignInState>(
               bloc: _bloc,
               builder: (context, state) {
-                if (state is SignInLoading) {
+                if (state is SigningInState) {
                   return Container();
                 }
                 return ElevatedButton(
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
                       _formKey.currentState!.save();
-                      _bloc.add(SignInEvent(email: email!, password: password!));
+                      _bloc.add(SigningInEvent(email: email!, password: password!));
                       KeyboardUtil.hideKeyboard(context);
                     }
                   },

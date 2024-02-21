@@ -11,6 +11,8 @@ import 'package:gestao_eventos/presentation/auth/sign_up/bloc/bloc.dart';
 import 'package:gestao_eventos/presentation/auth/sign_up/bloc/sign_up_state.dart';
 import 'package:gestao_eventos/presentation/painels/admin/bloc/admin_state.dart';
 import 'package:gestao_eventos/presentation/painels/admin/bloc/bloc.dart';
+import 'package:gestao_eventos/presentation/painels/admin/view/pages/users/bloc/bloc.dart';
+import 'package:gestao_eventos/presentation/painels/admin/view/pages/users/bloc/manage_users_state.dart';
 import 'package:gestao_eventos/presentation/painels/client/cubit/home_cubit.dart';
 
 class App extends StatelessWidget {
@@ -31,6 +33,9 @@ class App extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => AdminBloc(AdminInitialState()),
+        ),
+        BlocProvider(
+          create: (context) => ManageUsersBloc(GettingUsersState()),
         ),
       ],
       child: MaterialApp(

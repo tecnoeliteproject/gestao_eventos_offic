@@ -1,8 +1,5 @@
-import 'package:gestao_eventos/core/error/auth_exceptions.dart';
-import 'package:gestao_eventos/core/helpers/generic_functions.dart';
 import 'package:gestao_eventos/data/models/user_model.dart';
 import 'package:gestao_eventos/data/repositories_interfaces/i_auth_repository.dart';
-import 'package:gestao_eventos/domain/entities/permission_level.dart';
 import 'package:gestao_eventos/domain/entities/user.dart';
 import 'package:gestao_eventos/domain/usecases_interfaces/i_auth_uc.dart';
 
@@ -33,8 +30,7 @@ class AuthUC implements IAuthUC {
 
   @override
   Future<bool> signOut() async{
-    // TODO: implement signOut
-    throw UnimplementedError();
+    return _repository.signOut();
   }
 
   @override
@@ -50,9 +46,19 @@ class AuthUC implements IAuthUC {
   }
 
   @override
-  Future<bool> updatePassword(String password) {
-    // TODO: implement updatePassword
+  Future<bool> updatePassword(String password) async{
     throw UnimplementedError();
   }
+  
+  @override
+  Future<List<User>> getAllUsers()async {
+    return (await _repository.getAllUsers()).map((e) => UserModel.toEntity(UserModel.fromMap(e))).toList();
+  }
+  
+  @override
+  Future<void> changeUserPermissionLevelEvent(String email, int level) async{
+    await _repository.changeUserPermissionLevelEvent(email, level);
+  }
+  
   
 }

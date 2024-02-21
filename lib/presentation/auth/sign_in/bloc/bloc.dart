@@ -9,17 +9,31 @@ import 'package:gestao_eventos/presentation/auth/sign_in/bloc/sign_in_state.dart
 class SignInBloc extends Bloc<SignInEvent, SignInState> {
   SignInBloc(SignInInitialState initialState) : super(initialState) {
     initDependencies();
-    on<SignInEvent>(
+    initAllEvents();
+  }
+
+  void initAllEvents() {
+    on<SigningInEvent>(
       (event, emit) async{
         await _signin(emit, event);
+      },
+    );
+    
+    on<SigningOutEvent>(
+      (event, emit) async{
+        await _signOut(emit, event);
       },
     );
   }
 
   late IAuthUC _uc;
 
-  Future<void> _signin(Emitter<SignInState> emit, SignInEvent event) async {
-    emit(SignInLoading());
+  Future<void> _signOut(Emitter<SignInState> emit, SigningOutEvent event) async {
+    await _uc.signOut();
+    emit(SigningOutState());
+  }
+  Future<void> _signin(Emitter<SignInState> emit, SigningInEvent event) async {
+    emit(SigningInState());
     try {
       var user = await _uc.signIn(event.email, event.password);
       if (user != null) {
