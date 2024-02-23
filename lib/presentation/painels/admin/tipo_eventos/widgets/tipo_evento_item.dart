@@ -52,7 +52,7 @@ class TipoEventoItem extends StatelessWidget {
                 margin: const EdgeInsets.all(4),
                 decoration: BoxDecoration(
                   image: const DecorationImage(
-                    fit: BoxFit.cover,
+                    fit: BoxFit.fitHeight,
                     image: NetworkImage(
                       'https://www.helium10.com/app/uploads/2020/04/vit-c.jpg',
                     ),

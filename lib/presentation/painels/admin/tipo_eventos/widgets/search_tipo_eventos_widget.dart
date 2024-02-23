@@ -16,6 +16,7 @@ class SearchTipoEventosWidget extends StatelessWidget {
           },
           icon: const Icon(Icons.close),
         ),
+        border: const UnderlineInputBorder(),
       ),
     );
   }
