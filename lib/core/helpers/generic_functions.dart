@@ -1,5 +1,5 @@
 import 'dart:developer';
 
-showLog({required String messsage}){
+void showLog({required String messsage}) {
   log(messsage);
 }

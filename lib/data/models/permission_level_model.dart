@@ -1,12 +1,16 @@
-import 'package:gestao_eventos/core/helpers/generic_functions.dart';
 import 'package:gestao_eventos/domain/entities/permission_level.dart';
 
 class PermissionLevelModel extends PermissionLevel {
-
   PermissionLevelModel({
     required this.level,
     required this.usersEmail,
   }) : super(level: level, usersEmail: usersEmail);
+  factory PermissionLevelModel.fromMap(Map<String, dynamic> map) {
+    return PermissionLevelModel(
+      level: map[LEVEL] as int,
+      usersEmail: map[USER_EMAILS] as List,
+    );
+  }
 
   factory PermissionLevelModel.fromEntity(PermissionLevel entity) {
     return PermissionLevelModel(
@@ -22,13 +26,6 @@ class PermissionLevelModel extends PermissionLevel {
     );
   }
 
-  factory PermissionLevelModel.fromMap(Map<String, dynamic> map) {
-    return PermissionLevelModel(
-      level: map[LEVEL] as int,
-      usersEmail: map[USER_EMAILS] as List,
-    );
-  }
-
   Map<String, dynamic> toMap() {
     return {
       LEVEL: level,
@@ -41,6 +38,6 @@ class PermissionLevelModel extends PermissionLevel {
   @override
   final List<dynamic> usersEmail;
 
-  static const String LEVEL  = 'level';
-  static const String USER_EMAILS  = 'user_emails';
+  static const String LEVEL = 'level';
+  static const String USER_EMAILS = 'user_emails';
 }

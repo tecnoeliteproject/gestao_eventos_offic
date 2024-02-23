@@ -13,14 +13,13 @@ import 'package:gestao_eventos/presentation/painels/admin/bloc/admin_state.dart'
 import 'package:gestao_eventos/presentation/painels/admin/bloc/bloc.dart';
 import 'package:gestao_eventos/presentation/painels/admin/view/pages/users/bloc/bloc.dart';
 import 'package:gestao_eventos/presentation/painels/admin/view/pages/users/bloc/manage_users_state.dart';
-import 'package:gestao_eventos/presentation/painels/admin/view/pages/users/components/bloc/user_bloc.dart';
 import 'package:gestao_eventos/presentation/painels/client/cubit/home_cubit.dart';
 
 class App extends StatelessWidget {
   const App({super.key});
 
   @override
-  Widget build(BuildContext contexts) {
+  Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
@@ -41,7 +40,7 @@ class App extends StatelessWidget {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        theme: AppTheme.lightTheme(contexts),
+        theme: AppTheme.lightTheme(context),
         scrollBehavior: const ScrollBehavior().copyWith(
           dragDevices: {
             PointerDeviceKind.touch,
