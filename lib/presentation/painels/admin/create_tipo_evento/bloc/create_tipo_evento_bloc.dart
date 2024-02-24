@@ -58,9 +58,9 @@ class CreateTipoEventoBloc
     final tipoEvento = TipoEvento(
       id: const Uuid().v4(),
       name: name,
-      image: imagem,
+      image: String.fromCharCodes(imagem),
       description: descricao,
-      exemplos: amostras ?? [],
+      exemplos: amostras?.cast() ?? [],
     );
 
     emit(const CreateTipoEventoLoading());

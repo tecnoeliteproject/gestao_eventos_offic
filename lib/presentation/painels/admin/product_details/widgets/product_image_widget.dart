@@ -28,7 +28,9 @@ class ProductImageWidget extends StatelessWidget {
                 ),
               ],
             ),
-            Expanded(child: _ImageWidget(image: tipoEvento.image)),
+            Expanded(
+              child: _ImageWidget(image: tipoEvento.image),
+            ),
           ],
         ),
       ),

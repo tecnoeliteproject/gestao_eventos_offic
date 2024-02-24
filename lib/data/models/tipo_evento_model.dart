@@ -88,7 +88,7 @@ class TipoEventoModel extends TipoEvento {
 
   @override
   String toString() {
-    return 'TipoEventoModel(id: $id, name: $name, image: $image, description: $description, exemplos: $exemplos)';
+    return 'TipoEventoModel(id: $id, name: $name, description: $description)';
   }
 
   @override
