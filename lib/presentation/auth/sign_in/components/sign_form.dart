@@ -153,7 +153,7 @@ class _SignFormState extends State<SignForm> {
                 ),
                 const Text('Lembrar'),
                 const Spacer(),
-                GestureDetector(
+                InkWell(
                   onTap: () => Navigator.pushNamed(
                     context,
                     'ForgotPasswordScreen.routeName',
