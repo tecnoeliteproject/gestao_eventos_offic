@@ -1,3 +1,5 @@
+// ignore_for_file: lines_longer_than_80_chars
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gestao_eventos/core/helpers/constants.dart';
@@ -29,7 +31,7 @@ class _SignFormState extends State<SignForm> {
   late SignInBloc _bloc;
 
   @override
-  void initState(){
+  void initState() {
     super.initState();
     _bloc = BlocProvider.of<SignInBloc>(context);
     _bloc.add(SigningInEvent(email: 'mario@gmail.com', password: '11111111'));
@@ -60,15 +62,16 @@ class _SignFormState extends State<SignForm> {
           if (state.user.level == PermissionLevel.ADMIN) {
             Navigator.pushReplacementNamed(context, AdminScreen.routeName);
             return;
-          }if (state.user.level == PermissionLevel.MANAGER) {
+          }
+          if (state.user.level == PermissionLevel.MANAGER) {
             Navigator.pushReplacementNamed(context, '/manager');
             return;
           }
           Navigator.pushReplacementNamed(context, ClientHomeScreen.routeName);
         }
-        if (state is SigningOutState){
+        if (state is SigningOutState) {
           Navigator.pushReplacementNamed(context, SignInScreen.routeName);
-          return ;
+          return;
         }
       },
       child: Form(
@@ -89,20 +92,20 @@ class _SignFormState extends State<SignForm> {
               validator: (value) {
                 if (value!.isEmpty) {
                   addError(error: kEmailNullError);
-                  return "";
+                  return '';
                 } else if (!emailValidatorRegExp.hasMatch(value)) {
                   addError(error: kInvalidEmailError);
-                  return "";
+                  return '';
                 }
                 return null;
               },
               decoration: const InputDecoration(
-                labelText: "Email",
-                hintText: "Digite seu email",
+                labelText: 'Email',
+                hintText: 'Digite seu email',
                 // If  you are using latest version of flutter then lable text and hint text shown like this
                 // if you r using flutter less then 1.20.* then maybe this is not working properly
                 floatingLabelBehavior: FloatingLabelBehavior.always,
-                suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/Mail.svg"),
+                suffixIcon: CustomSurffixIcon(svgIcon: 'assets/icons/Mail.svg'),
               ),
             ),
             const SizedBox(height: 20),
@@ -120,20 +123,20 @@ class _SignFormState extends State<SignForm> {
               validator: (value) {
                 if (value!.isEmpty) {
                   addError(error: kPassNullError);
-                  return "";
+                  return '';
                 } else if (value.length < 8) {
                   addError(error: kShortPassError);
-                  return "";
+                  return '';
                 }
                 return null;
               },
               decoration: const InputDecoration(
-                labelText: "Senha",
-                hintText: "Digite sua senha",
+                labelText: 'Senha',
+                hintText: 'Digite sua senha',
                 // If  you are using latest version of flutter then lable text and hint text shown like this
                 // if you r using flutter less then 1.20.* then maybe this is not working properly
                 floatingLabelBehavior: FloatingLabelBehavior.always,
-                suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/Lock.svg"),
+                suffixIcon: CustomSurffixIcon(svgIcon: 'assets/icons/Lock.svg'),
               ),
             ),
             const SizedBox(height: 20),
@@ -148,16 +151,18 @@ class _SignFormState extends State<SignForm> {
                     });
                   },
                 ),
-                const Text("Lembrar"),
+                const Text('Lembrar'),
                 const Spacer(),
                 GestureDetector(
                   onTap: () => Navigator.pushNamed(
-                      context, 'ForgotPasswordScreen.routeName'),
+                    context,
+                    'ForgotPasswordScreen.routeName',
+                  ),
                   child: const Text(
                     'Esqueci minha senha',
                     style: TextStyle(decoration: TextDecoration.underline),
                   ),
-                )
+                ),
               ],
             ),
             FormError(errors: errors),
@@ -168,13 +173,18 @@ class _SignFormState extends State<SignForm> {
                 if (state is SigningInState) {
                   return const CircularProgressIndicator();
                 }
-                if (state is SigningInError){
-                  return Text(state.message, style: const TextStyle(color: Colors.red),);
+                if (state is SigningInError) {
+                  return Text(
+                    state.message,
+                    style: const TextStyle(color: Colors.red),
+                  );
                 }
                 return Container();
               },
             ),
-            const SizedBox(height: 10,),
+            const SizedBox(
+              height: 10,
+            ),
             BlocBuilder<SignInBloc, SignInState>(
               bloc: _bloc,
               builder: (context, state) {
@@ -185,7 +195,9 @@ class _SignFormState extends State<SignForm> {
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
                       _formKey.currentState!.save();
-                      _bloc.add(SigningInEvent(email: email!, password: password!));
+                      _bloc.add(
+                        SigningInEvent(email: email!, password: password!),
+                      );
                       KeyboardUtil.hideKeyboard(context);
                     }
                   },
