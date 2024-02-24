@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:gestao_eventos/data/models/user_model.dart';
 import 'package:gestao_eventos/domain/entities/user.dart';
-import 'package:gestao_eventos/presentation/painels/admin/view/admin_screen.dart';
 import 'package:gestao_eventos/presentation/painels/admin/view/pages/users/bloc/bloc.dart';
 import 'package:gestao_eventos/presentation/painels/admin/view/pages/users/bloc/manage_users_event.dart';
 import 'package:gestao_eventos/presentation/painels/admin/view/pages/users/bloc/manage_users_state.dart';
 import 'package:gestao_eventos/presentation/painels/admin/view/pages/users/components/user_item.dart';
 
 class UsersPage extends StatefulWidget {
+  const UsersPage({super.key});
+
   @override
   State<StatefulWidget> createState() {
     return _UsersPageState();
@@ -42,11 +42,11 @@ class _UsersPageState extends State<UsersPage> {
               padding: EdgeInsets.symmetric(horizontal: 20),
               child: LinearProgressIndicator(),
             );
-          }else if (state is RemovingUserState) {
+          } else if (state is RemovingUserState) {
             users = state.users;
           } else if (state is DownloadedUsersState) {
             users = state.users;
-          }else if (state is RemovedUserState) {
+          } else if (state is RemovedUserState) {
             users = state.users;
           }
           return Column(

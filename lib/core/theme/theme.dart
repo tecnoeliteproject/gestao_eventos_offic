@@ -6,6 +6,7 @@ class AppTheme {
     return ThemeData(
       scaffoldBackgroundColor: Colors.white,
       fontFamily: 'Muli',
+      colorScheme: ColorScheme.fromSeed(seedColor: Colors.purple),
       appBarTheme: const AppBarTheme(
         color: Colors.white,
         elevation: 0,

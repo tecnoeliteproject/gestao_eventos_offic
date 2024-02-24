@@ -37,6 +37,7 @@ class TipoEventoItem extends StatelessWidget {
                   name: 'Casamentos de adultos $index',
                   image:
                       'https://www.helium10.com/app/uploads/2020/04/vit-c.jpg',
+                  exemplos: [],
                 ),
               );
             },

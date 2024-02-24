@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+const kDefaultPadding = 16.0;
+
 Widget sh(double val) {
   return SizedBox(height: val);
 }

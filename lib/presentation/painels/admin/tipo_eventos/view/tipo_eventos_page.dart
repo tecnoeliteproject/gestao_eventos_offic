@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gestao_eventos/presentation/painels/admin/create_tipo_evento/create_tipo_evento.dart';
 import 'package:gestao_eventos/presentation/painels/admin/tipo_eventos/bloc/tipo_eventos_bloc.dart';
 import 'package:gestao_eventos/presentation/painels/admin/tipo_eventos/cubit/search_tipo_eventos_cubit.dart';
 import 'package:gestao_eventos/presentation/painels/admin/tipo_eventos/widgets/app_bar_title_widget.dart';
@@ -30,7 +31,9 @@ class TipoEventosPage extends StatelessWidget {
             appBar: _buildAppBarWidget(context),
             body: const TipoEventosView(),
             floatingActionButton: FloatingActionButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(context, CreateTipoEventoPage.route());
+              },
               child: const Icon(Icons.add),
             ),
           );
