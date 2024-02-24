@@ -1,0 +1,2 @@
+Platform  Firebase App Id
+web       1:290981595970:web:0f9ed5858fdc336086d6db
