@@ -1,35 +1,41 @@
+import 'package:gestao_eventos/data/datasources/i_tipo_evento_datasource.dart';
+import 'package:gestao_eventos/data/models/tipo_evento_model.dart';
 import 'package:gestao_eventos/data/repositories_interfaces/i_tipo_evento_repository.dart';
 import 'package:gestao_eventos/domain/entities/tipo_evento.dart';
 
 class TipoEventoRepository implements ITipoEventoRepository {
-  
+  TipoEventoRepository(this._datasource);
+
+  final ITipoEventoDataSource _datasource;
+
   @override
   Future<bool> createTipoEvento(TipoEvento tipoEvento) {
-    // TODO: implement createTipoEvento
-    throw UnimplementedError();
+    return _datasource.createTipoEvento(
+      TipoEventoModel.fromEntity(tipoEvento),
+    );
   }
 
   @override
   Future<bool> deleteTipoEvento(TipoEvento tipoEvento) {
-    // TODO: implement deleteTipoEvento
-    throw UnimplementedError();
+    return _datasource.deleteTipoEvento(
+      TipoEventoModel.fromEntity(tipoEvento),
+    );
   }
 
   @override
   Future<TipoEvento?> getTipoEvento(String id) {
-    // TODO: implement getTipoEvento
-    throw UnimplementedError();
+    return _datasource.getTipoEvento(id);
   }
 
   @override
   Future<List<TipoEvento>> getTipoEventos() {
-    // TODO: implement getTipoEventos
-    throw UnimplementedError();
+    return _datasource.getTipoEventos();
   }
 
   @override
   Future<TipoEvento> updateTipoEvento(TipoEvento tipoEvento) {
-    // TODO: implement updateTipoEvento
-    throw UnimplementedError();
+    return _datasource.updateTipoEvento(
+      TipoEventoModel.fromEntity(tipoEvento),
+    );
   }
 }

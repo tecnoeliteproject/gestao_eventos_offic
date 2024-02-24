@@ -71,6 +71,16 @@ class TipoEventoModel extends TipoEvento {
     );
   }
 
+  factory TipoEventoModel.fromEntity(TipoEvento entity) {
+    return TipoEventoModel(
+      id: entity.id,
+      name: entity.name,
+      image: entity.image,
+      description: entity.description,
+      exemplos: entity.exemplos,
+    );
+  }
+
   String toJson() => json.encode(toMap());
 
   factory TipoEventoModel.fromJson(String source) =>
