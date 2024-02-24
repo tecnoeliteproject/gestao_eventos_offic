@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 name: gestao_eventos
 
 concurrency:
@@ -27,3 +28,34 @@ jobs:
       includes: |
         **/*.md
       modified_files_only: false
+=======
+name: gestao_eventos
+
+concurrency:
+  group: $-$
+  cancel-in-progress: true
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  semantic-pull-request:
+    uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/semantic_pull_request.yml@v1
+
+  build:
+    uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/flutter_package.yml@v1
+    with:
+      flutter_channel: stable
+
+  spell-check:
+    uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/spell_check.yml@v1
+    with:
+      includes: |
+        **/*.md
+      modified_files_only: false
+>>>>>>> 9c1fb90644301fea5aadcc0ac7058a394f50e020

@@ -1,3 +1,8 @@
+<<<<<<< HEAD
 bricks:
   clean_architecture_folders_lib: ^1.0.0+5
+=======
+bricks:
+  clean_architecture_folders_lib: ^1.0.0+5
+>>>>>>> 9c1fb90644301fea5aadcc0ac7058a394f50e020
   feature_brick: ^0.6.2

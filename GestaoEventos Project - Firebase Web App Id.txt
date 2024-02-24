@@ -1,2 +1,6 @@
+<<<<<<< HEAD
 Platform  Firebase App Id
+=======
+Platform  Firebase App Id
+>>>>>>> 9c1fb90644301fea5aadcc0ac7058a394f50e020
 web       1:290981595970:web:0f9ed5858fdc336086d6db

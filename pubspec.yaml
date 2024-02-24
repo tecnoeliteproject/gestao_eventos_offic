@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 name: gestao_eventos
 description: A Very Good Project created by Very Good CLI.
 version: 1.0.0+1
@@ -52,3 +53,59 @@ flutter:
           weight: 700
         - asset: assets/fonts/muli/Muli-Light.ttf
           weight: 300
+=======
+name: gestao_eventos
+description: A Very Good Project created by Very Good CLI.
+version: 1.0.0+1
+publish_to: none
+
+environment:
+  sdk: ">=3.1.0 <4.0.0"
+
+dependencies:
+  bloc: ^8.1.2
+  cached_network_image: ^3.3.0
+  cloud_firestore: ^4.13.6
+  device_preview: ^1.1.0
+  equatable: ^2.0.5
+  firebase_auth: ^4.16.0
+  firebase_core: ^2.24.2
+  firebase_database: ^10.4.0
+  flutter:
+    sdk: flutter
+  flutter_bloc: ^8.1.3
+  flutter_gutter: ^1.0.0
+  flutter_hooks: ^0.20.4
+  flutter_localizations:
+    sdk: flutter
+  flutter_svg: ^2.0.9
+  font_awesome_flutter: ^10.6.0
+  google_fonts: ^6.1.0
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
+  intl: ^0.18.0
+  
+
+dev_dependencies:
+  bloc_test: ^9.1.4
+  flutter_test:
+    sdk: flutter
+  mocktail: ^1.0.0
+  very_good_analysis: ^5.1.0
+
+flutter:
+  uses-material-design: true
+  generate: true
+  assets:
+    - assets/imgs/eventos/pedidos/
+    - assets/images/
+    - assets/icons/
+  fonts:
+    - family: Muli
+      fonts:
+        - asset: assets/fonts/muli/Muli.ttf
+        - asset: assets/fonts/muli/Muli-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/muli/Muli-Light.ttf
+          weight: 300
+>>>>>>> 9c1fb90644301fea5aadcc0ac7058a394f50e020

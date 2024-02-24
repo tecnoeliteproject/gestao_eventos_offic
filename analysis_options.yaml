@@ -1,5 +1,13 @@
+<<<<<<< HEAD
 include: package:very_good_analysis/analysis_options.5.1.0.yaml
 linter:
   rules:
     public_member_api_docs: false
     flutter_style_todos: false
+=======
+include: package:very_good_analysis/analysis_options.5.1.0.yaml
+linter:
+  rules:
+    public_member_api_docs: false
+    flutter_style_todos: false
+>>>>>>> 9c1fb90644301fea5aadcc0ac7058a394f50e020

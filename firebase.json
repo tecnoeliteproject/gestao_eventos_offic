@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {
   "emulators": {
     "auth": {
@@ -13,3 +14,20 @@
     "singleProjectMode": true
   }
 }
+=======
+{
+  "emulators": {
+    "auth": {
+      "port": 9099
+    },
+    "firestore": {
+      "port": 8089
+    },
+    "ui": {
+      "enabled": true,
+      "port": 9999
+    },
+    "singleProjectMode": true
+  }
+}
+>>>>>>> 9c1fb90644301fea5aadcc0ac7058a394f50e020

@@ -1,7 +1,16 @@
+<<<<<<< HEAD
 {
     "@@locale": "es",
     "counterAppBarTitle": "Contador",
     "@counterAppBarTitle": {
         "description": "Texto mostrado en la AppBar de la página del contador"
     }
+=======
+{
+    "@@locale": "es",
+    "counterAppBarTitle": "Contador",
+    "@counterAppBarTitle": {
+        "description": "Texto mostrado en la AppBar de la página del contador"
+    }
+>>>>>>> 9c1fb90644301fea5aadcc0ac7058a394f50e020
 }

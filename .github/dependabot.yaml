@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 version: 2
 updates:
   - package-ecosystem: "github-actions"
@@ -8,3 +9,15 @@ updates:
     directory: "/"
     schedule:
       interval: "daily"
+=======
+version: 2
+updates:
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "pub"
+    directory: "/"
+    schedule:
+      interval: "daily"
+>>>>>>> 9c1fb90644301fea5aadcc0ac7058a394f50e020

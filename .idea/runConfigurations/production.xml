@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="production" type="FlutterRunConfigurationType" factoryName="Flutter">
     <option name="buildFlavor" value="production" />
@@ -5,3 +6,12 @@
     <method v="2" />
   </configuration>
 </component>
+=======
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="production" type="FlutterRunConfigurationType" factoryName="Flutter">
+    <option name="buildFlavor" value="production" />
+    <option name="filePath" value="$PROJECT_DIR$/lib/main_production.dart" />
+    <method v="2" />
+  </configuration>
+</component>
+>>>>>>> 9c1fb90644301fea5aadcc0ac7058a394f50e020
