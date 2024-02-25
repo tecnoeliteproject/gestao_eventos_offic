@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gutter/flutter_gutter.dart';
-import 'package:gestao_eventos/data/models/tipo_evento_model.dart';
 import 'package:gestao_eventos/domain/entities/tipo_evento.dart';
 import 'package:gestao_eventos/presentation/painels/admin/product_details/widgets/fotos_exemplo_widget.dart';
 
@@ -47,22 +46,8 @@ class _BodyContent extends StatelessWidget {
           const GutterSmall(),
           Text(tipoEvento.description),
           const GutterLarge(),
-          const FotosExemploWidget(
-            images: [
-              'https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg',
-              'https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg',
-              'https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg',
-              'https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg',
-              'https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg',
-              'https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg',
-              'https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg',
-              'https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg',
-              'https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg',
-              'https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg',
-              'https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg',
-              'https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg',
-              'https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg',
-            ],
+          FotosExemploWidget(
+            images: tipoEvento.exemplos.map((e) => e.url).toList(),
           ),
         ],
       ),
