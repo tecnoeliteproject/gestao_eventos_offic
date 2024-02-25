@@ -64,7 +64,7 @@ class TipoEventoItem extends StatelessWidget {
                     ),
                     overflow: TextOverflow.clip,
                     style: const TextStyle(
-                      fontSize: 12,
+                      fontSize: 16,
                       fontWeight: FontWeight.bold,
                     ),
                   ),

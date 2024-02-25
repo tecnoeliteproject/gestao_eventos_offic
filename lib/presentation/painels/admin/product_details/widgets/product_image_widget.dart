@@ -50,12 +50,15 @@ class _ImageWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) {
-        return Container(
-          height: constraints.maxHeight,
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              image: NetworkImage(image),
-              fit: BoxFit.fitHeight,
+        return ClipRRect(
+          borderRadius: BorderRadius.circular(16),
+          child: Container(
+            height: constraints.maxHeight,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: NetworkImage(image),
+                fit: BoxFit.fitHeight,
+              ),
             ),
           ),
         );

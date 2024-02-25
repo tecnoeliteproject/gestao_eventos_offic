@@ -10,15 +10,7 @@ class ProductDetailsBodyContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.secondaryContainer,
-        borderRadius: const BorderRadius.vertical(top: Radius.circular(45)),
-      ),
-      child: _BodyContent(tipoEvento: tipoEvento),
-    );
+    return _BodyContent(tipoEvento: tipoEvento);
   }
 }
 

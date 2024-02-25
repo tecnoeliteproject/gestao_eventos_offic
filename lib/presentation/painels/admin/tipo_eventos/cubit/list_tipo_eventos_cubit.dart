@@ -21,7 +21,7 @@ class ListTipoEventosCubit extends Cubit<ListTipoEventosState> {
     try {
       final result = await _tipoEventosUseCase.getTipoEventos();
 
-      emit(ListTipoEventosSuccess(result));
+      emit(ListTipoEventosSuccess(result.reversed.toList()));
     } catch (e) {
       log(e.toString());
       emit(ListTipoEventosError());
