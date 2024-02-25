@@ -8,12 +8,20 @@ part 'tipo_eventos_state.dart';
 class TipoEventosBloc extends Bloc<TipoEventosEvent, TipoEventosState> {
   TipoEventosBloc() : super(const TipoEventosInitial()) {
     on<CustomTipoEventosEvent>(_onCustomTipoEventosEvent);
+    on<GetTipoEventosEvent>(_onGetTipoEventosEvent);
   }
 
   FutureOr<void> _onCustomTipoEventosEvent(
     CustomTipoEventosEvent event,
     Emitter<TipoEventosState> emit,
   ) {
-    // TODO: Add Logic
+    
+  }
+
+  FutureOr<void> _onGetTipoEventosEvent(
+    GetTipoEventosEvent event,
+    Emitter<TipoEventosState> emit,
+  ) {
+    
   }
 }

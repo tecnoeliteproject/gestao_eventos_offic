@@ -53,4 +53,8 @@ class ImagemFormCubit extends Cubit<ImagemFormState> {
       );
     }
   }
+
+  void clear() {
+    emit(ImagemFormInitial());
+  }
 }

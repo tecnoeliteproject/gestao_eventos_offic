@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:gestao_eventos/presentation/painels/admin/tipo_eventos/tipo_eventos.dart';
 
 class AdminDrawer extends StatelessWidget {
@@ -14,7 +15,7 @@ class AdminDrawer extends StatelessWidget {
             decoration: BoxDecoration(
               color: Colors.white,
             ),
-            child: Center(child: Text('Drawer Header')),
+            child: Center(child: Text('Painel administrativo')),
           ),
           ListTile(
             title: const Text('Home'),
@@ -29,10 +30,12 @@ class AdminDrawer extends StatelessWidget {
             },
           ),
           ListTile(
-            title: const Text('Tipos de eventos'),
             onTap: () {
               Navigator.push(context, TipoEventosPage.route());
             },
+            title: const Text('Tipos de eventos'),
+            leading: const Icon(FontAwesomeIcons.mendeley),
+            trailing: const Icon(Icons.chevron_right),
           ),
         ],
       ),

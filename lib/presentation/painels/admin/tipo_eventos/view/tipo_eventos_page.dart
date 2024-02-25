@@ -30,12 +30,21 @@ class TipoEventosPage extends StatelessWidget {
       ],
       child: Builder(
         builder: (context) {
+          final listTipoEventosCubit = context.read<ListTipoEventosCubit>();
           return Scaffold(
             appBar: _buildAppBarWidget(context),
             body: const TipoEventosView(),
             floatingActionButton: FloatingActionButton(
               onPressed: () {
-                Navigator.push(context, CreateTipoEventoPage.route());
+                Navigator.push(
+                  context,
+                  MaterialPageRoute<Widget>(
+                    builder: (context) => BlocProvider.value(
+                      value: listTipoEventosCubit,
+                      child: const CreateTipoEventoPage(),
+                    ),
+                  ),
+                );
               },
               child: const Icon(Icons.add),
             ),

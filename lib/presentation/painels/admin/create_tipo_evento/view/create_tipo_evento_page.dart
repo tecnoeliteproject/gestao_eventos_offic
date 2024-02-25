@@ -5,6 +5,7 @@ import 'package:gestao_eventos/presentation/painels/admin/create_tipo_evento/cub
 import 'package:gestao_eventos/presentation/painels/admin/create_tipo_evento/cubit/imagem_form_cubit.dart';
 import 'package:gestao_eventos/presentation/painels/admin/create_tipo_evento/cubit/imagens_de_exemplo_cubit_cubit.dart';
 import 'package:gestao_eventos/presentation/painels/admin/create_tipo_evento/cubit/name_form_cubit_cubit.dart';
+import 'package:loader_overlay/loader_overlay.dart';
 
 class CreateTipoEventoPage extends StatefulWidget {
   const CreateTipoEventoPage({super.key});
@@ -68,32 +69,43 @@ class _CreateTipoEventoPageState extends State<CreateTipoEventoPage> {
       ],
       child: Builder(
         builder: (context) {
-          return Scaffold(
-            appBar: AppBar(
-              title: const Text('Novo Tipo Evento'),
-              centerTitle: true,
-              leading: IconButton(
-                onPressed: () async {
-                  await BlocProvider.of<CreateTipoEventoBloc>(context)
-                      .close()
-                      .then((value) => Navigator.pop(context));
-                },
-                icon: const Icon(Icons.close),
-              ),
-            ),
-            body: const CreateTipoEventoView(),
-            floatingActionButton:
-                BlocBuilder<CreateTipoEventoBloc, CreateTipoEventoState>(
-              builder: (context, state) {
-                return FloatingActionButton(
-                  onPressed: () {
-                    context
-                        .read<CreateTipoEventoBloc>()
-                        .add(const AddTipoEventoEvent());
-                  },
-                  child: const Icon(Icons.save_rounded),
-                );
+          return LoaderOverlay(
+            child: BlocListener<CreateTipoEventoBloc, CreateTipoEventoState>(
+              listener: (context, state) {
+                if (state is CreateTipoEventoLoading) {
+                  context.loaderOverlay.show();
+                } else {
+                  context.loaderOverlay.hide();
+                }
               },
+              child: Scaffold(
+                appBar: AppBar(
+                  title: const Text('Novo Tipo Evento'),
+                  centerTitle: true,
+                  leading: IconButton(
+                    onPressed: () async {
+                      await BlocProvider.of<CreateTipoEventoBloc>(context)
+                          .close()
+                          .then((value) => Navigator.pop(context));
+                    },
+                    icon: const Icon(Icons.close),
+                  ),
+                ),
+                body: const CreateTipoEventoView(),
+                floatingActionButton:
+                    BlocBuilder<CreateTipoEventoBloc, CreateTipoEventoState>(
+                  builder: (context, state) {
+                    return FloatingActionButton(
+                      onPressed: () {
+                        context
+                            .read<CreateTipoEventoBloc>()
+                            .add(const AddTipoEventoEvent());
+                      },
+                      child: const Icon(Icons.save_rounded),
+                    );
+                  },
+                ),
+              ),
             ),
           );
         },

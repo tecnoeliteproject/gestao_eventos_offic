@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gestao_eventos/core/helpers/constants.dart';
 import 'package:gestao_eventos/data/models/tipo_evento_model.dart';
 import 'package:gestao_eventos/domain/entities/tipo_evento.dart';
 
@@ -15,24 +16,11 @@ class ProductImageWidget extends StatelessWidget {
     final size = MediaQuery.of(context).size;
 
     return Padding(
-      padding: const EdgeInsets.all(8),
+      padding: const EdgeInsets.all(kDefaultPadding),
       child: SizedBox(
         height: size.height * 0.45,
-        child: Column(
-          children: [
-            AppBar(
-              title: Text(tipoEvento.name),
-              actions: [
-                IconButton(
-                  onPressed: () {},
-                  icon: const Icon(Icons.edit),
-                ),
-              ],
-            ),
-            Expanded(
-              child: _ImageWidget(image: tipoEvento.image.url),
-            ),
-          ],
+        child: Expanded(
+          child: _ImageWidget(image: tipoEvento.image.url),
         ),
       ),
     );
@@ -57,7 +45,7 @@ class _ImageWidget extends StatelessWidget {
             decoration: BoxDecoration(
               image: DecorationImage(
                 image: NetworkImage(image),
-                fit: BoxFit.fitHeight,
+                fit: BoxFit.cover,
               ),
             ),
           ),

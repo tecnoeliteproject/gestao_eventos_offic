@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gutter/flutter_gutter.dart';
+import 'package:gestao_eventos/core/helpers/constants.dart';
 import 'package:gestao_eventos/domain/entities/tipo_evento.dart';
 import 'package:gestao_eventos/presentation/painels/admin/product_details/widgets/fotos_exemplo_widget.dart';
 
@@ -24,7 +25,7 @@ class _BodyContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(8),
+      padding: const EdgeInsets.all(kDefaultPadding),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

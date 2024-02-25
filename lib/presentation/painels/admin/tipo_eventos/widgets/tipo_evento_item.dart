@@ -42,7 +42,7 @@ class TipoEventoItem extends StatelessWidget {
                 margin: const EdgeInsets.all(4),
                 decoration: BoxDecoration(
                   image: DecorationImage(
-                    fit: BoxFit.fitHeight,
+                    fit: BoxFit.cover,
                     image: NetworkImage(
                       tipoEvento.image.url,
                     ),

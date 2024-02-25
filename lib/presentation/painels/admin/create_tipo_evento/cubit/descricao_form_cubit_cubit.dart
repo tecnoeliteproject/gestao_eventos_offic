@@ -39,4 +39,8 @@ class DescricaoFormCubit extends Cubit<DescricaoFormCubitState> {
     }
     return null;
   }
+
+  void clear() {
+    emit(const DescricaoFormCubitInitial());
+  }
 }

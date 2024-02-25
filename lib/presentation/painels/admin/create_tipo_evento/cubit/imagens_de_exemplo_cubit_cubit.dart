@@ -122,4 +122,8 @@ class ImagensDeExemploFormCubit extends Cubit<ImagensDeExemploFromState> {
       );
     }
   }
+
+  void clear() {
+    emit(const ImagensDeExemploCubitInitial());
+  }
 }

@@ -39,4 +39,8 @@ class NameFormCubitCubit extends Cubit<NameFormCubitState> {
     }
     return null;
   }
+
+  void clear() {
+    emit(const NameFormCubitInitial());
+  }
 }
