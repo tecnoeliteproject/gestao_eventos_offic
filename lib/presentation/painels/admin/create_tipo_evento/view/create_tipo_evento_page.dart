@@ -6,7 +6,7 @@ import 'package:gestao_eventos/presentation/painels/admin/create_tipo_evento/cub
 import 'package:gestao_eventos/presentation/painels/admin/create_tipo_evento/cubit/imagens_de_exemplo_cubit_cubit.dart';
 import 'package:gestao_eventos/presentation/painels/admin/create_tipo_evento/cubit/name_form_cubit_cubit.dart';
 
-class CreateTipoEventoPage extends StatelessWidget {
+class CreateTipoEventoPage extends StatefulWidget {
   const CreateTipoEventoPage({super.key});
 
   static Route<dynamic> route() {
@@ -16,11 +16,42 @@ class CreateTipoEventoPage extends StatelessWidget {
   }
 
   @override
+  State<CreateTipoEventoPage> createState() => _CreateTipoEventoPageState();
+}
+
+class _CreateTipoEventoPageState extends State<CreateTipoEventoPage> {
+  @override
+  void initState() {
+    // registra as dependencias de cubit sempre que a tela for iniciada
+    getIt
+      ..registerSingleton<NameFormCubitCubit>(NameFormCubitCubit())
+      ..registerSingleton<DescricaoFormCubit>(DescricaoFormCubit())
+      ..registerSingleton<ImagemFormCubit>(ImagemFormCubit())
+      ..registerSingleton<ImagensDeExemploFormCubit>(
+        ImagensDeExemploFormCubit(),
+      );
+
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    getIt
+      ..unregister(instance: getIt<NameFormCubitCubit>())
+      ..unregister(instance: getIt<DescricaoFormCubit>())
+      ..unregister(instance: getIt<ImagemFormCubit>())
+      ..unregister(instance: getIt<ImagensDeExemploFormCubit>());
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) => CreateTipoEventoBloc(),
+          create: (context) {
+            return CreateTipoEventoBloc();
+          },
         ),
         BlocProvider(
           create: (context) => getIt<NameFormCubitCubit>(),
