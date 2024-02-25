@@ -4,7 +4,6 @@ import 'package:flutter_gutter/flutter_gutter.dart';
 import 'package:gestao_eventos/core/helpers/constants.dart';
 import 'package:gestao_eventos/presentation/painels/admin/create_tipo_evento/cubit/imagem_form_cubit.dart';
 import 'package:gestao_eventos/presentation/painels/admin/create_tipo_evento/widgets/show_image_widget.dart';
-import 'package:gestao_eventos/presentation/painels/admin/create_tipo_evento/widgets/show_web_image_widget.dart';
 
 class ImagemFormWidget extends StatelessWidget {
   const ImagemFormWidget({super.key});
@@ -48,15 +47,7 @@ class _ImageWidget extends StatelessWidget {
             builder: (context, state) {
               if (state is ImagemFormChanged) {
                 return ShowImageWidget(
-                  state.imagem!,
-                  onPressed: context.read<ImagemFormCubit>().onSelectImagem,
-                );
-              }
-
-              if (state is WebImagemFormChanged &&
-                  state.bytesFromPicker != null) {
-                return ShowWebImageWidget(
-                  state.bytesFromPicker!,
+                  state.imagem!.bytes!,
                   onPressed: context.read<ImagemFormCubit>().onSelectImagem,
                 );
               }

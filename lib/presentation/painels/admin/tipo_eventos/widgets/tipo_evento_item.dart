@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:gestao_eventos/data/models/tipo_evento_model.dart';
+import 'package:gestao_eventos/domain/entities/c_image.dart';
 import 'package:gestao_eventos/presentation/painels/admin/product_details/view/product_details_page.dart';
 
 class TipoEventoItem extends StatelessWidget {
@@ -35,8 +36,10 @@ class TipoEventoItem extends StatelessWidget {
                       'Cobrimos todo tipo de casamento. Desde casamentos '
                       'de criancas e adultos, para casamentos de adultos.',
                   name: 'Casamentos de adultos $index',
-                  image:
-                      'https://www.helium10.com/app/uploads/2020/04/vit-c.jpg',
+                  image: CImage(
+                    url:
+                        'https://www.helium10.com/app/uploads/2020/04/vit-c.jpg',
+                  ),
                   exemplos: [],
                 ),
               );

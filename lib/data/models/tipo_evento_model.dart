@@ -5,9 +5,21 @@ import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 
+import 'package:gestao_eventos/domain/entities/c_image.dart';
 import 'package:gestao_eventos/domain/entities/tipo_evento.dart';
 
 class TipoEventoModel extends TipoEvento {
+  @override
+  final String id;
+  @override
+  final String name;
+  @override
+  final CImage image;
+  @override
+  final String description;
+  @override
+  final List<CImage> exemplos;
+
   TipoEventoModel({
     required this.id,
     required this.name,
@@ -22,23 +34,12 @@ class TipoEventoModel extends TipoEvento {
           exemplos: exemplos,
         );
 
-  @override
-  final String id;
-  @override
-  final String name;
-  @override
-  final String image;
-  @override
-  final String description;
-  @override
-  final List<String> exemplos;
-
   TipoEventoModel copyWith({
     String? id,
     String? name,
-    String? image,
+    CImage? image,
     String? description,
-    List<String>? exemplos,
+    List<CImage>? exemplos,
   }) {
     return TipoEventoModel(
       id: id ?? this.id,
@@ -46,28 +47,6 @@ class TipoEventoModel extends TipoEvento {
       image: image ?? this.image,
       description: description ?? this.description,
       exemplos: exemplos ?? this.exemplos,
-    );
-  }
-
-  Map<String, dynamic> toMap() {
-    return <String, dynamic>{
-      'id': id,
-      'name': name,
-      'image': image,
-      'description': description,
-      'exemplos': exemplos,
-    };
-  }
-
-  factory TipoEventoModel.fromMap(Map<String, dynamic> map) {
-    return TipoEventoModel(
-      id: map['id'] as String,
-      name: map['name'] as String,
-      image: map['image'] as String,
-      description: map['description'] as String,
-      exemplos: List<String>.from(
-        map['exemplos'] as List<String>,
-      ),
     );
   }
 
@@ -81,14 +60,22 @@ class TipoEventoModel extends TipoEvento {
     );
   }
 
-  String toJson() => json.encode(toMap());
+  factory TipoEventoModel.fromMap(Map<String, dynamic> map) {
+    return TipoEventoModel(
+      id: map['id'] as String,
+      name: map['name'] as String,
+      image: map['image'] as CImage,
+      description: map['description'] as String,
+      exemplos: map['exemplos'] as List<CImage>,
+    );
+  }
 
   factory TipoEventoModel.fromJson(String source) =>
       TipoEventoModel.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
   String toString() {
-    return 'TipoEventoModel(id: $id, name: $name, description: $description)';
+    return 'TipoEventoModel(id: $id, name: $name, image: $image, description: $description, exemplos: $exemplos)';
   }
 
   @override

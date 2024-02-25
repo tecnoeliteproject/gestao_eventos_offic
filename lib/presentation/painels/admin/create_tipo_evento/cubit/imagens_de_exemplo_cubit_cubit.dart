@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
+import 'package:gestao_eventos/domain/entities/c_image.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:image_picker_web/image_picker_web.dart';
 
@@ -22,10 +25,13 @@ class ImagensDeExemploFormCubit extends Cubit<ImagensDeExemploFromState> {
       }
 
       emit(
-        WebImagensDeExemploCubitChanged(
+        ImagensDeExemploCubitChanged(
           [
             ...state.exemplos.cast(),
-            bytesFromPicker,
+            CImage(
+              url: 'image_${DateTime.now().toIso8601String()}',
+              bytes: bytesFromPicker,
+            ),
           ],
         ),
       );
@@ -39,7 +45,13 @@ class ImagensDeExemploFormCubit extends Cubit<ImagensDeExemploFromState> {
       }
       emit(
         ImagensDeExemploCubitChanged(
-          [...state.exemplos.cast(), response.path],
+          [
+            ...state.exemplos.cast(),
+            CImage(
+              url: response.path,
+              bytes: File(response.path).readAsBytesSync(),
+            ),
+          ],
         ),
       );
     }
@@ -65,15 +77,21 @@ class ImagensDeExemploFormCubit extends Cubit<ImagensDeExemploFromState> {
         return;
       }
 
-      var list = List<Uint8List>.from(state.exemplos.cast());
+      var list = List<CImage>.from(state.exemplos.cast());
 
       list = list
         ..removeAt(index)
-        ..insert(index, bytesFromPicker);
+        ..insert(
+          index,
+          CImage(
+            url: 'image_${DateTime.now().toIso8601String()}_$index',
+            bytes: bytesFromPicker,
+          ),
+        );
 
       emit(
-        WebImagensDeExemploCubitChanged([
-          ...list,
+        ImagensDeExemploCubitChanged([
+          ...list.cast(),
         ]),
       );
     } else {
@@ -85,15 +103,21 @@ class ImagensDeExemploFormCubit extends Cubit<ImagensDeExemploFromState> {
         return;
       }
 
-      var list = List<String>.from(state.exemplos);
+      var list = List<CImage>.from(state.exemplos);
 
       list = list
         ..removeAt(index)
-        ..insert(index, response.path);
+        ..insert(
+          index,
+          CImage(
+            url: response.path,
+            bytes: File(response.path).readAsBytesSync(),
+          ),
+        );
 
       emit(
         ImagensDeExemploCubitChanged([
-          ...state.exemplos.cast(),
+          ...list.cast(),
         ]),
       );
     }

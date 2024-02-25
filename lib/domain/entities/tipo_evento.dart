@@ -1,3 +1,5 @@
+import 'package:gestao_eventos/domain/entities/c_image.dart';
+
 class TipoEvento {
   TipoEvento({
     required this.id,
@@ -9,7 +11,7 @@ class TipoEvento {
 
   final String id;
   final String name;
-  final String image;
+  final CImage image;
   final String description;
-  List<String> exemplos;
+  List<CImage> exemplos;
 }
