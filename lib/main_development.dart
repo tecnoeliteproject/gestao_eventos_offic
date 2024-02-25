@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:device_preview/device_preview.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/widgets.dart';
 import 'package:gestao_eventos/bootstrap.dart';
@@ -15,5 +16,5 @@ void main() async {
 
   await setupGetIt();
 
-  unawaited(bootstrap(() => const App()));
+  unawaited(bootstrap(() => DevicePreview(builder: (c) => const App())));
 }
