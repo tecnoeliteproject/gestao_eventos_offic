@@ -3,17 +3,27 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:gestao_eventos/data/models/tipo_evento_model.dart';
-import 'package:gestao_eventos/domain/entities/c_image.dart';
+import 'package:gestao_eventos/domain/entities/tipo_evento.dart';
 import 'package:gestao_eventos/presentation/painels/admin/product_details/view/product_details_page.dart';
 
 class TipoEventoItem extends StatelessWidget {
   const TipoEventoItem({
-    required this.index,
+    required this.tipoEvento,
     super.key,
   });
 
-  final int index;
+  final TipoEvento tipoEvento;
+
+  void _onTap(BuildContext context) {
+    Navigator.push(
+      context,
+      CupertinoPageRoute(
+        builder: (context) {
+          return ProductDetailsPage(tipoEvento: tipoEvento);
+        },
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,31 +32,7 @@ class TipoEventoItem extends StatelessWidget {
       print(size);
     }
     return GestureDetector(
-      onTap: () {
-        Navigator.push(
-          context,
-          CupertinoPageRoute(
-            builder: (context) {
-              return ProductDetailsPage(
-                tipoEvento: TipoEventoModel(
-                  id: '$index',
-                  description:
-                      'Cobrimos todo tipo de casamento. Desde casamentos '
-                      'de criancas e adultos, para casamentos de adultos. '
-                      'Cobrimos todo tipo de casamento. Desde casamentos '
-                      'de criancas e adultos, para casamentos de adultos.',
-                  name: 'Casamentos de adultos $index',
-                  image: CImage(
-                    url:
-                        'https://www.helium10.com/app/uploads/2020/04/vit-c.jpg',
-                  ),
-                  exemplos: [],
-                ),
-              );
-            },
-          ),
-        );
-      },
+      onTap: () => _onTap(context),
       child: Card(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -55,10 +41,10 @@ class TipoEventoItem extends StatelessWidget {
               child: Container(
                 margin: const EdgeInsets.all(4),
                 decoration: BoxDecoration(
-                  image: const DecorationImage(
+                  image: DecorationImage(
                     fit: BoxFit.fitHeight,
                     image: NetworkImage(
-                      'https://www.helium10.com/app/uploads/2020/04/vit-c.jpg',
+                      tipoEvento.image.url,
                     ),
                   ),
                   borderRadius: BorderRadius.circular(16),
@@ -74,7 +60,7 @@ class TipoEventoItem extends StatelessWidget {
                   Text(
                     limitText(
                       size,
-                      'Casamentos de adultos Casamentos de adultos',
+                      tipoEvento.name,
                     ),
                     overflow: TextOverflow.clip,
                     style: const TextStyle(

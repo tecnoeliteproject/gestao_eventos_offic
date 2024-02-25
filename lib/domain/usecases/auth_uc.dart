@@ -20,23 +20,25 @@ class AuthUC implements IAuthUC {
   }
 
   @override
-  Future<User?> signIn(String email, String password) async{
+  Future<User?> signIn(String email, String password) async {
     final res = await _repository.signIn(email, password);
-    if (res == true){ 
+    if (res == true) {
       return _repository.getUserByEmail(email);
     }
     return null;
   }
 
   @override
-  Future<bool> signOut() async{
+  Future<bool> signOut() async {
     return _repository.signOut();
   }
 
   @override
-  Future<User> signUp(String email, String password) async{
+  Future<User> signUp(String email, String password) async {
     final res = await _repository.signUp(email, password);
-    return UserModel.toEntity(await _repository.createUser(UserModel(email: email, level: User.CLIENT)));
+    return UserModel.toEntity(
+      await _repository.createUser(UserModel(email: email, level: User.CLIENT)),
+    );
   }
 
   @override
@@ -46,30 +48,29 @@ class AuthUC implements IAuthUC {
   }
 
   @override
-  Future<bool> updatePassword(String password) async{
+  Future<bool> updatePassword(String password) async {
     throw UnimplementedError();
   }
-  
+
   @override
-  Future<List<User>> getAllUsers()async {
-    return (await _repository.getAllUsers()).map((e) => UserModel.toEntity(UserModel.fromMap(e))).toList();
+  Future<List<User>> getAllUsers() async {
+    return (await _repository.getAllUsers())
+        .map((e) => UserModel.toEntity(UserModel.fromMap(e)))
+        .toList();
   }
-  
+
   @override
-  Future<void> changeUserPermissionLevelEvent(String email, int level) async{
+  Future<void> changeUserPermissionLevelEvent(String email, int level) async {
     await _repository.changeUserPermissionLevelEvent(email, level);
   }
-  
+
   @override
-  Future<bool> removeUser(User user) async{
+  Future<bool> removeUser(User user) async {
     await removeAccountUser();
     return _repository.removeUser(UserModel.fromEntity(user));
   }
-  
-  
+
   Future<bool> removeAccountUser() {
     return _repository.removeAccountUser();
   }
-  
-  
 }

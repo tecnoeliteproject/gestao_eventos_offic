@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gutter/flutter_gutter.dart';
 import 'package:gestao_eventos/data/models/tipo_evento_model.dart';
+import 'package:gestao_eventos/domain/entities/tipo_evento.dart';
 import 'package:gestao_eventos/presentation/painels/admin/product_details/widgets/fotos_exemplo_widget.dart';
 
 class ProductDetailsBodyContent extends StatelessWidget {
   const ProductDetailsBodyContent({required this.tipoEvento, super.key});
 
-  final TipoEventoModel tipoEvento;
+  final TipoEvento tipoEvento;
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +28,7 @@ class _BodyContent extends StatelessWidget {
     required this.tipoEvento,
   });
 
-  final TipoEventoModel tipoEvento;
+  final TipoEvento tipoEvento;
 
   @override
   Widget build(BuildContext context) {

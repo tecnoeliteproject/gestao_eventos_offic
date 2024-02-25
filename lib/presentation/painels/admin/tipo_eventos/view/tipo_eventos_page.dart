@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gestao_eventos/presentation/painels/admin/create_tipo_evento/create_tipo_evento.dart';
 import 'package:gestao_eventos/presentation/painels/admin/tipo_eventos/bloc/tipo_eventos_bloc.dart';
+import 'package:gestao_eventos/presentation/painels/admin/tipo_eventos/cubit/list_tipo_eventos_cubit.dart';
 import 'package:gestao_eventos/presentation/painels/admin/tipo_eventos/cubit/search_tipo_eventos_cubit.dart';
 import 'package:gestao_eventos/presentation/painels/admin/tipo_eventos/widgets/app_bar_title_widget.dart';
 import 'package:gestao_eventos/presentation/painels/admin/tipo_eventos/widgets/search_tipo_eventos_widget.dart';
@@ -23,6 +23,9 @@ class TipoEventosPage extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => SearchTipoEventosCubit(),
+        ),
+        BlocProvider(
+          create: (context) => ListTipoEventosCubit(),
         ),
       ],
       child: Builder(

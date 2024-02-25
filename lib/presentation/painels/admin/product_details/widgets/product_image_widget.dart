@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gestao_eventos/data/models/tipo_evento_model.dart';
+import 'package:gestao_eventos/domain/entities/tipo_evento.dart';
 
 class ProductImageWidget extends StatelessWidget {
   const ProductImageWidget({
@@ -7,7 +8,7 @@ class ProductImageWidget extends StatelessWidget {
     super.key,
   });
 
-  final TipoEventoModel tipoEvento;
+  final TipoEvento tipoEvento;
 
   @override
   Widget build(BuildContext context) {

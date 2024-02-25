@@ -90,19 +90,25 @@ class FirebaseTipoTipoEventoDataSource implements ITipoEventoDataSource {
       final tipoEventos = _firestore.collection(_collectionName).get().then(
             (value) => value.docs.map(
               (doc) {
+                final map = <String, dynamic>{
+                  'id': doc.id,
+                  'name': doc.data()['name'],
+                  'description': doc.data()['description'],
+                };
                 if (doc.data()['exemplos'] != null) {
-                  final exemplos = (doc.data()['exemplos'] as List<String>).map(
-                    (e) => CImage(url: e),
-                  );
-                  doc.data()['exemplos'] = exemplos;
+                  final exemplos = (doc.data()['exemplos'] as List<dynamic>)
+                      .map(
+                        (e) => CImage(url: e as String),
+                      )
+                      .toList();
+                  map['exemplos'] = exemplos;
                 }
 
                 if (doc.data()['image'] != null) {
-                  doc.data()['image'] =
-                      CImage(url: doc.data()['image'] as String);
+                  map['image'] = CImage(url: doc.data()['image'] as String);
                 }
 
-                return TipoEventoModel.fromMap(doc.data());
+                return TipoEventoModel.fromMap(map);
               },
             ).toList(),
           );
