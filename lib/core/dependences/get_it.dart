@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:gestao_eventos/data/datasources/i_tipo_evento_datasource.dart';
-import 'package:gestao_eventos/data/datasources/remoto/firebase/tipo_evento_datasource.dart';
+import 'package:gestao_eventos/data/datasources/remoto/firebase/firebase_tipo_evento_datasource.dart';
 import 'package:gestao_eventos/data/repositories/tipo_evento_repository.dart';
 import 'package:gestao_eventos/data/repositories_interfaces/i_tipo_evento_repository.dart';
 import 'package:gestao_eventos/domain/usecases/tipo_evento_usecase.dart';
