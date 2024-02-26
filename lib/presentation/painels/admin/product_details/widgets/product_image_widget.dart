@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:gestao_eventos/core/helpers/constants.dart';
-import 'package:gestao_eventos/data/models/tipo_evento_model.dart';
 import 'package:gestao_eventos/domain/entities/tipo_evento.dart';
 
 class ProductImageWidget extends StatelessWidget {
