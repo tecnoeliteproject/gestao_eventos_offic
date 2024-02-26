@@ -34,17 +34,17 @@ class _AppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8),
-      child: AppBar(
-        title: Text(tipoEvento.name),
-        actions: [
-          IconButton(
+    return AppBar(
+      title: Text(tipoEvento.name),
+      actions: [
+        Padding(
+          padding: const EdgeInsets.only(right: 8),
+          child: IconButton(
             onPressed: () {},
             icon: const Icon(Icons.edit),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }
