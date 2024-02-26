@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gestao_eventos/core/helpers/constants.dart';
 import 'package:gestao_eventos/domain/entities/user.dart';
 import 'package:gestao_eventos/presentation/painels/admin/view/pages/users/bloc/bloc.dart';
 import 'package:gestao_eventos/presentation/painels/admin/view/pages/users/bloc/manage_users_event.dart';
@@ -64,13 +65,18 @@ class _UsersPageState extends State<UsersPage> {
               ),
               Flexible(
                 child: ListView.builder(
-                    itemCount: users.length,
-                    itemBuilder: (context, index) {
-                      return Padding(
-                        padding: const EdgeInsets.all(20),
-                        child: UserItem(users: users, index: index),
-                      );
-                    }),
+                  itemCount: users.length,
+                  itemBuilder: (context, index) {
+                    return Padding(
+                      padding: const EdgeInsets.only(
+                        left: kDefaultPadding,
+                        right: kDefaultPadding,
+                        bottom: kDefaultPadding,
+                      ),
+                      child: UserItem(users: users, index: index),
+                    );
+                  },
+                ),
               ),
             ],
           );
