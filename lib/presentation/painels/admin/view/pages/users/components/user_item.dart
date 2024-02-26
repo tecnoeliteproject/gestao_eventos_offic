@@ -7,9 +7,7 @@ import 'package:gestao_eventos/presentation/painels/admin/view/pages/users/bloc/
 import 'package:gestao_eventos/presentation/painels/admin/view/pages/users/bloc/manage_users_event.dart';
 import 'package:gestao_eventos/presentation/painels/admin/view/pages/users/components/bloc/user_bloc.dart';
 
-
-class UserItem extends StatefulWidget{
-  
+class UserItem extends StatefulWidget {
   const UserItem({
     super.key,
     required this.users,
@@ -22,7 +20,6 @@ class UserItem extends StatefulWidget{
   State<StatefulWidget> createState() {
     return UserItemState(users: users, index: index);
   }
-
 }
 
 class UserItemState extends State<UserItem> {
@@ -32,7 +29,7 @@ class UserItemState extends State<UserItem> {
   });
 
   @override
-  void initState(){
+  void initState() {
     super.initState();
     _bloc = UserBloc(UserInitial());
     _manageUsersBloc = BlocProvider.of<ManageUsersBloc>(context);
@@ -62,12 +59,15 @@ class UserItemState extends State<UserItem> {
                   builder: (context, state) {
                     if (state is LoadingState) {
                       return CircularProgressIndicator();
-                    }if (state is ChangeUserPermissionLevelState) {
+                    }
+                    if (state is ChangeUserPermissionLevelState) {
                       return Text(
-                        'Permissão: ${UserModel.nivelToText(state.user.level!)}');
+                        'Permissão: ${UserModel.nivelToText(state.user.level!)}',
+                      );
                     }
                     return Text(
-                        'Permissão: ${UserModel.nivelToText(users[index].level!)}');
+                      'Permissão: ${UserModel.nivelToText(users[index].level!)}',
+                    );
                   },
                 ),
               ],
@@ -78,37 +78,45 @@ class UserItemState extends State<UserItem> {
               child: InkWell(
                 child: const Icon(Icons.delete, color: inActiveIconColor),
                 onTap: () {
-                  _manageUsersBloc.add(RemoveUserEvent(user: users[index], users: users));
+                  _manageUsersBloc.add(
+                    RemoveUserEvent(user: users[index], users: users),
+                  );
                 },
               ),
             ),
             const SizedBox(
               width: 20,
             ),
-            Container(
+            SizedBox(
               width: 40,
               child: PopupMenuButton(
-                  child: const Icon(Icons.more_vert, color: inActiveIconColor),
-                  onSelected: (value) {
-                    _bloc.add(ChangeUserPermissionLevelEvent(
-                        level: value,
-                        email: users[index].email!,
-                        user: users[index]));
-                  },
-                  itemBuilder: (context) {
-                    return [
-                      const PopupMenuItem(
-                          value: 0, child: Text('Definir como administrador')),
-                      const PopupMenuItem(
-                        value: 1,
-                        child: Text('Definir como Gerente'),
-                      ),
-                      const PopupMenuItem(
-                        value: 2,
-                        child: Text('Definir como Cliente'),
-                      ),
-                    ];
-                  }),
+                child: const Icon(Icons.more_vert, color: inActiveIconColor),
+                onSelected: (value) {
+                  _bloc.add(
+                    ChangeUserPermissionLevelEvent(
+                      level: value,
+                      email: users[index].email!,
+                      user: users[index],
+                    ),
+                  );
+                },
+                itemBuilder: (context) {
+                  return [
+                    const PopupMenuItem(
+                      value: 0,
+                      child: Text('Definir como administrador'),
+                    ),
+                    const PopupMenuItem(
+                      value: 1,
+                      child: Text('Definir como Gerente'),
+                    ),
+                    const PopupMenuItem(
+                      value: 2,
+                      child: Text('Definir como Cliente'),
+                    ),
+                  ];
+                },
+              ),
             ),
           ],
         ),
