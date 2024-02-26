@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "290981595970",
+    "project_id": "gestao-eventoss",
+    "storage_bucket": "gestao-eventoss.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:290981595970:android:84110e1411ca678586d6db",
+        "android_client_info": {
+          "package_name": "com.example.gestao_eventos_offic"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "290981595970-jlv7to5bf1qhqj3vtv6ugigt4268l5ck.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCKYN_SQ7wKdX46r2Ptdp7YTJNTWnYJ32s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "290981595970-jlv7to5bf1qhqj3vtv6ugigt4268l5ck.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:290981595970:android:5443ccd0dbf63f4286d6db",
+        "android_client_info": {
+          "package_name": "com.example.verygoodcore.gestao_eventos"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "290981595970-jlv7to5bf1qhqj3vtv6ugigt4268l5ck.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCKYN_SQ7wKdX46r2Ptdp7YTJNTWnYJ32s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "290981595970-jlv7to5bf1qhqj3vtv6ugigt4268l5ck.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

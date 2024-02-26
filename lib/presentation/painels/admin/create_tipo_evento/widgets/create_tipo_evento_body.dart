@@ -6,15 +6,8 @@ import 'package:gestao_eventos/presentation/painels/admin/create_tipo_evento/wid
 import 'package:gestao_eventos/presentation/painels/admin/create_tipo_evento/widgets/imagens_de_exemplo_form_widget.dart';
 import 'package:gestao_eventos/presentation/painels/admin/create_tipo_evento/widgets/name_form_widget.dart';
 import 'package:gestao_eventos/presentation/painels/admin/tipo_eventos/cubit/list_tipo_eventos_cubit.dart';
-import 'package:gestao_eventos/presentation/painels/admin/tipo_eventos/tipo_eventos.dart';
 
-/// {@template create_tipo_evento_body}
-/// Body of the CreateTipoEventoPage.
-///
-/// Add what it does
-/// {@endtemplate}
 class CreateTipoEventoBody extends StatelessWidget {
-  /// {@macro create_tipo_evento_body}
   const CreateTipoEventoBody({super.key});
 
   @override
@@ -26,18 +19,20 @@ class CreateTipoEventoBody extends StatelessWidget {
           Navigator.of(context).pop();
         }
       },
-      child: const Padding(
-        padding: EdgeInsets.all(16),
-        child: Column(
-          children: [
-            NameFormWidget(),
-            GutterLarge(),
-            DescricaoFormWidget(),
-            GutterLarge(),
-            ImagemFormWidget(),
-            GutterLarge(),
-            ImagensDeExemploFormWidget(),
-          ],
+      child: const SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.all(16),
+          child: Column(
+            children: [
+              NameFormWidget(),
+              GutterLarge(),
+              DescricaoFormWidget(),
+              GutterLarge(),
+              ImagemFormWidget(),
+              GutterLarge(),
+              ImagensDeExemploFormWidget(),
+            ],
+          ),
         ),
       ),
     );
