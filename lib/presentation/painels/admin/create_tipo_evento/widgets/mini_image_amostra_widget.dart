@@ -24,8 +24,8 @@ class MiniImageAmostra extends StatelessWidget {
           decoration: BoxDecoration(
             color: Theme.of(context).colorScheme.primaryContainer,
           ),
-          child: BlocBuilder<ImagensDeExemploFormCubit,
-              ImagensDeExemploFromState>(
+          child:
+              BlocBuilder<ImagensDeExemploFormCubit, ImagensDeExemploFromState>(
             builder: (context, state) {
               if (state is ImagensDeExemploCubitChanged) {
                 final image = state.exemplos[index];
@@ -38,7 +38,11 @@ class MiniImageAmostra extends StatelessWidget {
                 );
               }
 
-              return const ImageAmostra();
+              return ImageAmostra(
+                onPressed: () => context
+                    .read<ImagensDeExemploFormCubit>()
+                    .onSwitchImagem(index),
+              );
             },
           ),
         ),

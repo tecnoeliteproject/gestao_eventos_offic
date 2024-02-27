@@ -62,20 +62,30 @@ class FirebaseTipoTipoEventoDataSource implements ITipoEventoDataSource {
           .doc(id)
           .get()
           .then((doc) async {
-        if (doc.data() == null) return null;
+        if (!doc.exists) {
+          return null;
+        }
+
+        final map = <String, dynamic>{
+          'id': doc.id,
+          'name': doc.data()!['name'],
+          'description': doc.data()!['description'],
+        };
 
         if (doc.data()!['exemplos'] != null) {
-          final exemplos = (doc.data()!['exemplos'] as List<String>).map(
-            (e) => CImage(url: e),
-          );
-          doc.data()!['exemplos'] = exemplos;
+          final exemplos = (doc.data()!['exemplos'] as List<dynamic>)
+              .map(
+                (e) => CImage(url: e as String),
+              )
+              .toList();
+          map['exemplos'] = exemplos;
         }
 
         if (doc.data()!['image'] != null) {
-          doc.data()!['image'] = CImage(url: doc.data()!['image'] as String);
+          map['image'] = CImage(url: doc.data()!['image'] as String);
         }
 
-        return TipoEventoModel.fromMap(doc.data()!);
+        return TipoEventoModel.fromMap(map);
       });
 
       return result;
@@ -119,14 +129,45 @@ class FirebaseTipoTipoEventoDataSource implements ITipoEventoDataSource {
   }
 
   @override
-  Future<TipoEventoModel> updateTipoEvento(TipoEventoModel tipoEvento) async {
+  Future<TipoEventoModel?> updateTipoEvento(TipoEventoModel tipoEvento) async {
     try {
+      var image = tipoEvento.image;
+
+      // verifica se a imagens ja existe. Caso sim, nao precisara subir
+      if (!tipoEvento.image.url.contains('firebasestorage.googleapis.com')) {
+        final result = await saveImage(tipoEvento.image);
+        image = CImage(url: result);
+      }
+
+      // verifica se os exemplos ja existem. Caso sim, nao precisara subir
+      final amostrasUrl = <String>[];
+      for (final element in tipoEvento.exemplos) {
+        if (!element.url.contains('firebasestorage.googleapis.com')) {
+          amostrasUrl.add(await saveImage(element));
+        } else {
+          amostrasUrl.add(element.url);
+        }
+      }
+
+      final imageAssert = image.url.contains('firebasestorage.googleapis.com');
+      assert(
+        imageAssert,
+        'Imagem invalida',
+      );
+
       await _firestore
           .collection(_collectionName)
           .doc(tipoEvento.id)
-          .update({});
-      final novoTipoEvento = await getTipoEvento(tipoEvento.id);
-      return novoTipoEvento!;
+          .update(<String, dynamic>{
+        'id': tipoEvento.id,
+        'name': tipoEvento.name,
+        'image': image.url,
+        'description': tipoEvento.description,
+        'exemplos': amostrasUrl,
+      });
+
+      final ipoEvento = await getTipoEvento(tipoEvento.id);
+      return ipoEvento;
     } catch (e) {
       return Future.error(e);
     }

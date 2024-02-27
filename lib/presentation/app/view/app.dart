@@ -11,7 +11,6 @@ import 'package:gestao_eventos/presentation/auth/sign_up/bloc/bloc.dart';
 import 'package:gestao_eventos/presentation/auth/sign_up/bloc/sign_up_state.dart';
 import 'package:gestao_eventos/presentation/painels/admin/bloc/admin_state.dart';
 import 'package:gestao_eventos/presentation/painels/admin/bloc/bloc.dart';
-import 'package:gestao_eventos/presentation/painels/admin/create_tipo_evento/bloc/create_tipo_evento_bloc.dart';
 import 'package:gestao_eventos/presentation/painels/admin/view/pages/users/bloc/bloc.dart';
 import 'package:gestao_eventos/presentation/painels/admin/view/pages/users/bloc/manage_users_state.dart';
 import 'package:gestao_eventos/presentation/painels/client/cubit/home_cubit.dart';

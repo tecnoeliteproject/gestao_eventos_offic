@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/foundation.dart';
 import 'package:gestao_eventos/core/dependences/get_it.dart';
 import 'package:gestao_eventos/domain/entities/tipo_evento.dart';
 import 'package:gestao_eventos/domain/usecases_interfaces/i_tipo_evento_usecase.dart';
@@ -15,12 +16,6 @@ part 'edit_tipo_evento_state.dart';
 class EditTipoEventoBloc
     extends Bloc<SaveEditTipoEventoEvent, EditTipoEventoState> {
   EditTipoEventoBloc() : super(const EditTipoEventoInitial()) {
-    _tipoEventoUseCase = getIt();
-    _nameFormCubitCubit = getIt();
-    _descricaoFormCubit = getIt();
-    _imagemFormCubit = getIt();
-    _imagensDeExemploFormCubit = getIt();
-
     on<SaveEditTipoEventoEvent>(_onSaveEditTipoEventoEvent);
   }
 
@@ -34,17 +29,23 @@ class EditTipoEventoBloc
     SaveEditTipoEventoEvent event,
     Emitter<EditTipoEventoState> emit,
   ) async {
+    _tipoEventoUseCase = getIt();
+    _nameFormCubitCubit = getIt();
+    _descricaoFormCubit = getIt();
+    _imagemFormCubit = getIt();
+    _imagensDeExemploFormCubit = getIt();
+
     final name = _nameFormCubitCubit.returnValue();
     final descricao = _descricaoFormCubit.returnValue();
     final imagem = _imagemFormCubit.returnValue();
     final amostras = _imagensDeExemploFormCubit.returnValue();
 
-    if (name == null) {
+    if (name == null || name.isEmpty) {
       emit(const EditTipoEventoFormError('Nome não informado'));
       return;
     }
 
-    if (descricao == null) {
+    if (descricao == null || descricao.isEmpty) {
       emit(const EditTipoEventoFormError('Descrição não informada'));
       return;
     }
@@ -63,16 +64,23 @@ class EditTipoEventoBloc
     );
 
     emit(const EditTipoEventoLoading());
-    final result = await _tipoEventoUseCase.updateTipoEvento(tipoEvento);
+    try {
+      final result = await _tipoEventoUseCase.updateTipoEvento(tipoEvento);
 
-    if (result != null) {
-      emit(EditTipoEventoSuccess(result));
-    } else {
-      emit(
-        const EditTipoEventoError(
-          'Ocorreu um erro ao criar o tipo de evento',
-        ),
-      );
+      if (result != null) {
+        emit(EditTipoEventoSuccess(result));
+      } else {
+        emit(
+          const EditTipoEventoError(
+            'Ocorreu um erro ao criar o tipo de evento',
+          ),
+        );
+      }
+    } catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+      emit(EditTipoEventoError(e.toString()));
     }
   }
 }

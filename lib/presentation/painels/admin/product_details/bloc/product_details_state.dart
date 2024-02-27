@@ -4,25 +4,10 @@ part of 'product_details_bloc.dart';
 /// ProductDetailsState description
 /// {@endtemplate}
 class ProductDetailsState extends Equatable {
-  /// {@macro product_details_state}
-  const ProductDetailsState({
-    this.customProperty = 'Default Value',
-  });
-
-  /// A description for customProperty
-  final String customProperty;
+  const ProductDetailsState();
 
   @override
-  List<Object> get props => [customProperty];
-
-  /// Creates a copy of the current ProductDetailsState with property changes
-  ProductDetailsState copyWith({
-    String? customProperty,
-  }) {
-    return ProductDetailsState(
-      customProperty: customProperty ?? this.customProperty,
-    );
-  }
+  List<Object?> get props => [];
 }
 
 /// {@template product_details_initial}
@@ -31,4 +16,13 @@ class ProductDetailsState extends Equatable {
 class ProductDetailsInitial extends ProductDetailsState {
   /// {@macro product_details_initial}
   const ProductDetailsInitial() : super();
+}
+
+class UpdateEditTipoEvento extends ProductDetailsState {
+  const UpdateEditTipoEvento(this.tipoEvento) : super();
+
+  final TipoEvento tipoEvento;
+
+  @override
+  List<Object> get props => [tipoEvento];
 }

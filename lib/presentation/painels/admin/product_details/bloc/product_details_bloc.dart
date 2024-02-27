@@ -2,18 +2,22 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:gestao_eventos/domain/entities/tipo_evento.dart';
 part 'product_details_event.dart';
 part 'product_details_state.dart';
 
-class ProductDetailsBloc extends Bloc<ProductDetailsEvent, ProductDetailsState> {
+class ProductDetailsBloc
+    extends Bloc<ProductDetailsEvent, ProductDetailsState> {
   ProductDetailsBloc() : super(const ProductDetailsInitial()) {
-    on<CustomProductDetailsEvent>(_onCustomProductDetailsEvent);
+    on<RefreshProductEvent>(_onRefreshProductEvent);
   }
 
-  FutureOr<void> _onCustomProductDetailsEvent(
-    CustomProductDetailsEvent event,
+  FutureOr<void> _onRefreshProductEvent(
+    RefreshProductEvent event,
     Emitter<ProductDetailsState> emit,
   ) {
-    // TODO: Add Logic
+    emit(
+      UpdateEditTipoEvento(event.tipoEvento),
+    );
   }
 }

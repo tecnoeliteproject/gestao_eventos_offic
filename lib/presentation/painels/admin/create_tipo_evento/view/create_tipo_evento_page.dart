@@ -49,9 +49,7 @@ class _CreateTipoEventoPageState extends State<CreateTipoEventoPage> {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) {
-            return CreateTipoEventoBloc();
-          },
+          create: (context) => getIt<CreateTipoEventoBloc>(),
         ),
         BlocProvider(
           create: (context) => getIt<NameFormCubitCubit>(),

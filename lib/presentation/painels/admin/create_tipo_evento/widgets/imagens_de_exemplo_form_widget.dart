@@ -20,8 +20,8 @@ class ImagensDeExemploFormWidget extends StatelessWidget {
         const Gutter(),
         SizedBox(
           height: 125,
-          child: BlocBuilder<ImagensDeExemploFormCubit,
-              ImagensDeExemploFromState>(
+          child:
+              BlocBuilder<ImagensDeExemploFormCubit, ImagensDeExemploFromState>(
             builder: (context, state) {
               return ListView(
                 scrollDirection: Axis.horizontal,
@@ -30,7 +30,10 @@ class ImagensDeExemploFormWidget extends StatelessWidget {
                     state.exemplos.length,
                     MiniImageAmostra.new,
                   ),
-                  const ImageAmostra(),
+                  ImageAmostra(
+                    onPressed: () => context.read<ImagensDeExemploFormCubit>()
+                      ..onSelectImagem(),
+                  ),
                 ],
               );
             },

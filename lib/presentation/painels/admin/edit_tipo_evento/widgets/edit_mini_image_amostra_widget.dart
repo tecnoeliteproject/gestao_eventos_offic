@@ -38,7 +38,13 @@ class EditMiniImageAmostra extends StatelessWidget {
                 );
               }
 
-              return const ImageAmostra();
+              return ImageAmostra(
+                onPressed: () {
+                  context
+                      .read<EditImagensDeExemploFormCubit>()
+                      .onSelectImagem();
+                },
+              );
             },
           ),
         ),

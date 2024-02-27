@@ -60,6 +60,16 @@ class TipoEventoModel extends TipoEvento {
     );
   }
 
+  TipoEvento toEntity() {
+    return TipoEvento(
+      id: id,
+      name: name,
+      image: image,
+      description: description,
+      exemplos: exemplos,
+    );
+  }
+
   factory TipoEventoModel.fromMap(Map<String, dynamic> map) {
     return TipoEventoModel(
       id: map['id'] as String,
@@ -68,6 +78,16 @@ class TipoEventoModel extends TipoEvento {
       description: map['description'] as String,
       exemplos: map['exemplos'] as List<CImage>,
     );
+  }
+
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{
+      'id': id,
+      'name': name,
+      'image': image.url,
+      'description': description,
+      'exemplos': exemplos.map((e) => e.url).toList(),
+    };
   }
 
   factory TipoEventoModel.fromJson(String source) =>

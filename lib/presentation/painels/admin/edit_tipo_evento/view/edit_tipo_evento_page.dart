@@ -8,6 +8,7 @@ import 'package:gestao_eventos/presentation/painels/admin/edit_tipo_evento/bloc/
 import 'package:gestao_eventos/presentation/painels/admin/edit_tipo_evento/cubit/edit_imagem_form_cubit.dart';
 import 'package:gestao_eventos/presentation/painels/admin/edit_tipo_evento/cubit/edit_imagens_de_exemplo_cubit_cubit.dart';
 import 'package:gestao_eventos/presentation/painels/admin/edit_tipo_evento/widgets/edit_tipo_evento_body.dart';
+import 'package:gestao_eventos/presentation/painels/admin/product_details/product_details.dart';
 
 class EditTipoEventoPage extends StatefulWidget {
   const EditTipoEventoPage({
@@ -17,10 +18,16 @@ class EditTipoEventoPage extends StatefulWidget {
 
   final TipoEvento tipoEvento;
 
-  static Route<dynamic> route(TipoEvento tipoEvento) {
+  static Route<dynamic> route(
+    TipoEvento tipoEvento,
+    ProductDetailsBloc productDBloc,
+  ) {
     return MaterialPageRoute<dynamic>(
-      builder: (_) => EditTipoEventoPage(
-        tipoEvento: tipoEvento,
+      builder: (_) => BlocProvider.value(
+        value: productDBloc,
+        child: EditTipoEventoPage(
+          tipoEvento: tipoEvento,
+        ),
       ),
     );
   }
@@ -64,7 +71,7 @@ class _EditTipoEventoPageState extends State<EditTipoEventoPage> {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) => EditTipoEventoBloc(),
+          create: (context) => getIt<EditTipoEventoBloc>(),
         ),
         BlocProvider(
           create: (context) => getIt<NameFormCubitCubit>(),
@@ -81,41 +88,55 @@ class _EditTipoEventoPageState extends State<EditTipoEventoPage> {
       ],
       child: Builder(
         builder: (context) {
-          return Scaffold(
-            appBar: AppBar(
-              title: const Text('Editar Tipo de Evento'),
-              centerTitle: true,
-              leading: IconButton(
-                onPressed: () async {
-                  await BlocProvider.of<EditTipoEventoBloc>(context)
-                      .close()
-                      .then((value) => Navigator.pop(context));
-                },
-                icon: const Icon(Icons.close),
-              ),
-              actions: [
-                Padding(
-                  padding: const EdgeInsets.all(8),
-                  child: IconButton(
-                    onPressed: () async {},
-                    icon: const Icon(FontAwesomeIcons.floppyDisk),
-                  ),
-                ),
-              ],
-            ),
-            body: const EditTipoEventoView(),
-            floatingActionButton:
-                BlocBuilder<EditTipoEventoBloc, EditTipoEventoState>(
-              builder: (context, state) {
-                return FloatingActionButton(
-                  onPressed: () {
-                    // context
-                    //     .read<EditTipoEventoBloc>()
-                    //     .add(const SaveEditTipoEventoEvent());
-                  },
-                  child: const Icon(Icons.save_rounded),
+          return BlocListener<EditTipoEventoBloc, EditTipoEventoState>(
+            listener: (context, state) {
+              if (state is EditTipoEventoSuccess) {
+                BlocProvider.of<ProductDetailsBloc>(context).add(
+                  RefreshProductEvent(state.tipoEvento),
                 );
-              },
+                Navigator.of(context).pop();
+              }
+            },
+            child: Scaffold(
+              appBar: AppBar(
+                title: const Text('Editar Tipo de Evento'),
+                centerTitle: true,
+                leading: IconButton(
+                  onPressed: () async {
+                    await BlocProvider.of<EditTipoEventoBloc>(context)
+                        .close()
+                        .then((value) => Navigator.pop(context));
+                  },
+                  icon: const Icon(Icons.close),
+                ),
+                actions: [
+                  Padding(
+                    padding: const EdgeInsets.all(8),
+                    child: IconButton(
+                      onPressed: () async {
+                        context
+                            .read<EditTipoEventoBloc>()
+                            .add(const SaveEditTipoEventoEvent());
+                      },
+                      icon: const Icon(FontAwesomeIcons.floppyDisk),
+                    ),
+                  ),
+                ],
+              ),
+              body: const EditTipoEventoView(),
+              floatingActionButton:
+                  BlocBuilder<EditTipoEventoBloc, EditTipoEventoState>(
+                builder: (context, state) {
+                  return FloatingActionButton(
+                    onPressed: () {
+                      context
+                          .read<EditTipoEventoBloc>()
+                          .add(const SaveEditTipoEventoEvent());
+                    },
+                    child: const Icon(Icons.save_rounded),
+                  );
+                },
+              ),
             ),
           );
         },

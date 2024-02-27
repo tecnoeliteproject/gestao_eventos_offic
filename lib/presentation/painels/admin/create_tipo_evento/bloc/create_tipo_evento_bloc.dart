@@ -17,12 +17,6 @@ part 'create_tipo_evento_state.dart';
 class CreateTipoEventoBloc
     extends Bloc<CreateTipoEventoEvent, CreateTipoEventoState> {
   CreateTipoEventoBloc() : super(const CreateTipoEventoInitial()) {
-    _tipoEventoUseCase = getIt();
-    _nameFormCubitCubit = getIt();
-    _descricaoFormCubit = getIt();
-    _imagemFormCubit = getIt();
-    _imagensDeExemploFormCubit = getIt();
-
     on<AddTipoEventoEvent>(_onAddTipoEventoEvent);
   }
 
@@ -36,6 +30,12 @@ class CreateTipoEventoBloc
     AddTipoEventoEvent event,
     Emitter<CreateTipoEventoState> emit,
   ) async {
+    _tipoEventoUseCase = getIt();
+    _nameFormCubitCubit = getIt();
+    _descricaoFormCubit = getIt();
+    _imagemFormCubit = getIt();
+    _imagensDeExemploFormCubit = getIt();
+
     final name = _nameFormCubitCubit.returnValue();
     final descricao = _descricaoFormCubit.returnValue();
     final imagem = _imagemFormCubit.returnValue();
