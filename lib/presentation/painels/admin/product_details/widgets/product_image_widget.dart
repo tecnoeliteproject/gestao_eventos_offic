@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gutter/flutter_gutter.dart';
 import 'package:gestao_eventos/core/helpers/constants.dart';
 import 'package:gestao_eventos/domain/entities/tipo_evento.dart';
 
@@ -16,11 +17,24 @@ class ProductImageWidget extends StatelessWidget {
 
     return Padding(
       padding: const EdgeInsets.all(kDefaultPadding),
-      child: SizedBox(
-        height: size.height * 0.45,
-        child: Expanded(
-          child: _ImageWidget(image: tipoEvento.image.url),
-        ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            tipoEvento.name,
+            style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                  fontWeight: FontWeight.bold,
+                  color: Theme.of(context).colorScheme.onSecondaryContainer,
+                ),
+          ),
+          const Gutter(),
+          SizedBox(
+            height: size.height * 0.45,
+            child: Expanded(
+              child: _ImageWidget(image: tipoEvento.image.url),
+            ),
+          ),
+        ],
       ),
     );
   }

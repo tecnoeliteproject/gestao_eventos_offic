@@ -35,7 +35,7 @@ class _AppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      title: Text(tipoEvento.name),
+      title: const Text('Tipo de Evento'),
       actions: [
         Padding(
           padding: const EdgeInsets.only(right: 8),
