@@ -6,6 +6,10 @@ import 'package:gestao_eventos/data/repositories/tipo_evento_repository.dart';
 import 'package:gestao_eventos/data/repositories_interfaces/i_tipo_evento_repository.dart';
 import 'package:gestao_eventos/domain/usecases/tipo_evento_usecase.dart';
 import 'package:gestao_eventos/domain/usecases_interfaces/i_tipo_evento_usecase.dart';
+import 'package:gestao_eventos/presentation/painels/admin/create_tipo_evento/bloc/create_tipo_evento_bloc.dart';
+import 'package:gestao_eventos/presentation/painels/admin/edit_tipo_evento/bloc/edit_tipo_evento_bloc.dart';
+import 'package:gestao_eventos/presentation/painels/admin/product_details/product_details.dart';
+import 'package:gestao_eventos/presentation/painels/admin/tipo_eventos/bloc/tipo_eventos_bloc.dart';
 // import 'package:gestao_eventos/presentation/painels/admin/create_tipo_evento/cubit/descricao_form_cubit_cubit.dart';
 // import 'package:gestao_eventos/presentation/painels/admin/create_tipo_evento/cubit/imagem_form_cubit.dart';
 // import 'package:gestao_eventos/presentation/painels/admin/create_tipo_evento/cubit/imagens_de_exemplo_cubit_cubit.dart';
@@ -28,9 +32,11 @@ Future<void> setupGetIt() async {
     )
     ..registerSingleton<ITipoEventoUseCase>(
       TipoEventoUsecase(getIt()),
-    );
-  // ..registerSingleton(NameFormCubitCubit())
-  // ..registerSingleton(DescricaoFormCubit())
-  // ..registerSingleton(ImagemFormCubit())
-  // ..registerSingleton(ImagensDeExemploFormCubit()
+    )
+    // Blocs
+
+    ..registerLazySingleton(TipoEventosBloc.new)
+    ..registerLazySingleton(ProductDetailsBloc.new)
+    ..registerLazySingleton(CreateTipoEventoBloc.new)
+    ..registerLazySingleton(EditTipoEventoBloc.new);
 }

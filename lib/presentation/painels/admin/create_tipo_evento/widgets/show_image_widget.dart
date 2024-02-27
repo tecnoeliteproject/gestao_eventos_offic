@@ -1,24 +1,32 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:gestao_eventos/domain/entities/c_image.dart';
 import 'package:gestao_eventos/presentation/painels/admin/create_tipo_evento/widgets/button_switch_image_widget.dart';
 
 class ShowImageWidget extends StatelessWidget {
-  const ShowImageWidget(this.bytes, {required this.onPressed, super.key});
+  const ShowImageWidget(this.imagem, {required this.onPressed, super.key});
 
-  final Uint8List bytes;
+  final CImage imagem;
   final VoidCallback? onPressed;
 
   @override
   Widget build(BuildContext context) {
-    final image = Image.memory(
-      bytes,
-      fit: BoxFit.cover,
-    );
+    late Image imageWidget;
+    if (imagem.bytes != null) {
+      imageWidget = Image.memory(
+        imagem.bytes!,
+        fit: BoxFit.cover,
+      );
+    } else {
+      imageWidget = Image.network(
+        imagem.url,
+        fit: BoxFit.cover,
+      );
+    }
 
     return Stack(
       fit: StackFit.expand,
       children: [
-        image,
+        imageWidget,
         ButtonSwitchImageWidget(
           onPressed: onPressed,
         ),

@@ -1,5 +1,4 @@
 import 'package:gestao_eventos/data/models/user_model.dart';
-import 'package:gestao_eventos/domain/entities/user.dart';
 
 abstract class IAuthRepository {
   Future<bool> signIn(String email, String password);

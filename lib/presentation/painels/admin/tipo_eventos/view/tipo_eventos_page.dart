@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:gestao_eventos/core/dependences/get_it.dart';
 import 'package:gestao_eventos/presentation/painels/admin/create_tipo_evento/create_tipo_evento.dart';
+import 'package:gestao_eventos/presentation/painels/admin/edit_tipo_evento/edit_tipo_evento.dart';
 import 'package:gestao_eventos/presentation/painels/admin/tipo_eventos/bloc/tipo_eventos_bloc.dart';
 import 'package:gestao_eventos/presentation/painels/admin/tipo_eventos/cubit/list_tipo_eventos_cubit.dart';
 import 'package:gestao_eventos/presentation/painels/admin/tipo_eventos/cubit/search_tipo_eventos_cubit.dart';
@@ -19,7 +22,7 @@ class TipoEventosPage extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) => TipoEventosBloc(),
+          create: (context) => getIt<TipoEventosBloc>(),
         ),
         BlocProvider(
           create: (context) => SearchTipoEventosCubit(),
@@ -31,22 +34,44 @@ class TipoEventosPage extends StatelessWidget {
       child: Builder(
         builder: (context) {
           final listTipoEventosCubit = context.read<ListTipoEventosCubit>();
-          return Scaffold(
-            appBar: _buildAppBarWidget(context),
-            body: const TipoEventosView(),
-            floatingActionButton: FloatingActionButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute<Widget>(
-                    builder: (context) => BlocProvider.value(
-                      value: listTipoEventosCubit,
-                      child: const CreateTipoEventoPage(),
+          return MultiBlocListener(
+            listeners: [
+              BlocListener<CreateTipoEventoBloc, CreateTipoEventoState>(
+                bloc: getIt<CreateTipoEventoBloc>(),
+                listener: (context, state) {
+                  if (state is CreateTipoEventoSuccess) {
+                    BlocProvider.of<ListTipoEventosCubit>(context)
+                        .listTipoEventos();
+                  }
+                },
+              ),
+              BlocListener<EditTipoEventoBloc, EditTipoEventoState>(
+                bloc: getIt<EditTipoEventoBloc>(),
+                listener: (context, state) {
+                  if (state is EditTipoEventoSuccess) {
+                    BlocProvider.of<ListTipoEventosCubit>(context)
+                        .listTipoEventos();
+                  }
+                },
+              ),
+            ],
+            child: Scaffold(
+              appBar: _buildAppBarWidget(context),
+              body: const TipoEventosView(),
+              floatingActionButton: FloatingActionButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute<Widget>(
+                      builder: (context) => BlocProvider.value(
+                        value: listTipoEventosCubit,
+                        child: const CreateTipoEventoPage(),
+                      ),
                     ),
-                  ),
-                );
-              },
-              child: const Icon(Icons.add),
+                  );
+                },
+                child: const Icon(Icons.add),
+              ),
             ),
           );
         },
@@ -61,6 +86,7 @@ class TipoEventosPage extends StatelessWidget {
           if (state is SearchTipoEventosEnabled) {
             return const SearchTipoEventosWidget();
           }
+
           if (state is SearchTipoEventosDisanabled) {
             return const AppBarTitleWidget();
           }
@@ -68,19 +94,20 @@ class TipoEventosPage extends StatelessWidget {
           return const AppBarTitleWidget();
         },
       ),
-      actions: [
+      actions: const [
         IconButton(
-          onPressed: () {
-            BlocProvider.of<SearchTipoEventosCubit>(context).enable();
-          },
-          icon: const Icon(Icons.search),
+          onPressed: null,
+          // () {
+          //   BlocProvider.of<SearchTipoEventosCubit>(context).enable();
+          // }
+          icon: Icon(Icons.search),
         ),
-        const Padding(padding: EdgeInsets.only(right: 8)),
+        Padding(padding: EdgeInsets.only(right: 8)),
         IconButton(
-          onPressed: () {},
-          icon: const Icon(Icons.filter_alt),
+          onPressed: null,
+          icon: Icon(FontAwesomeIcons.boxArchive),
         ),
-        const Padding(padding: EdgeInsets.only(right: 8)),
+        Padding(padding: EdgeInsets.only(right: 8)),
       ],
     );
   }

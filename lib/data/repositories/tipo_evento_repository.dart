@@ -33,9 +33,11 @@ class TipoEventoRepository implements ITipoEventoRepository {
   }
 
   @override
-  Future<TipoEvento> updateTipoEvento(TipoEvento tipoEvento) {
-    return _datasource.updateTipoEvento(
+  Future<TipoEvento?> updateTipoEvento(TipoEvento tipoEvento) async {
+    final result = await _datasource.updateTipoEvento(
       TipoEventoModel.fromEntity(tipoEvento),
     );
+
+    return result?.toEntity();
   }
 }

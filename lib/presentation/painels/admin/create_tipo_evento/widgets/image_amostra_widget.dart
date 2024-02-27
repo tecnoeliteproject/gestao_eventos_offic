@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gestao_eventos/core/helpers/constants.dart';
-import 'package:gestao_eventos/presentation/painels/admin/create_tipo_evento/cubit/imagens_de_exemplo_cubit_cubit.dart';
 
 class ImageAmostra extends StatelessWidget {
-  const ImageAmostra({super.key});
+  const ImageAmostra({required this.onPressed, super.key});
+
+  final VoidCallback? onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -17,9 +17,7 @@ class ImageAmostra extends StatelessWidget {
       ),
       child: Center(
         child: TextButton(
-          onPressed: () {
-            context.read<ImagensDeExemploFormCubit>().onSelectImagem();
-          },
+          onPressed: onPressed,
           child: const Text('Selecionar'),
         ),
       ),

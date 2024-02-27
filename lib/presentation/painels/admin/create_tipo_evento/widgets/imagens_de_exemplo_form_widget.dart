@@ -30,7 +30,10 @@ class ImagensDeExemploFormWidget extends StatelessWidget {
                     state.exemplos.length,
                     MiniImageAmostra.new,
                   ),
-                  const ImageAmostra(),
+                  ImageAmostra(
+                    onPressed: () => context.read<ImagensDeExemploFormCubit>()
+                      ..onSelectImagem(),
+                  ),
                 ],
               );
             },

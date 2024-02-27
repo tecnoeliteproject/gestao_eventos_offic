@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:gestao_eventos/domain/entities/tipo_evento.dart';
+import 'package:gestao_eventos/presentation/painels/admin/edit_tipo_evento/edit_tipo_evento.dart';
 import 'package:gestao_eventos/presentation/painels/admin/product_details/view/product_details_page.dart';
 
 class TipoEventoItem extends StatelessWidget {
@@ -34,49 +35,79 @@ class TipoEventoItem extends StatelessWidget {
     return GestureDetector(
       onTap: () => _onTap(context),
       child: Card(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Expanded(
-              child: Container(
-                margin: const EdgeInsets.all(4),
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    fit: BoxFit.cover,
-                    image: NetworkImage(
-                      tipoEvento.image.url,
+        child: Padding(
+          padding: const EdgeInsets.all(4),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(
+                child: Container(
+                  margin: const EdgeInsets.all(4),
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      fit: BoxFit.cover,
+                      image: NetworkImage(
+                        tipoEvento.image.url,
+                      ),
                     ),
+                    borderRadius: BorderRadius.circular(16),
+                    color: Colors.white,
                   ),
-                  borderRadius: BorderRadius.circular(16),
-                  color: Colors.white,
                 ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(
-                    limitText(
-                      size,
-                      tipoEvento.name,
+              Padding(
+                padding: const EdgeInsets.all(8),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      limitText(
+                        size,
+                        tipoEvento.name,
+                      ),
+                      overflow: TextOverflow.clip,
+                      style: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-                    overflow: TextOverflow.clip,
-                    style: const TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
+                    const Spacer(),
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(50),
+                      child: PopupMenuButton(
+                        child: const Icon(Icons.more_vert),
+                        onSelected: (value) {
+                          if (value == 0) {
+                            Navigator.of(context).push(
+                              EditTipoEventoPage.route(tipoEvento),
+                            );
+                          }
+                        },
+                        itemBuilder: (context) {
+                          return [
+                            const PopupMenuItem(
+                              value: 0,
+                              child: ListTile(
+                                title: Text('Editar'),
+                                leading: Icon(Icons.edit),
+                              ),
+                            ),
+                            const PopupMenuItem(
+                              value: 1,
+                              child: ListTile(
+                                title: Text('Arquivar'),
+                                leading: Icon(Icons.archive),
+                              ),
+                            ),
+                          ];
+                        },
+                      ),
                     ),
-                  ),
-                  const Spacer(),
-                  IconButton(
-                    icon: const Icon(Icons.more_vert),
-                    onPressed: () {},
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

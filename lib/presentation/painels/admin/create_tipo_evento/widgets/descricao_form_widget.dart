@@ -1,12 +1,28 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:gestao_eventos/presentation/painels/admin/create_tipo_evento/cubit/descricao_form_cubit_cubit.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 
-class DescricaoFormWidget extends StatelessWidget {
-  const DescricaoFormWidget({super.key});
+class DescricaoFormWidget extends HookWidget {
+  const DescricaoFormWidget({
+    super.key,
+    this.validator,
+    this.onChanged,
+    this.initialValue,
+  });
+
+  final String? Function(String?)? validator;
+  final void Function(String)? onChanged;
+  final String? initialValue;
 
   @override
   Widget build(BuildContext context) {
+    final descriptionController = useTextEditingController();
+
+    descriptionController
+      ..addListener(() {
+        onChanged!(descriptionController.text);
+      })
+      ..text = initialValue ?? '';
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -15,9 +31,10 @@ class DescricaoFormWidget extends StatelessWidget {
           style: Theme.of(context).textTheme.titleMedium,
         ),
         TextFormField(
+          controller: descriptionController,
+          validator: validator,
+          onChanged: onChanged,
           maxLines: 3,
-          validator: context.read<DescricaoFormCubit>().validateDescricao,
-          onChanged: context.read<DescricaoFormCubit>().onUpdate,
           decoration: const InputDecoration(
             hintText: 'Ex: Festa de aniversário para 30 pessoas',
           ),
