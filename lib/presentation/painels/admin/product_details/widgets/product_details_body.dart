@@ -44,10 +44,7 @@ class _AppBar extends StatelessWidget {
           child: IconButton(
             onPressed: () {
               Navigator.of(context).push(
-                EditTipoEventoPage.route(
-                  tipoEvento,
-                  context.read<ProductDetailsBloc>(),
-                ),
+                EditTipoEventoPage.route(tipoEvento),
               );
             },
             icon: const Icon(Icons.edit),

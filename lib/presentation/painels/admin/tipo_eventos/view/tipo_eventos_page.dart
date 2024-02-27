@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:gestao_eventos/core/dependences/get_it.dart';
 import 'package:gestao_eventos/presentation/painels/admin/create_tipo_evento/create_tipo_evento.dart';
 import 'package:gestao_eventos/presentation/painels/admin/edit_tipo_evento/edit_tipo_evento.dart';
@@ -93,19 +94,20 @@ class TipoEventosPage extends StatelessWidget {
           return const AppBarTitleWidget();
         },
       ),
-      actions: [
+      actions: const [
         IconButton(
-          onPressed: () {
-            BlocProvider.of<SearchTipoEventosCubit>(context).enable();
-          },
-          icon: const Icon(Icons.search),
+          onPressed: null,
+          // () {
+          //   BlocProvider.of<SearchTipoEventosCubit>(context).enable();
+          // }
+          icon: Icon(Icons.search),
         ),
-        const Padding(padding: EdgeInsets.only(right: 8)),
+        Padding(padding: EdgeInsets.only(right: 8)),
         IconButton(
-          onPressed: () {},
-          icon: const Icon(Icons.filter_alt),
+          onPressed: null,
+          icon: Icon(FontAwesomeIcons.boxArchive),
         ),
-        const Padding(padding: EdgeInsets.only(right: 8)),
+        Padding(padding: EdgeInsets.only(right: 8)),
       ],
     );
   }

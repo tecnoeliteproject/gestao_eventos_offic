@@ -20,11 +20,10 @@ class EditTipoEventoPage extends StatefulWidget {
 
   static Route<dynamic> route(
     TipoEvento tipoEvento,
-    ProductDetailsBloc productDBloc,
   ) {
     return MaterialPageRoute<dynamic>(
       builder: (_) => BlocProvider.value(
-        value: productDBloc,
+        value: getIt<ProductDetailsBloc>(),
         child: EditTipoEventoPage(
           tipoEvento: tipoEvento,
         ),

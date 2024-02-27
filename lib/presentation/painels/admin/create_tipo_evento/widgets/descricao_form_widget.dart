@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 
-class DescricaoFormWidget extends StatelessWidget {
+class DescricaoFormWidget extends HookWidget {
   const DescricaoFormWidget({
     super.key,
     this.validator,
@@ -14,6 +15,14 @@ class DescricaoFormWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final descriptionController = useTextEditingController();
+
+    descriptionController
+      ..addListener(() {
+        onChanged!(descriptionController.text);
+      })
+      ..text = initialValue ?? '';
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -22,7 +31,7 @@ class DescricaoFormWidget extends StatelessWidget {
           style: Theme.of(context).textTheme.titleMedium,
         ),
         TextFormField(
-          initialValue: initialValue,
+          controller: descriptionController,
           validator: validator,
           onChanged: onChanged,
           maxLines: 3,
