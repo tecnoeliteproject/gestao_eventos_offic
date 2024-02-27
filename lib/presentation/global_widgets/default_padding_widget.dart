@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:gestao_eventos/core/helpers/constants.dart';
 
 class DefaultPaddingWidget extends StatelessWidget {
   const DefaultPaddingWidget({

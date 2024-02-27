@@ -1,4 +1,3 @@
-import 'package:gestao_eventos/domain/entities/permission_level.dart';
 import 'package:gestao_eventos/domain/entities/user.dart';
 
 abstract class SignUpState {}

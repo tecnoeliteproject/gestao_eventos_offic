@@ -4,7 +4,6 @@ import 'package:gestao_eventos/data/repositories/firebase_auth_repository.dart';
 import 'package:gestao_eventos/domain/entities/user.dart';
 import 'package:gestao_eventos/domain/usecases/auth_uc.dart';
 import 'package:gestao_eventos/domain/usecases_interfaces/i_auth_uc.dart';
-import 'package:gestao_eventos/presentation/painels/admin/view/pages/users/bloc/manage_users_event.dart';
 
 part 'user_event.dart';
 part 'user_state.dart';
