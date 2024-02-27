@@ -63,9 +63,10 @@ class _SignFormState extends State<SignForm> {
             Navigator.pushReplacementNamed(context, AdminScreen.routeName);
             return;
           }
-          if (state.user.level == PermissionLevel.MANAGER) {
-            Navigator.pushReplacementNamed(context, '/manager');
-            return;
+          if (state.user.level == PermissionLevel.RECEPCIONISTA) {
+            throw UnimplementedError();
+            // Navigator.pushReplacementNamed(context, '');
+            // return;
           }
           Navigator.pushReplacementNamed(context, ClientHomeScreen.routeName);
         }

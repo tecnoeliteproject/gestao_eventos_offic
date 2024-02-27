@@ -114,15 +114,15 @@ class _Actions extends StatelessWidget {
           itemBuilder: (context) {
             return [
               const PopupMenuItem(
-                value: 0,
+                value: User.ADMIN,
                 child: Text('Definir como administrador'),
               ),
               const PopupMenuItem(
-                value: 1,
-                child: Text('Definir como Gerente'),
+                value: User.RECEPCIONIST,
+                child: Text('Definir como Recepcionista'),
               ),
               const PopupMenuItem(
-                value: 2,
+                value: User.CLIENT,
                 child: Text('Definir como Cliente'),
               ),
             ];

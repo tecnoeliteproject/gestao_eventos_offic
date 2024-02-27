@@ -31,6 +31,7 @@ class AdminDrawer extends StatelessWidget {
           ),
           ListTile(
             onTap: () {
+              Navigator.pop(context);
               Navigator.push(context, TipoEventosPage.route());
             },
             title: const Text('Tipos de eventos'),

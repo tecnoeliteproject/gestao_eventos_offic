@@ -15,6 +15,6 @@ class User{
   String? name;
   
   static const int ADMIN = 0;
-  static const int MANAGER = 1;
+  static const int RECEPCIONIST = 1;
   static const int CLIENT = 2;
 }

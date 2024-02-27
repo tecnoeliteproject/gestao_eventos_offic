@@ -11,6 +11,7 @@ import 'package:gestao_eventos/presentation/general_components/profile_page/prof
 import 'package:gestao_eventos/presentation/painels/admin/bloc/admin_event.dart';
 import 'package:gestao_eventos/presentation/painels/admin/bloc/admin_state.dart';
 import 'package:gestao_eventos/presentation/painels/admin/bloc/bloc.dart';
+import 'package:gestao_eventos/presentation/painels/admin/view/pages/users/components/profile_page.dart';
 import 'package:gestao_eventos/presentation/painels/admin/view/pages/users/users_page.dart';
 
 const Color inActiveIconColor = Color(0xFFB6B6B6);
@@ -39,8 +40,8 @@ class _AdminScreenState extends State<AdminScreen> {
 
   void initPages() {
     pages = [
-      UsersPage(),
-      ProfilePage(
+      const UsersPage(),
+      ProfileAdminPage(
         onSigningOut: () {
           _signInBloc.add(SigningOutEvent());
         },
@@ -75,42 +76,42 @@ class _AdminScreenState extends State<AdminScreen> {
             return pages[_bloc.pageIndex];
           },
         ),
-        bottomNavigationBar: BottomNavigationBar(
-          onTap: updateCurrentIndex,
-          currentIndex: _bloc.pageIndex,
-          showSelectedLabels: false,
-          showUnselectedLabels: false,
-          type: BottomNavigationBarType.fixed,
-          items: [
-            const BottomNavigationBarItem(
-              icon: Icon(
-                Icons.person,
-                color: inActiveIconColor,
-              ),
-              activeIcon: Icon(
-                Icons.person,
-                color: inActiveIconColor,
-              ),
-              label: 'users',
-            ),
-            BottomNavigationBarItem(
-              icon: SvgPicture.asset(
-                'assets/icons/User Icon.svg',
-                colorFilter: const ColorFilter.mode(
-                  inActiveIconColor,
-                  BlendMode.srcIn,
+        bottomNavigationBar: BlocBuilder<AdminBloc, AdminState>(
+          builder: (context, state) {
+            return BottomNavigationBar(
+              selectedItemColor: kPrimaryColor,
+              unselectedItemColor: inActiveIconColor,
+              onTap: updateCurrentIndex,
+              currentIndex: _bloc.pageIndex,
+              showSelectedLabels: false,
+              showUnselectedLabels: false,
+              type: BottomNavigationBarType.fixed,
+              items: [
+                BottomNavigationBarItem(
+                  icon: Icon(
+                    Icons.people,
+                    color: inActiveIconColor,
+                  ),
+                  activeIcon: Icon(
+                    Icons.people,
+                    color: kPrimaryColor,
+                  ),
+                  label: 'users',
                 ),
-              ),
-              activeIcon: SvgPicture.asset(
-                'assets/icons/User Icon.svg',
-                colorFilter: const ColorFilter.mode(
-                  kPrimaryColor,
-                  BlendMode.srcIn,
+                const BottomNavigationBarItem(
+                  icon: Icon(
+                    Icons.person,
+                    color: inActiveIconColor,
+                  ),
+                  activeIcon: Icon(
+                    Icons.person,
+                    color: kPrimaryColor,
+                  ),
+                  label: 'Profile',
                 ),
-              ),
-              label: 'Profile',
-            ),
-          ],
+              ],
+            );
+          },
         ),
       ),
     );

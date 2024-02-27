@@ -59,9 +59,10 @@ class _SignUpFormState extends State<SignUpForm> {
               Navigator.pushReplacementNamed(context, AdminScreen.routeName);
               return;
             }
-            if (state.user.level == PermissionLevel.MANAGER) {
-              Navigator.pushReplacementNamed(context, '/manager');
-              return;
+            if (state.user.level == PermissionLevel.RECEPCIONISTA) {
+              throw UnimplementedError();
+              // Navigator.pushReplacementNamed(context, '/manager');
+              // return;
             }
             Navigator.pushReplacementNamed(context, ClientHomeScreen.routeName);
           }
