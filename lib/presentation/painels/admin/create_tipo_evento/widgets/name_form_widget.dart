@@ -1,9 +1,17 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:gestao_eventos/presentation/painels/admin/create_tipo_evento/cubit/name_form_cubit_cubit.dart';
 
 class NameFormWidget extends StatelessWidget {
-  const NameFormWidget({super.key});
+  const NameFormWidget({
+    super.key,
+    this.validator,
+    this.onChanged,
+    this.initialValue,
+  });
+
+  final String? Function(String?)? validator;
+  final void Function(String)? onChanged;
+  final String? initialValue;
 
   @override
   Widget build(BuildContext context) {
@@ -15,8 +23,9 @@ class NameFormWidget extends StatelessWidget {
           style: Theme.of(context).textTheme.titleMedium,
         ),
         TextFormField(
-          validator: BlocProvider.of<NameFormCubitCubit>(context).validateName,
-          onChanged: BlocProvider.of<NameFormCubitCubit>(context).onUpdate,
+          initialValue: initialValue,
+          validator: validator,
+          onChanged: onChanged,
           decoration: const InputDecoration(
             hintText: 'Ex: Festa de Aniversário',
           ),

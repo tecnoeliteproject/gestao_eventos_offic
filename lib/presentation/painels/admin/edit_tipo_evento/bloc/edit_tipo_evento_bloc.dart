@@ -2,39 +2,37 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gestao_eventos/core/dependences/get_it.dart';
 import 'package:gestao_eventos/domain/entities/tipo_evento.dart';
 import 'package:gestao_eventos/domain/usecases_interfaces/i_tipo_evento_usecase.dart';
 import 'package:gestao_eventos/presentation/painels/admin/create_tipo_evento/cubit/descricao_form_cubit_cubit.dart';
-import 'package:gestao_eventos/presentation/painels/admin/create_tipo_evento/cubit/imagem_form_cubit.dart';
-import 'package:gestao_eventos/presentation/painels/admin/create_tipo_evento/cubit/imagens_de_exemplo_cubit_cubit.dart';
 import 'package:gestao_eventos/presentation/painels/admin/create_tipo_evento/cubit/name_form_cubit_cubit.dart';
-import 'package:uuid/uuid.dart';
-part 'create_tipo_evento_event.dart';
-part 'create_tipo_evento_state.dart';
+import 'package:gestao_eventos/presentation/painels/admin/edit_tipo_evento/cubit/edit_imagem_form_cubit.dart';
+import 'package:gestao_eventos/presentation/painels/admin/edit_tipo_evento/cubit/edit_imagens_de_exemplo_cubit_cubit.dart';
+part 'edit_tipo_evento_event.dart';
+part 'edit_tipo_evento_state.dart';
 
-class CreateTipoEventoBloc
-    extends Bloc<CreateTipoEventoEvent, CreateTipoEventoState> {
-  CreateTipoEventoBloc() : super(const CreateTipoEventoInitial()) {
+class EditTipoEventoBloc
+    extends Bloc<SaveEditTipoEventoEvent, EditTipoEventoState> {
+  EditTipoEventoBloc() : super(const EditTipoEventoInitial()) {
     _tipoEventoUseCase = getIt();
     _nameFormCubitCubit = getIt();
     _descricaoFormCubit = getIt();
     _imagemFormCubit = getIt();
     _imagensDeExemploFormCubit = getIt();
 
-    on<AddTipoEventoEvent>(_onAddTipoEventoEvent);
+    on<SaveEditTipoEventoEvent>(_onSaveEditTipoEventoEvent);
   }
 
   late final ITipoEventoUseCase _tipoEventoUseCase;
   late final NameFormCubitCubit _nameFormCubitCubit;
   late final DescricaoFormCubit _descricaoFormCubit;
-  late final ImagemFormCubit _imagemFormCubit;
-  late final ImagensDeExemploFormCubit _imagensDeExemploFormCubit;
+  late final EditImagemFormCubit _imagemFormCubit;
+  late final EditImagensDeExemploFormCubit _imagensDeExemploFormCubit;
 
-  FutureOr<void> _onAddTipoEventoEvent(
-    AddTipoEventoEvent event,
-    Emitter<CreateTipoEventoState> emit,
+  FutureOr<void> _onSaveEditTipoEventoEvent(
+    SaveEditTipoEventoEvent event,
+    Emitter<EditTipoEventoState> emit,
   ) async {
     final name = _nameFormCubitCubit.returnValue();
     final descricao = _descricaoFormCubit.returnValue();
@@ -42,36 +40,36 @@ class CreateTipoEventoBloc
     final amostras = _imagensDeExemploFormCubit.returnValue();
 
     if (name == null) {
-      emit(const CreateTipoEventoFormError('Nome não informado'));
+      emit(const EditTipoEventoFormError('Nome não informado'));
       return;
     }
 
     if (descricao == null) {
-      emit(const CreateTipoEventoFormError('Descrição não informada'));
+      emit(const EditTipoEventoFormError('Descrição não informada'));
       return;
     }
 
     if (imagem == null) {
-      emit(const CreateTipoEventoFormError('Imagem não informada'));
+      emit(const EditTipoEventoFormError('Imagem não informada'));
       return;
     }
 
     final tipoEvento = TipoEvento(
-      id: const Uuid().v4(),
+      id: getIt<TipoEvento>().id,
       name: name,
       image: imagem,
       description: descricao,
       exemplos: amostras?.cast() ?? [],
     );
 
-    emit(const CreateTipoEventoLoading());
-    final result = await _tipoEventoUseCase.createTipoEvento(tipoEvento);
+    emit(const EditTipoEventoLoading());
+    final result = await _tipoEventoUseCase.updateTipoEvento(tipoEvento);
 
-    if (result) {
-      emit(const CreateTipoEventoSuccess());
+    if (result != null) {
+      emit(EditTipoEventoSuccess(result));
     } else {
       emit(
-        const CreateTipoEventoError(
+        const EditTipoEventoError(
           'Ocorreu um erro ao criar o tipo de evento',
         ),
       );

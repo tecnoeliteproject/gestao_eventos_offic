@@ -28,7 +28,7 @@ class TipoEventoUsecase implements ITipoEventoUseCase {
   }
 
   @override
-  Future<TipoEvento> updateTipoEvento(TipoEvento tipoEvento) {
+  Future<TipoEvento?> updateTipoEvento(TipoEvento tipoEvento) {
     return _repository.updateTipoEvento(tipoEvento);
   }
 }

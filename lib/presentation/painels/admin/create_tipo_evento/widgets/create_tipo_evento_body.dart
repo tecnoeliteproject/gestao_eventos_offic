@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gutter/flutter_gutter.dart';
 import 'package:gestao_eventos/presentation/painels/admin/create_tipo_evento/create_tipo_evento.dart';
+import 'package:gestao_eventos/presentation/painels/admin/create_tipo_evento/cubit/descricao_form_cubit_cubit.dart';
+import 'package:gestao_eventos/presentation/painels/admin/create_tipo_evento/cubit/name_form_cubit_cubit.dart';
 import 'package:gestao_eventos/presentation/painels/admin/create_tipo_evento/widgets/descricao_form_widget.dart';
 import 'package:gestao_eventos/presentation/painels/admin/create_tipo_evento/widgets/imagem_form_widget.dart';
 import 'package:gestao_eventos/presentation/painels/admin/create_tipo_evento/widgets/imagens_de_exemplo_form_widget.dart';
@@ -19,22 +21,36 @@ class CreateTipoEventoBody extends StatelessWidget {
           Navigator.of(context).pop();
         }
       },
-      child: const SingleChildScrollView(
+      child: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.all(16),
+          padding: const EdgeInsets.all(16),
           child: Column(
             children: [
-              NameFormWidget(),
-              GutterLarge(),
-              DescricaoFormWidget(),
-              GutterLarge(),
-              ImagemFormWidget(),
-              GutterLarge(),
-              ImagensDeExemploFormWidget(),
+              _buildNameForm(context),
+              const GutterLarge(),
+              _buildDescricaoForm(context),
+              const GutterLarge(),
+              const ImagemFormWidget(),
+              const GutterLarge(),
+              const ImagensDeExemploFormWidget(),
             ],
           ),
         ),
       ),
+    );
+  }
+
+  DescricaoFormWidget _buildDescricaoForm(BuildContext context) {
+    return DescricaoFormWidget(
+      validator: context.read<DescricaoFormCubit>().validateDescricao,
+      onChanged: context.read<DescricaoFormCubit>().onUpdate,
+    );
+  }
+
+  NameFormWidget _buildNameForm(BuildContext context) {
+    return NameFormWidget(
+      validator: BlocProvider.of<NameFormCubitCubit>(context).validateName,
+      onChanged: BlocProvider.of<NameFormCubitCubit>(context).onUpdate,
     );
   }
 }
