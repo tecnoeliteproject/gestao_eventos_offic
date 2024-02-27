@@ -19,6 +19,7 @@ double dw(BuildContext context) {
 }
 
 const kPrimaryColor = Color(0xFFFF7643);
+const kChatColor = Color.fromARGB(255, 250, 148, 111);
 const kPrimaryLightColor = Color(0xFFFFECDF);
 const kPrimaryGradientColor = LinearGradient(
   begin: Alignment.topLeft,

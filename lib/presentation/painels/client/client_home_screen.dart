@@ -7,6 +7,7 @@ import 'package:gestao_eventos/presentation/auth/sign_in/bloc/sign_in_event.dart
 import 'package:gestao_eventos/presentation/auth/sign_in/bloc/sign_in_state.dart';
 import 'package:gestao_eventos/presentation/auth/sign_in/view/sign_in_screen.dart';
 import 'package:gestao_eventos/presentation/painels/client/cubit/home_cubit.dart';
+import 'package:gestao_eventos/presentation/painels/client/pages/chat/client_chat.dart';
 import 'package:gestao_eventos/presentation/painels/client/pages/main_page/main_page.dart';
 import 'package:gestao_eventos/presentation/general_components/profile_page/profile_page.dart';
 
@@ -35,8 +36,9 @@ class _ClientHomeScreenState extends State<ClientHomeScreen> {
 
   void initPages() {
     pages = [
-    const MainPage(),
-    const MainPage(),ProfilePage(
+      const MainPage(),
+      ClientChat(),
+      ProfilePage(
         onSigningOut: () {
           _signInBloc.add(SigningOutEvent());
         },
@@ -50,80 +52,79 @@ class _ClientHomeScreenState extends State<ClientHomeScreen> {
     _homeCubit.changePage(index);
   }
 
-
   @override
   Widget build(BuildContext context) {
     return BlocListener<SignInBloc, SignInState>(
       bloc: _signInBloc,
       listener: (context, state) {
-        if(state is SigningOutState){
+        if (state is SigningOutState) {
           Navigator.pushReplacementNamed(context, SignInScreen.routeName);
           return;
         }
       },
       child: Scaffold(
-          body: pages[context.select((HomeCubit cubit) => cubit.state)],
-          bottomNavigationBar: BottomNavigationBar(
-            onTap: updateCurrentIndex,
-            currentIndex: context.select((HomeCubit cubit) => cubit.state),
-            showSelectedLabels: false,
-            showUnselectedLabels: false,
-            type: BottomNavigationBarType.fixed,
-            items: [
-              BottomNavigationBarItem(
-                icon: SvgPicture.asset(
-                  'assets/icons/Shop Icon.svg',
-                  colorFilter: const ColorFilter.mode(
-                    inActiveIconColor,
-                    BlendMode.srcIn,
-                  ),
+        body: pages[context.select((HomeCubit cubit) => cubit.state)],
+        bottomNavigationBar: BottomNavigationBar(
+          onTap: updateCurrentIndex,
+          currentIndex: context.select((HomeCubit cubit) => cubit.state),
+          showSelectedLabels: false,
+          showUnselectedLabels: false,
+          type: BottomNavigationBarType.fixed,
+          items: [
+            BottomNavigationBarItem(
+              icon: SvgPicture.asset(
+                'assets/icons/Shop Icon.svg',
+                colorFilter: const ColorFilter.mode(
+                  inActiveIconColor,
+                  BlendMode.srcIn,
                 ),
-                activeIcon: SvgPicture.asset(
-                  'assets/icons/Shop Icon.svg',
-                  colorFilter: const ColorFilter.mode(
-                    kPrimaryColor,
-                    BlendMode.srcIn,
-                  ),
-                ),
-                label: 'Home',
               ),
-              BottomNavigationBarItem(
-                icon: SvgPicture.asset(
-                  'assets/icons/Heart Icon.svg',
-                  colorFilter: const ColorFilter.mode(
-                    inActiveIconColor,
-                    BlendMode.srcIn,
-                  ),
+              activeIcon: SvgPicture.asset(
+                'assets/icons/Shop Icon.svg',
+                colorFilter: const ColorFilter.mode(
+                  kPrimaryColor,
+                  BlendMode.srcIn,
                 ),
-                activeIcon: SvgPicture.asset(
-                  'assets/icons/Heart Icon.svg',
-                  colorFilter: const ColorFilter.mode(
-                    kPrimaryColor,
-                    BlendMode.srcIn,
-                  ),
-                ),
-                label: 'Fav',
               ),
-              BottomNavigationBarItem(
-                icon: SvgPicture.asset(
-                  'assets/icons/User Icon.svg',
-                  colorFilter: const ColorFilter.mode(
-                    inActiveIconColor,
-                    BlendMode.srcIn,
-                  ),
+              label: 'Home',
+            ),
+            BottomNavigationBarItem(
+              icon: SvgPicture.asset(
+                'assets/icons/Heart Icon.svg',
+                colorFilter: const ColorFilter.mode(
+                  inActiveIconColor,
+                  BlendMode.srcIn,
                 ),
-                activeIcon: SvgPicture.asset(
-                  'assets/icons/User Icon.svg',
-                  colorFilter: const ColorFilter.mode(
-                    kPrimaryColor,
-                    BlendMode.srcIn,
-                  ),
-                ),
-                label: 'Profile',
               ),
-            ],
-          ),
+              activeIcon: SvgPicture.asset(
+                'assets/icons/Heart Icon.svg',
+                colorFilter: const ColorFilter.mode(
+                  kPrimaryColor,
+                  BlendMode.srcIn,
+                ),
+              ),
+              label: 'Fav',
+            ),
+            BottomNavigationBarItem(
+              icon: SvgPicture.asset(
+                'assets/icons/User Icon.svg',
+                colorFilter: const ColorFilter.mode(
+                  inActiveIconColor,
+                  BlendMode.srcIn,
+                ),
+              ),
+              activeIcon: SvgPicture.asset(
+                'assets/icons/User Icon.svg',
+                colorFilter: const ColorFilter.mode(
+                  kPrimaryColor,
+                  BlendMode.srcIn,
+                ),
+              ),
+              label: 'Profile',
+            ),
+          ],
         ),
+      ),
     );
   }
 }
