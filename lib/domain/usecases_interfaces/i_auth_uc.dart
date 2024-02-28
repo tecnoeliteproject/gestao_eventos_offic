@@ -8,7 +8,7 @@ abstract class IAuthUC {
   Future<bool> resetPassword(String email);
   Future<bool> updatePassword(String password);
   Future<bool> updateEmail(String email);
-  Future<String> getCurrentUser();
+  Future<User?> getCurrentUser();
   Future<List<User>> getAllUsers();
   
   Future<void> changeUserPermissionLevelEvent(String email, int level);

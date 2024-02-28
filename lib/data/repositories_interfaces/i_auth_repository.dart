@@ -7,7 +7,7 @@ abstract class IAuthRepository {
   Future<bool> resetPassword(String email);
   Future<bool> updatePassword(String password);
   Future<bool> updateEmail(String email);
-  Future<String> getCurrentUser();
+  Future<UserModel?> getCurrentUser();
   Future<List<Map<String, dynamic>>> getAllUsers();
 
   Future<UserModel?> getUserByEmail(String email);

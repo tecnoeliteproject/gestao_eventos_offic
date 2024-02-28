@@ -43,8 +43,10 @@ class FirebaseAuthRepository implements IAuthRepository {
   }
 
   @override
-  Future<String> getCurrentUser() {
-    throw UnimplementedError();
+  Future<UserModel?> getCurrentUser() {
+    var res = FirebaseAuth.instance.currentUser;
+    if (res == null) return Future.value(null);
+    return getUserByEmail(res.email!);
   }
 
   @override

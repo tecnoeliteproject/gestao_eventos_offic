@@ -8,9 +8,8 @@ class AuthUC implements IAuthUC {
 
   final IAuthRepository _repository;
   @override
-  Future<String> getCurrentUser() {
-    // TODO: implement getCurrentUser
-    throw UnimplementedError();
+  Future<User> getCurrentUser() async {
+    return UserModel.fromEntity((await _repository.getCurrentUser())!);
   }
 
   @override
