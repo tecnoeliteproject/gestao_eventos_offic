@@ -1,19 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:gestao_eventos/presentation/auth/sign_in/components/sign_form.dart';
 import 'package:gestao_eventos/presentation/general_components/no_account_text.dart';
 import 'package:gestao_eventos/presentation/general_components/socal_card.dart';
 
-import '../components/sign_form.dart';
-
 class SignInScreen extends StatelessWidget {
-  static const String routeName = "/sign_in_screen";
-
   const SignInScreen({super.key});
+
+  static const String routeName = '/sign_in_screen';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Entrar"),
-      ),
       body: SafeArea(
         child: SizedBox(
           width: double.infinity,
@@ -24,7 +21,7 @@ class SignInScreen extends StatelessWidget {
                 children: [
                   const SizedBox(height: 16),
                   const Text(
-                    "Bem Vindo",
+                    'Event-Gest',
                     style: TextStyle(
                       color: Colors.black,
                       fontSize: 24,
@@ -32,14 +29,14 @@ class SignInScreen extends StatelessWidget {
                     ),
                   ),
                   const Text(
-                    "Faça login com email e senha  \nou continue com o google",
+                    'Faça login com email e senha  \nou continue com o google',
                     textAlign: TextAlign.center,
                   ),
                   const SizedBox(height: 16),
                   const SignForm(),
                   const SizedBox(height: 16),
                   SocalCard(
-                    icon: "assets/icons/google-icon.svg",
+                    icon: 'assets/icons/google-icon.svg',
                     press: () {},
                   ),
                   const SizedBox(height: 20),
