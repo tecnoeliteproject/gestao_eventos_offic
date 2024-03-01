@@ -18,4 +18,3 @@ void main() async {
 
   unawaited(bootstrap(() => DevicePreview(builder: (c) => const App())));
 }
-
