@@ -69,8 +69,6 @@ class _UsersPageState extends State<UsersPage> {
                   itemBuilder: (context, index) {
                     return Padding(
                       padding: const EdgeInsets.only(
-                        left: kDefaultPadding,
-                        right: kDefaultPadding,
                         bottom: kDefaultPadding,
                       ),
                       child: UserItem(users: users, index: index),
