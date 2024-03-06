@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:gestao_eventos/core/helpers/constants.dart';
 import 'package:gestao_eventos/presentation/auth/sign_in/bloc/bloc.dart';
 import 'package:gestao_eventos/presentation/auth/sign_in/bloc/sign_in_event.dart';
 import 'package:gestao_eventos/presentation/auth/sign_in/bloc/sign_in_state.dart';
 import 'package:gestao_eventos/presentation/auth/sign_in/view/sign_in_screen.dart';
 import 'package:gestao_eventos/presentation/general_components/admin_drawer.dart';
-import 'package:gestao_eventos/presentation/general_components/profile_page/profile_page.dart';
 import 'package:gestao_eventos/presentation/painels/admin/bloc/admin_event.dart';
 import 'package:gestao_eventos/presentation/painels/admin/bloc/admin_state.dart';
 import 'package:gestao_eventos/presentation/painels/admin/bloc/bloc.dart';
