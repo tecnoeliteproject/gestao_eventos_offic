@@ -71,54 +71,36 @@ class _ClientHomeScreenState extends State<ClientHomeScreen> {
           showUnselectedLabels: false,
           type: BottomNavigationBarType.fixed,
           items: [
-            BottomNavigationBarItem(
-              icon: SvgPicture.asset(
-                'assets/icons/Shop Icon.svg',
-                colorFilter: const ColorFilter.mode(
-                  inActiveIconColor,
-                  BlendMode.srcIn,
-                ),
+            const BottomNavigationBarItem(
+              icon: Icon(
+                Icons.home,
+                color: inActiveIconColor,
               ),
-              activeIcon: SvgPicture.asset(
-                'assets/icons/Shop Icon.svg',
-                colorFilter: const ColorFilter.mode(
-                  kPrimaryColor,
-                  BlendMode.srcIn,
-                ),
+              activeIcon: Icon(
+                Icons.home,
+                color: kPrimaryColor,
               ),
               label: 'Home',
             ),
-            BottomNavigationBarItem(
-              icon: SvgPicture.asset(
-                'assets/icons/Heart Icon.svg',
-                colorFilter: const ColorFilter.mode(
-                  inActiveIconColor,
-                  BlendMode.srcIn,
-                ),
+            const BottomNavigationBarItem(
+              icon: Icon(
+                Icons.message,
+                color: inActiveIconColor,
               ),
-              activeIcon: SvgPicture.asset(
-                'assets/icons/Heart Icon.svg',
-                colorFilter: const ColorFilter.mode(
-                  kPrimaryColor,
-                  BlendMode.srcIn,
-                ),
+              activeIcon: Icon(
+                Icons.message,
+                color: kPrimaryColor,
               ),
-              label: 'Fav',
+              label: 'Chat',
             ),
-            BottomNavigationBarItem(
-              icon: SvgPicture.asset(
-                'assets/icons/User Icon.svg',
-                colorFilter: const ColorFilter.mode(
-                  inActiveIconColor,
-                  BlendMode.srcIn,
-                ),
+            const BottomNavigationBarItem(
+              icon: Icon(
+                Icons.person,
+                color: inActiveIconColor,
               ),
-              activeIcon: SvgPicture.asset(
-                'assets/icons/User Icon.svg',
-                colorFilter: const ColorFilter.mode(
-                  kPrimaryColor,
-                  BlendMode.srcIn,
-                ),
+              activeIcon: Icon(
+                Icons.person,
+                color: kPrimaryColor,
               ),
               label: 'Profile',
             ),

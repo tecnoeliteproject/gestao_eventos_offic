@@ -7,7 +7,8 @@ sealed class ClientChatMessageEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class GetClientMessagesEvent extends ClientChatMessageEvent {}
+class GetClientMessagesEvent extends ClientChatMessageEvent {
+}
 class SendMessageEvent extends ClientChatMessageEvent {
   final String message;
   final List<ChatMessage> messages;
