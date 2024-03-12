@@ -34,7 +34,6 @@ migrate_working_dir/
 .packages
 .pub-cache/
 .pub/
-.git/
 build/
 flutter_*.png
 linked_*.ds
@@ -111,6 +110,3 @@ app.*.map.json
 !.idea/codeStyles/
 !.idea/dictionaries/
 !.idea/runConfigurations/
-firebase-tools-instant-win.exe
-gestao_eventos.rar
-
