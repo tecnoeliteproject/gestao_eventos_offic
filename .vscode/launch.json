@@ -13,8 +13,7 @@
         "--flavor",
         "development",
         "--target",
-        "lib/main_development.dart",
-        "--web-renderer html"
+        "lib/main_development.dart"
       ]
     },
     {
