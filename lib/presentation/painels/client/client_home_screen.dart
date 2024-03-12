@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gestao_eventos/core/helpers/constants.dart';
 import 'package:gestao_eventos/presentation/auth/sign_in/bloc/bloc.dart';
 import 'package:gestao_eventos/presentation/auth/sign_in/bloc/sign_in_event.dart';
@@ -70,8 +69,8 @@ class _ClientHomeScreenState extends State<ClientHomeScreen> {
           showSelectedLabels: false,
           showUnselectedLabels: false,
           type: BottomNavigationBarType.fixed,
-          items: [
-            const BottomNavigationBarItem(
+          items: const [
+            BottomNavigationBarItem(
               icon: Icon(
                 Icons.home,
                 color: inActiveIconColor,
@@ -82,7 +81,7 @@ class _ClientHomeScreenState extends State<ClientHomeScreen> {
               ),
               label: 'Home',
             ),
-            const BottomNavigationBarItem(
+            BottomNavigationBarItem(
               icon: Icon(
                 Icons.message,
                 color: inActiveIconColor,
@@ -93,7 +92,7 @@ class _ClientHomeScreenState extends State<ClientHomeScreen> {
               ),
               label: 'Chat',
             ),
-            const BottomNavigationBarItem(
+            BottomNavigationBarItem(
               icon: Icon(
                 Icons.person,
                 color: inActiveIconColor,
