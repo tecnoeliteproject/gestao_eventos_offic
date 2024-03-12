@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gutter/flutter_gutter.dart';
+import 'package:gestao_eventos/core/dependences/get_it.dart';
 import 'package:gestao_eventos/presentation/painels/admin/create_tipo_evento/create_tipo_evento.dart';
 import 'package:gestao_eventos/presentation/painels/admin/create_tipo_evento/cubit/descricao_form_cubit_cubit.dart';
 import 'package:gestao_eventos/presentation/painels/admin/create_tipo_evento/cubit/name_form_cubit_cubit.dart';
@@ -17,7 +18,7 @@ class CreateTipoEventoBody extends StatelessWidget {
     return BlocListener<CreateTipoEventoBloc, CreateTipoEventoState>(
       listener: (context, state) {
         if (state is CreateTipoEventoSuccess) {
-          BlocProvider.of<ListTipoEventosCubit>(context).listTipoEventos();
+          getIt<ListTipoEventosCubit>().listTipoEventos();
           Navigator.of(context).pop();
         }
       },

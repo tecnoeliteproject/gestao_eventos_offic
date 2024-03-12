@@ -15,6 +15,14 @@ class ListTipoEventosCubit extends Cubit<ListTipoEventosState> {
 
   late final ITipoEventoUseCase _tipoEventosUseCase;
 
+  Future<void> arquivarTipoEvento(TipoEvento tipoEvento) async {
+    final result = await _tipoEventosUseCase.arquivarTipoEvento(tipoEvento);
+
+    if (result) {
+      await listTipoEventos();
+    }
+  }
+
   Future<void> listTipoEventos() async {
     emit(ListTipoEventosLoading());
 

@@ -7,11 +7,13 @@ class TipoEvento {
     required this.image,
     required this.description,
     required this.exemplos,
+    this.isArchived,
   });
 
   final String id;
   final String name;
   final CImage image;
   final String description;
+  final bool? isArchived;
   List<CImage> exemplos;
 }

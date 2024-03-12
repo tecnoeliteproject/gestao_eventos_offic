@@ -31,4 +31,19 @@ class TipoEventoUsecase implements ITipoEventoUseCase {
   Future<TipoEvento?> updateTipoEvento(TipoEvento tipoEvento) {
     return _repository.updateTipoEvento(tipoEvento);
   }
+
+  @override
+  Future<bool> arquivarTipoEvento(TipoEvento tipoEvento) {
+    return _repository.arquivarTipoEvento(tipoEvento);
+  }
+
+  @override
+  Future<bool> desarquivarTipoEvento(TipoEvento tipoEvento) {
+    return _repository.desarquivarTipoEvento(tipoEvento);
+  }
+
+  @override
+  Future<List<TipoEvento>> getArchivedTipoEventos() {
+    return _repository.getArchivedTipoEventos();
+  }
 }

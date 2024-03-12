@@ -35,6 +35,7 @@ class FirebaseTipoTipoEventoDataSource implements ITipoEventoDataSource {
         'description': tipoEvento.description,
         'image': imageUrl,
         'exemplos': amostrasUrl,
+        'isArchived': tipoEvento.isArchived ?? false,
       };
 
       await _firestore.collection(_collectionName).doc(tipoEvento.id).set(map);
@@ -95,7 +96,18 @@ class FirebaseTipoTipoEventoDataSource implements ITipoEventoDataSource {
   }
 
   @override
-  Future<List<TipoEventoModel>> getTipoEventos() {
+  Future<List<TipoEventoModel>> getTipoEventos() async {
+    final result = await _getGenericTipoEventos();
+
+    return result
+        .where(
+          (element) =>
+              element.isArchived == null || element.isArchived! == false,
+        )
+        .toList();
+  }
+
+  Future<List<TipoEventoModel>> _getGenericTipoEventos() {
     try {
       final tipoEventos = _firestore.collection(_collectionName).get().then(
             (value) => value.docs.map(
@@ -104,6 +116,7 @@ class FirebaseTipoTipoEventoDataSource implements ITipoEventoDataSource {
                   'id': doc.id,
                   'name': doc.data()['name'],
                   'description': doc.data()['description'],
+                  'isArchived': doc.data()['isArchived'] ?? false,
                 };
                 if (doc.data()['exemplos'] != null) {
                   final exemplos = (doc.data()['exemplos'] as List<dynamic>)
@@ -155,16 +168,19 @@ class FirebaseTipoTipoEventoDataSource implements ITipoEventoDataSource {
         'Imagem invalida',
       );
 
-      await _firestore
-          .collection(_collectionName)
-          .doc(tipoEvento.id)
-          .update(<String, dynamic>{
+      final map = <String, dynamic>{
         'id': tipoEvento.id,
         'name': tipoEvento.name,
         'image': image.url,
         'description': tipoEvento.description,
         'exemplos': amostrasUrl,
-      });
+        'isArchived': tipoEvento.isArchived ?? false,
+      };
+
+      await _firestore
+          .collection(_collectionName)
+          .doc(tipoEvento.id)
+          .update(map);
 
       final ipoEvento = await getTipoEvento(tipoEvento.id);
       return ipoEvento;
@@ -187,5 +203,35 @@ class FirebaseTipoTipoEventoDataSource implements ITipoEventoDataSource {
     } catch (e) {
       throw UploadImageException();
     }
+  }
+
+  @override
+  Future<bool> arquivarTipoEvento(TipoEventoModel tipoEvento) async {
+    final result = await updateTipoEvento(
+      tipoEvento.copyWith(isArchived: true),
+    );
+
+    return result != null;
+  }
+
+  @override
+  Future<bool> desarquivarTipoEvento(TipoEventoModel tipoEvento) async {
+    final result = await updateTipoEvento(
+      tipoEvento.copyWith(isArchived: false),
+    );
+
+    return result != null;
+  }
+
+  @override
+  Future<List<TipoEventoModel>> getArchivedTipoEventos() async {
+    final result = await _getGenericTipoEventos();
+
+    return result
+        .where(
+          (element) =>
+              element.isArchived != null && element.isArchived! == true,
+        )
+        .toList();
   }
 }

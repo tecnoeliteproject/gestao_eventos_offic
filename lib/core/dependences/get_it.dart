@@ -10,6 +10,8 @@ import 'package:gestao_eventos/presentation/painels/admin/create_tipo_evento/blo
 import 'package:gestao_eventos/presentation/painels/admin/edit_tipo_evento/bloc/edit_tipo_evento_bloc.dart';
 import 'package:gestao_eventos/presentation/painels/admin/product_details/product_details.dart';
 import 'package:gestao_eventos/presentation/painels/admin/tipo_eventos/bloc/tipo_eventos_bloc.dart';
+import 'package:gestao_eventos/presentation/painels/admin/tipo_eventos/cubit/archived_list_tipo_eventos_cubit.dart';
+import 'package:gestao_eventos/presentation/painels/admin/tipo_eventos/cubit/list_tipo_eventos_cubit.dart';
 // import 'package:gestao_eventos/presentation/painels/admin/create_tipo_evento/cubit/descricao_form_cubit_cubit.dart';
 // import 'package:gestao_eventos/presentation/painels/admin/create_tipo_evento/cubit/imagem_form_cubit.dart';
 // import 'package:gestao_eventos/presentation/painels/admin/create_tipo_evento/cubit/imagens_de_exemplo_cubit_cubit.dart';
@@ -38,5 +40,9 @@ Future<void> setupGetIt() async {
     ..registerLazySingleton(TipoEventosBloc.new)
     ..registerLazySingleton(ProductDetailsBloc.new)
     ..registerLazySingleton(CreateTipoEventoBloc.new)
-    ..registerLazySingleton(EditTipoEventoBloc.new);
+    ..registerLazySingleton(EditTipoEventoBloc.new)
+
+    //cubits
+    ..registerLazySingleton(ArchivedListTipoEventosCubit.new);
+  // ..registerLazySingleton(ListTipoEventosCubit.new);
 }
