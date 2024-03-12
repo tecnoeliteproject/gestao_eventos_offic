@@ -18,6 +18,8 @@ class TipoEventoModel extends TipoEvento {
   @override
   final String description;
   @override
+  final bool? isArchived;
+  @override
   final List<CImage> exemplos;
 
   TipoEventoModel({
@@ -26,12 +28,14 @@ class TipoEventoModel extends TipoEvento {
     required this.image,
     required this.description,
     required this.exemplos,
+    this.isArchived,
   }) : super(
           id: id,
           name: name,
           image: image,
           description: description,
           exemplos: exemplos,
+          isArchived: isArchived,
         );
 
   TipoEventoModel copyWith({
@@ -40,6 +44,7 @@ class TipoEventoModel extends TipoEvento {
     CImage? image,
     String? description,
     List<CImage>? exemplos,
+    bool? isArchived,
   }) {
     return TipoEventoModel(
       id: id ?? this.id,
@@ -47,6 +52,7 @@ class TipoEventoModel extends TipoEvento {
       image: image ?? this.image,
       description: description ?? this.description,
       exemplos: exemplos ?? this.exemplos,
+      isArchived: isArchived ?? this.isArchived,
     );
   }
 
@@ -57,6 +63,7 @@ class TipoEventoModel extends TipoEvento {
       image: entity.image,
       description: entity.description,
       exemplos: entity.exemplos,
+      isArchived: entity.isArchived,
     );
   }
 
@@ -67,6 +74,7 @@ class TipoEventoModel extends TipoEvento {
       image: image,
       description: description,
       exemplos: exemplos,
+      isArchived: isArchived,
     );
   }
 
@@ -75,6 +83,7 @@ class TipoEventoModel extends TipoEvento {
       id: map['id'] as String,
       name: map['name'] as String,
       image: map['image'] as CImage,
+      isArchived: map['isArchived'] as bool? ?? false,
       description: map['description'] as String,
       exemplos: map['exemplos'] as List<CImage>,
     );
@@ -86,6 +95,7 @@ class TipoEventoModel extends TipoEvento {
       'name': name,
       'image': image.url,
       'description': description,
+      'isArchived': isArchived,
       'exemplos': exemplos.map((e) => e.url).toList(),
     };
   }
@@ -105,6 +115,7 @@ class TipoEventoModel extends TipoEvento {
     return other.id == id &&
         other.name == name &&
         other.image == image &&
+        other.isArchived == isArchived &&
         other.description == description &&
         listEquals(other.exemplos, exemplos);
   }
@@ -115,6 +126,7 @@ class TipoEventoModel extends TipoEvento {
         name.hashCode ^
         image.hashCode ^
         description.hashCode ^
+        isArchived.hashCode ^
         exemplos.hashCode;
   }
 }

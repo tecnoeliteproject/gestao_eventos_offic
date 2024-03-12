@@ -40,4 +40,23 @@ class TipoEventoRepository implements ITipoEventoRepository {
 
     return result?.toEntity();
   }
+
+  @override
+  Future<bool> arquivarTipoEvento(TipoEvento tipoEvento) {
+    return _datasource.arquivarTipoEvento(
+      TipoEventoModel.fromEntity(tipoEvento),
+    );
+  }
+
+  @override
+  Future<bool> desarquivarTipoEvento(TipoEvento tipoEvento) {
+    return _datasource.desarquivarTipoEvento(
+      TipoEventoModel.fromEntity(tipoEvento),
+    );
+  }
+
+  @override
+  Future<List<TipoEvento>> getArchivedTipoEventos() {
+    return _datasource.getArchivedTipoEventos();
+  }
 }

@@ -7,7 +7,7 @@ class AppTheme {
       scaffoldBackgroundColor: Colors.white,
       useMaterial3: true,
       fontFamily: 'Muli',
-      colorScheme: ColorScheme.fromSeed(seedColor: Colors.purple),
+      colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepOrange),
       appBarTheme: const AppBarTheme(
         color: Colors.white,
         elevation: 0,
@@ -19,13 +19,6 @@ class AppTheme {
         bodyMedium: TextStyle(color: kTextColor),
         bodySmall: TextStyle(color: kTextColor),
       ),
-      // inputDecorationTheme: const InputDecorationTheme(
-      //   floatingLabelBehavior: FloatingLabelBehavior.always,
-      //   contentPadding: EdgeInsets.symmetric(horizontal: 42, vertical: 20),
-      //   enabledBorder: outlineInputBorder,
-      //   focusedBorder: outlineInputBorder,
-      //   border: outlineInputBorder,
-      // ),
       visualDensity: VisualDensity.adaptivePlatformDensity,
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(

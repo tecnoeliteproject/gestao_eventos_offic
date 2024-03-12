@@ -14,14 +14,10 @@ class TipoEventosBloc extends Bloc<TipoEventosEvent, TipoEventosState> {
   FutureOr<void> _onCustomTipoEventosEvent(
     CustomTipoEventosEvent event,
     Emitter<TipoEventosState> emit,
-  ) {
-    
-  }
+  ) {}
 
   FutureOr<void> _onGetTipoEventosEvent(
     GetTipoEventosEvent event,
     Emitter<TipoEventosState> emit,
-  ) {
-    
-  }
+  ) {}
 }

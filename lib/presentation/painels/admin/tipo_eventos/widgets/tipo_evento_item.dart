@@ -7,6 +7,15 @@ import 'package:gestao_eventos/domain/entities/tipo_evento.dart';
 import 'package:gestao_eventos/presentation/painels/admin/edit_tipo_evento/edit_tipo_evento.dart';
 import 'package:gestao_eventos/presentation/painels/admin/product_details/view/product_details_page.dart';
 
+import 'package:gestao_eventos/presentation/painels/admin/tipo_eventos/widgets/confirm_arquivar_tipo_evento_dialog.dart';
+import 'package:gestao_eventos/presentation/painels/admin/tipo_eventos/widgets/confirm_desarquivar_tipo_evento_dialog.dart';
+
+enum _PopupIdMenuItem {
+  editar,
+  arquivar,
+  desarquivar,
+}
+
 class TipoEventoItem extends StatelessWidget {
   const TipoEventoItem({
     required this.tipoEvento,
@@ -23,6 +32,28 @@ class TipoEventoItem extends StatelessWidget {
           return ProductDetailsPage(tipoEvento: tipoEvento);
         },
       ),
+    );
+  }
+
+  Future<void> _archiveTipoEventoConfirmation(BuildContext context) {
+    return showAdaptiveDialog(
+      context: context,
+      builder: (context) {
+        return ArchiveTipoEventoConfimDialog(
+          tipoEvento: tipoEvento,
+        );
+      },
+    );
+  }
+
+  Future<void> _desarchiveTipoEventoConfirmation(BuildContext context) {
+    return showAdaptiveDialog(
+      context: context,
+      builder: (context) {
+        return UnarchiveTipoEventoConfimDialog(
+          tipoEvento: tipoEvento,
+        );
+      },
     );
   }
 
@@ -77,26 +108,44 @@ class TipoEventoItem extends StatelessWidget {
                       child: PopupMenuButton(
                         child: const Icon(Icons.more_vert),
                         onSelected: (value) {
-                          if (value == 0) {
+                          if (value == _PopupIdMenuItem.editar.index) {
                             Navigator.of(context).push(
                               EditTipoEventoPage.route(tipoEvento),
                             );
                           }
+
+                          if (value == _PopupIdMenuItem.arquivar.index) {
+                            _archiveTipoEventoConfirmation(context);
+                          }
+
+                          if (value == _PopupIdMenuItem.desarquivar.index) {
+                            _desarchiveTipoEventoConfirmation(context);
+                          }
                         },
                         itemBuilder: (context) {
                           return [
-                            const PopupMenuItem(
-                              value: 0,
-                              child: ListTile(
+                            PopupMenuItem(
+                              value: _PopupIdMenuItem.editar.index,
+                              child: const ListTile(
                                 title: Text('Editar'),
                                 leading: Icon(Icons.edit),
                               ),
                             ),
-                            const PopupMenuItem(
-                              value: 1,
+                            PopupMenuItem(
+                              value: _tipoEventoIsArchived
+                                  ? _PopupIdMenuItem.desarquivar.index
+                                  : _PopupIdMenuItem.arquivar.index,
                               child: ListTile(
-                                title: Text('Arquivar'),
-                                leading: Icon(Icons.archive),
+                                title: Text(
+                                  _tipoEventoIsArchived
+                                      ? 'Desrquivar'
+                                      : 'Arquivar',
+                                ),
+                                leading: Icon(
+                                  _tipoEventoIsArchived
+                                      ? Icons.unarchive
+                                      : Icons.archive,
+                                ),
                               ),
                             ),
                           ];
@@ -111,6 +160,10 @@ class TipoEventoItem extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  bool get _tipoEventoIsArchived {
+    return tipoEvento.isArchived != null && tipoEvento.isArchived! == true;
   }
 
   String limitText(Size screenSize, String text) {
