@@ -1,30 +1,30 @@
 import 'package:flutter/material.dart';
-
-import 'components/categories.dart';
-import 'components/discount_banner.dart';
-import 'components/home_header.dart';
-import 'components/popular_product.dart';
-import 'components/special_offers.dart';
+import 'package:flutter_gutter/flutter_gutter.dart';
+import 'package:gestao_eventos/core/helpers/constants.dart';
+import 'package:gestao_eventos/presentation/painels/client/pages/main_page/components/discount_banner.dart';
+import 'package:gestao_eventos/presentation/painels/client/pages/main_page/components/home_header.dart';
+import 'package:gestao_eventos/presentation/painels/client/pages/main_page/components/special_offers.dart';
+import 'package:gestao_eventos/presentation/painels/client/pages/main_page/components/tipoEventos/tipo_eventos_section.dart';
 
 class MainPage extends StatelessWidget {
-  static String routeName = "/home";
-
   const MainPage({super.key});
+  static String routeName = '/home';
+
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
-          padding: EdgeInsets.symmetric(vertical: 16),
+          padding: EdgeInsets.symmetric(vertical: kDefaultPadding),
           child: Column(
             children: [
               HomeHeader(),
               DiscountBanner(),
-              Categories(),
+              // Categories(),
               SpecialOffers(),
-              SizedBox(height: 20),
-              PopularProducts(),
-              SizedBox(height: 20),
+              GutterLarge(),
+              TipoEventosSection(),
+              GutterLarge(),
             ],
           ),
         ),
