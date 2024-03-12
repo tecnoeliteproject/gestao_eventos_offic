@@ -4,17 +4,36 @@ import 'package:gestao_eventos/core/dependences/get_it.dart';
 import 'package:gestao_eventos/presentation/painels/admin/create_tipo_evento/create_tipo_evento.dart';
 import 'package:gestao_eventos/presentation/painels/admin/edit_tipo_evento/edit_tipo_evento.dart';
 import 'package:gestao_eventos/presentation/painels/admin/tipo_eventos/bloc/tipo_eventos_bloc.dart';
+import 'package:gestao_eventos/presentation/painels/admin/tipo_eventos/cubit/archived_list_tipo_eventos_cubit.dart';
 import 'package:gestao_eventos/presentation/painels/admin/tipo_eventos/cubit/list_tipo_eventos_cubit.dart';
 import 'package:gestao_eventos/presentation/painels/admin/tipo_eventos/cubit/search_tipo_eventos_cubit.dart';
+import 'package:gestao_eventos/presentation/painels/admin/tipo_eventos/view/archived_tipo_eventos_page.dart';
 import 'package:gestao_eventos/presentation/painels/admin/tipo_eventos/widgets/app_bar_title_widget.dart';
 import 'package:gestao_eventos/presentation/painels/admin/tipo_eventos/widgets/search_tipo_eventos_widget.dart';
 import 'package:gestao_eventos/presentation/painels/admin/tipo_eventos/widgets/tipo_eventos_body.dart';
 
-class TipoEventosPage extends StatelessWidget {
+class TipoEventosPage extends StatefulWidget {
   const TipoEventosPage({super.key});
 
   static Route<dynamic> route() {
     return MaterialPageRoute<dynamic>(builder: (_) => const TipoEventosPage());
+  }
+
+  @override
+  State<TipoEventosPage> createState() => _TipoEventosPageState();
+}
+
+class _TipoEventosPageState extends State<TipoEventosPage> {
+  @override
+  void initState() {
+    super.initState();
+    getIt.registerLazySingleton(ListTipoEventosCubit.new);
+  }
+
+  @override
+  void dispose() {
+    getIt.unregister(instance: getIt<ListTipoEventosCubit>());
+    super.dispose();
   }
 
   @override
@@ -28,7 +47,10 @@ class TipoEventosPage extends StatelessWidget {
           create: (context) => SearchTipoEventosCubit(),
         ),
         BlocProvider(
-          create: (context) => ListTipoEventosCubit(),
+          create: (context) => getIt<ListTipoEventosCubit>(),
+        ),
+        BlocProvider(
+          create: (context) => getIt<ArchivedListTipoEventosCubit>(),
         ),
       ],
       child: Builder(
@@ -40,8 +62,7 @@ class TipoEventosPage extends StatelessWidget {
                 bloc: getIt<CreateTipoEventoBloc>(),
                 listener: (context, state) {
                   if (state is CreateTipoEventoSuccess) {
-                    BlocProvider.of<ListTipoEventosCubit>(context)
-                        .listTipoEventos();
+                    getIt<ListTipoEventosCubit>().listTipoEventos();
                   }
                 },
               ),
@@ -49,8 +70,16 @@ class TipoEventosPage extends StatelessWidget {
                 bloc: getIt<EditTipoEventoBloc>(),
                 listener: (context, state) {
                   if (state is EditTipoEventoSuccess) {
-                    BlocProvider.of<ListTipoEventosCubit>(context)
-                        .listTipoEventos();
+                    getIt<ListTipoEventosCubit>().listTipoEventos();
+                  }
+                },
+              ),
+              BlocListener<ArchivedListTipoEventosCubit,
+                  ArchivedListTipoEventosState>(
+                bloc: getIt<ArchivedListTipoEventosCubit>(),
+                listener: (context, state) {
+                  if (state is UnarchivedListTipoEventosSuccess) {
+                    getIt<ListTipoEventosCubit>().listTipoEventos();
                   }
                 },
               ),
@@ -94,20 +123,22 @@ class TipoEventosPage extends StatelessWidget {
           return const AppBarTitleWidget();
         },
       ),
-      actions: const [
-        IconButton(
+      actions: [
+        const IconButton(
           onPressed: null,
           // () {
           //   BlocProvider.of<SearchTipoEventosCubit>(context).enable();
           // }
           icon: Icon(Icons.search),
         ),
-        Padding(padding: EdgeInsets.only(right: 8)),
+        const Padding(padding: EdgeInsets.only(right: 8)),
         IconButton(
-          onPressed: null,
-          icon: Icon(FontAwesomeIcons.boxArchive),
+          onPressed: () {
+            Navigator.push(context, ArchivedTipoEventosPage.route());
+          },
+          icon: const Icon(FontAwesomeIcons.boxArchive),
         ),
-        Padding(padding: EdgeInsets.only(right: 8)),
+        const Padding(padding: EdgeInsets.only(right: 8)),
       ],
     );
   }
