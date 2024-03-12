@@ -736,10 +736,11 @@ packages:
   logging:
     dependency: transitive
     description:
-      name: logging
-      sha256: "623a88c9594aa774443aa3eb2d41807a48486b5613e67599fb4c41c0ad47c340"
+      name: macos_window_utils
+      sha256: "230be594d26f6dee92c5a1544f4242d25138a5bfb9f185b27f14de3949ef0be8"
       url: "https://pub.flutter-io.cn"
     source: hosted
+<<<<<<< HEAD
     version: "1.2.0"
   macos_ui:
     dependency: transitive
@@ -756,6 +757,8 @@ packages:
       sha256: "230be594d26f6dee92c5a1544f4242d25138a5bfb9f185b27f14de3949ef0be8"
       url: "https://pub.flutter-io.cn"
     source: hosted
+=======
+>>>>>>> b9c1f52 (adiciona a tela de tipos arquivados)
     version: "1.5.0"
   matcher:
     dependency: transitive
