@@ -4,7 +4,6 @@ import 'package:flutter_gutter/flutter_gutter.dart';
 import 'package:gestao_eventos/presentation/painels/client/pages/main_page/components/section_title.dart';
 import 'package:gestao_eventos/presentation/painels/client/pages/main_page/components/tipoEventos/client_tipo_evento_item.dart';
 import 'package:gestao_eventos/presentation/painels/client/pages/main_page/components/tipoEventos/cubit/tipo_evento_item_cubit.dart';
-import 'package:gestao_eventos/presentation/painels/client/pages/tipo_evento_detail/view/tipo_evento_detail_page.dart';
 
 class TipoEventosSection extends StatelessWidget {
   const TipoEventosSection({super.key});
@@ -57,9 +56,9 @@ class TipoEventosSection extends StatelessWidget {
                               padding: const EdgeInsets.only(left: 20),
                               child: ClientTipoEventoItem(
                                 e,
-                                onPress: () => Navigator.push(
+                                onPress: () => Navigator.pushNamed(
                                   context,
-                                  TipoEventoDetailPage.route(tipoEvento: e),
+                                  'DetailsScreen.routeName',
                                 ),
                               ),
                             ),
