@@ -19,7 +19,7 @@ class SignUpBloc extends Bloc<SigningUpEvent, SignUpState> {
   Future<void> _signup(Emitter<SignUpState> emit, SigningUpEvent event) async {
     emit(SignUpLoading());
     try {
-      final user = await _uc.signUp(event.email, event.password);
+      final user = await _uc.signUp(event.name ,event.email, event.password);
       emit(SignUpSucess(user: user));
     } on AuthException catch (e) {
       emit(SigningUpError(e.message));

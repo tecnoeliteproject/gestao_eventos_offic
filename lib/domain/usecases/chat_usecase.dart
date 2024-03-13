@@ -1,3 +1,7 @@
+import 'dart:math';
+
+import 'package:gestao_eventos/core/helpers/generic_functions.dart';
+import 'package:gestao_eventos/data/models/user_model.dart';
 import 'package:gestao_eventos/data/repositories_interfaces/i_chat_repository.dart';
 import 'package:gestao_eventos/domain/entities/chat_message.dart';
 import 'package:gestao_eventos/domain/entities/user.dart';
@@ -28,6 +32,12 @@ class ChatUseCase extends IChatUsecase {
 
   @override
   Future<List<User>> getMessageSenders() async{
-    return _repository.getMessageSenders();
+    var list = <User>[];
+    final messageSenders = await _repository.getMessageIDSenders();
+    final allUsers = await _iAuthUC.getAllUsers();
+    messageSenders.forEach((element1) {
+      list.add(allUsers.firstWhere((element) => element.email == element1));
+    });
+    return list;
   }
 }

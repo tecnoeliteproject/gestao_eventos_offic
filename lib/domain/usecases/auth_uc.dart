@@ -33,10 +33,10 @@ class AuthUC implements IAuthUC {
   }
 
   @override
-  Future<User> signUp(String email, String password) async {
+  Future<User> signUp(String name, String email, String password) async {
     await _repository.signUp(email, password);
     return UserModel.toEntity(
-      await _repository.createUser(UserModel(email: email, level: User.CLIENT)),
+      await _repository.createUser(UserModel(email: email, level: User.CLIENT, name: name)),
     );
   }
 

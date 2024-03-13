@@ -19,9 +19,9 @@ class ChatRepository extends IChatRepository {
   Future<bool> sendMessage(ChatMessage chatMessage) async {
     return _dataSource.sendMessage(ChatMessageModel.fromEntity(chatMessage));
   }
-
+  
   @override
-  Future<List<User>> getMessageSenders() async{
-    return _dataSource.getMessageSenders().then((value) => value.map(UserModel.toEntity).toList());
+  Future<List<String>> getMessageIDSenders() {
+    return _dataSource.getMessageIDSenders();
   }
 }
