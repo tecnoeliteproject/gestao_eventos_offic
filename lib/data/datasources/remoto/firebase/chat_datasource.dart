@@ -3,24 +3,33 @@ import 'package:gestao_eventos/core/helpers/generic_functions.dart';
 import 'package:gestao_eventos/data/datasources/i_chat_datasource.dart';
 import 'package:gestao_eventos/data/models/chat_message_model.dart';
 import 'package:gestao_eventos/data/models/user_model.dart';
+import 'package:uuid/uuid.dart';
 
 class ChatDataSource extends IChatDataSource {
-  ChatDataSource({required FirebaseFirestore firestore}) : _firestore = firestore;
-
+  ChatDataSource({required FirebaseFirestore firestore})
+      : _firestore = firestore;
 
   final String _collectionName = 'messages';
   final FirebaseFirestore _firestore;
 
   @override
-  Future<List<ChatMessageModel>> getMessages(String senderEmail) async{
-    final res = await _firestore.collection(_collectionName).doc(senderEmail).collection('client_messages').orderBy('date_time', descending: true).get();
+  Future<List<ChatMessageModel>> getMessages(String senderEmail) async {
+    final res = await _firestore
+        .collection(_collectionName)
+        .orderBy('date_time', descending: true)
+        .get();
+
+    print(res);
     return res.docs.map((e) => ChatMessageModel.fromJson(e.data())).toList();
   }
 
   @override
-  Future<bool> sendMessage(ChatMessageModel chatMessage)async {
+  Future<bool> sendMessage(ChatMessageModel chatMessage) async {
     try {
-      await _firestore.collection(_collectionName).doc(chatMessage.senderEmail).collection('client_messages').add(chatMessage.toMap());
+      await _firestore
+          .collection(_collectionName)
+          .doc(const Uuid().v4())
+          .set(chatMessage.toMap());
       return true;
     } catch (e) {
       return false;
@@ -28,9 +37,8 @@ class ChatDataSource extends IChatDataSource {
   }
 
   @override
-  Future<List<String>> getMessageIDSenders() async{
+  Future<List<String>> getMessageIDSenders() async {
     final res = await _firestore.collection('messages').get();
-    return res.docs.map((e) => e.id).toList();
+    return res.docs.map((e) => e.data()['sender_email'] as String).toList();
   }
-  
 }
