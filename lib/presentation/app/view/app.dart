@@ -11,6 +11,8 @@ import 'package:gestao_eventos/presentation/auth/sign_up/bloc/bloc.dart';
 import 'package:gestao_eventos/presentation/auth/sign_up/bloc/sign_up_state.dart';
 import 'package:gestao_eventos/presentation/painels/admin/bloc/admin_state.dart';
 import 'package:gestao_eventos/presentation/painels/admin/bloc/bloc.dart';
+import 'package:gestao_eventos/presentation/painels/admin/view/pages/channels/bloc/channels_bloc.dart';
+import 'package:gestao_eventos/presentation/painels/admin/view/pages/chat/bloc/admin_chat_message_bloc.dart';
 import 'package:gestao_eventos/presentation/painels/admin/view/pages/users/bloc/bloc.dart';
 import 'package:gestao_eventos/presentation/painels/admin/view/pages/users/bloc/manage_users_state.dart';
 import 'package:gestao_eventos/presentation/painels/client/cubit/home_cubit.dart';
@@ -36,6 +38,10 @@ class App extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => ManageUsersBloc(GettingUsersState()),
+        ),BlocProvider(
+          create: (context) => AdminChatMessageBloc(AdminMessageInitialState()),
+        ),BlocProvider(
+          create: (context) => ChannelsBloc(ChannelsInitialState()),
         ),
       ],
       child: MaterialApp(
