@@ -19,6 +19,7 @@ class SignUpForm extends StatefulWidget {
 
 class _SignUpFormState extends State<SignUpForm> {
   final _formKey = GlobalKey<FormState>();
+  String? name;
   String? email;
   String? password;
   String? conform_password;
@@ -71,6 +72,39 @@ class _SignUpFormState extends State<SignUpForm> {
           key: _formKey,
           child: Column(
             children: [
+              TextFormField(
+                keyboardType: TextInputType.name,
+                onSaved: (newValue) => name = newValue,
+                onChanged: (value) {
+                  if (value.isNotEmpty) {
+                    removeError(error: kNamelNullError);
+                  } else if (nameValidatorRegExp.hasMatch(value)) {
+                    removeError(error: kInvalidNameError);
+                  }
+                  name = value;
+                  return;
+                },
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    addError(error: kNamelNullError);
+                    return '';
+                  } else if (!nameValidatorRegExp.hasMatch(value)) {
+                    addError(error: kInvalidNameError);
+                    return '';
+                  }
+                  return null;
+                },
+                decoration: const InputDecoration(
+                  labelText: 'Nome',
+                  hintText: 'Digite seu nome completo',
+                  // If  you are using latest version of flutter then lable text and hint text shown like this
+                  // if you r using flutter less then 1.20.* then maybe this is not working properly
+                  floatingLabelBehavior: FloatingLabelBehavior.always,
+                  suffixIcon:
+                      Icon(Icons.text_fields),
+                ),
+              ),
+              const SizedBox(height: 20),
               TextFormField(
                 keyboardType: TextInputType.emailAddress,
                 onSaved: (newValue) => email = newValue,
@@ -192,6 +226,7 @@ class _SignUpFormState extends State<SignUpForm> {
                     _bloc.add(SigningUpEvent(
                       email: email!,
                       password: password!,
+                      name: name!
                     ));
                   }
                 },
