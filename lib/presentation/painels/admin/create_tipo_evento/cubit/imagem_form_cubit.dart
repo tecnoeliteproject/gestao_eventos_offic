@@ -3,9 +3,8 @@ import 'dart:io';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
+import 'package:gestao_eventos/core/helpers/custom_image_picker.dart';
 import 'package:gestao_eventos/domain/entities/c_image.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:image_picker_web/image_picker_web.dart';
 
 part 'imagem_form_state.dart';
 
@@ -21,7 +20,7 @@ class ImagemFormCubit extends Cubit<ImagemFormState> {
 
   Future<void> onSelectImagem() async {
     if (kIsWeb) {
-      final bytesFromPicker = await ImagePickerWeb.getImageAsBytes();
+      final bytesFromPicker = await ImPicker.pickImage();
 
       if (bytesFromPicker == null) {
         return;
@@ -36,18 +35,18 @@ class ImagemFormCubit extends Cubit<ImagemFormState> {
         ),
       );
     } else {
-      final picker = ImagePicker();
-      final response = await picker.pickImage(
-        source: ImageSource.gallery,
-      );
+      final response = await ImPicker.pickImage();
+
       if (response == null) {
         return;
       }
+
+      final file = File.fromRawPath(response);
       emit(
         ImagemFormChanged(
           imagem: CImage(
-            url: response.path,
-            bytes: File(response.path).readAsBytesSync(),
+            url: file.path,
+              bytes: file.readAsBytesSync(),
           ),
         ),
       );
