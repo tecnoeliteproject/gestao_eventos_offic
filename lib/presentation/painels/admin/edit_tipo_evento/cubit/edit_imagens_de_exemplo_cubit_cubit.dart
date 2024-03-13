@@ -3,8 +3,8 @@ import 'dart:io';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
-import 'package:gestao_eventos/domain/entities/c_image.dart';
 import 'package:gestao_eventos/core/helpers/custom_image_picker.dart';
+import 'package:gestao_eventos/domain/entities/c_image.dart';
 
 part 'edit_imagens_de_exemplo_cubit_state.dart';
 
