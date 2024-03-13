@@ -18,13 +18,13 @@ class EditImagensDeExemploFormCubit
   }
 
   Future<void> onSelectImagem() async {
+    final bytesFromPicker = await ImPicker.pickImage();
+
+    if (bytesFromPicker == null) {
+      return;
+    }
+
     if (kIsWeb) {
-      final bytesFromPicker = await ImPicker.pickImage();
-
-      if (bytesFromPicker == null) {
-        return;
-      }
-
       emit(
         EditImagensDeExemploCubitChanged(
           [
@@ -37,13 +37,7 @@ class EditImagensDeExemploFormCubit
         ),
       );
     } else {
-      final response = await ImPicker.pickImage();
-
-      if (response == null) {
-        return;
-      }
-
-      final file = File.fromRawPath(response);
+      final file = File.fromRawPath(bytesFromPicker);
       emit(
         EditImagensDeExemploCubitChanged(
           [
@@ -71,15 +65,14 @@ class EditImagensDeExemploFormCubit
   }
 
   Future<void> onSwitchImagem(int index) async {
+    final bytesFromPicker = await ImPicker.pickImage();
+
+    if (bytesFromPicker == null) {
+      return;
+    }
+    var list = List<CImage>.from(state.exemplos.cast());
+
     if (kIsWeb) {
-      final bytesFromPicker = await ImPicker.pickImage();
-
-      if (bytesFromPicker == null) {
-        return;
-      }
-
-      var list = List<CImage>.from(state.exemplos.cast());
-
       list = list
         ..removeAt(index)
         ..insert(
@@ -96,23 +89,14 @@ class EditImagensDeExemploFormCubit
         ]),
       );
     } else {
-      final response = await ImPicker.pickImage();
-
-      if (response == null) {
-        return;
-      }
-
-      final file = File.fromRawPath(response);
-
-      var list = List<CImage>.from(state.exemplos);
-
+      final file = File.fromRawPath(bytesFromPicker);
       list = list
         ..removeAt(index)
         ..insert(
           index,
           CImage(
             url: file.path,
-              bytes: file.readAsBytesSync(),
+            bytes: file.readAsBytesSync(),
           ),
         );
 
