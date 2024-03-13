@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:gestao_eventos/bootstrap.dart';
 import 'package:gestao_eventos/core/dependences/get_it.dart';
