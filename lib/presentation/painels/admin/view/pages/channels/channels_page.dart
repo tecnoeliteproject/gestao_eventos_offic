@@ -33,14 +33,11 @@ class ChannelsPageSatate extends State<ChannelsPage> {
       builder: (context, state) {
         if (state is GettingChannelsState) {
           return LinearProgressIndicator();
-        }
-        if (state is GotChannelsState) {
+        }if (state is GotChannelsState) {
           users = state.users;
-        }
-        if (state is ErrorOnGetChannelsState) {
+        }if (state is ErrorOnGetChannelsState) {
           return Text(state.messages);
         }
-
         return ListView.builder(
           itemCount: users.length,
           shrinkWrap: true,
