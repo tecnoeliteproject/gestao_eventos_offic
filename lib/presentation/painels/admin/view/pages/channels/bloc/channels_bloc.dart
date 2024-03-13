@@ -15,13 +15,14 @@ part 'channels_event.dart';
 part 'channels_state.dart';
 
 class ChannelsBloc extends Bloc<ChannelsEvent, ChannelsState> {
-  ChannelsBloc(ChannelsInitialState channelsInitialState) : super(ChannelsInitialState()) {
+  ChannelsBloc(ChannelsInitialState channelsInitialState)
+      : super(ChannelsInitialState()) {
     initDependencies();
     initAllEvents();
   }
 
   void initAllEvents() {
-    on<GetChannelsEvent>((event, emit)async {
+    on<GetChannelsEvent>((event, emit) async {
       emit(GettingChannelsState());
       try {
         final res = await _usecase.getMessageSenders();
@@ -34,7 +35,11 @@ class ChannelsBloc extends Bloc<ChannelsEvent, ChannelsState> {
 
   void initDependencies() {
     _authUC = AuthUC(repository: FirebaseAuthRepository());
-    _usecase = ChatUseCase(repository: ChatRepository(dataSource: ChatDataSource(firestore:FirebaseFirestore.instance)), authUC: _authUC);
+    _usecase = ChatUseCase(
+      repository: ChatRepository(
+          dataSource: ChatDataSource(firestore: FirebaseFirestore.instance)),
+      authUC: _authUC,
+    );
   }
 
   late IAuthUC _authUC;
