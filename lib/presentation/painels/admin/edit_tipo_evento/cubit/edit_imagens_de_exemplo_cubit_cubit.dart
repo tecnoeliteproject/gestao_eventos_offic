@@ -4,8 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:gestao_eventos/domain/entities/c_image.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:image_picker_web/image_picker_web.dart';
+import 'package:gestao_eventos/core/helpers/custom_image_picker.dart';
 
 part 'edit_imagens_de_exemplo_cubit_state.dart';
 
@@ -20,7 +19,7 @@ class EditImagensDeExemploFormCubit
 
   Future<void> onSelectImagem() async {
     if (kIsWeb) {
-      final bytesFromPicker = await ImagePickerWeb.getImageAsBytes();
+      final bytesFromPicker = await ImPicker.pickImage();
 
       if (bytesFromPicker == null) {
         return;
@@ -38,20 +37,20 @@ class EditImagensDeExemploFormCubit
         ),
       );
     } else {
-      final picker = ImagePicker();
-      final response = await picker.pickImage(
-        source: ImageSource.gallery,
-      );
+      final response = await ImPicker.pickImage();
+
       if (response == null) {
         return;
       }
+
+      final file = File.fromRawPath(response);
       emit(
         EditImagensDeExemploCubitChanged(
           [
             ...state.exemplos.cast(),
             CImage(
-              url: response.path,
-              bytes: File(response.path).readAsBytesSync(),
+              url: file.path,
+              bytes: file.readAsBytesSync(),
             ),
           ],
         ),
@@ -73,7 +72,7 @@ class EditImagensDeExemploFormCubit
 
   Future<void> onSwitchImagem(int index) async {
     if (kIsWeb) {
-      final bytesFromPicker = await ImagePickerWeb.getImageAsBytes();
+      final bytesFromPicker = await ImPicker.pickImage();
 
       if (bytesFromPicker == null) {
         return;
@@ -97,13 +96,13 @@ class EditImagensDeExemploFormCubit
         ]),
       );
     } else {
-      final picker = ImagePicker();
-      final response = await picker.pickImage(
-        source: ImageSource.gallery,
-      );
+      final response = await ImPicker.pickImage();
+
       if (response == null) {
         return;
       }
+
+      final file = File.fromRawPath(response);
 
       var list = List<CImage>.from(state.exemplos);
 
@@ -112,8 +111,8 @@ class EditImagensDeExemploFormCubit
         ..insert(
           index,
           CImage(
-            url: response.path,
-            bytes: File(response.path).readAsBytesSync(),
+            url: file.path,
+              bytes: file.readAsBytesSync(),
           ),
         );
 
