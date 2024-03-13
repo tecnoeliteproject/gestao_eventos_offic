@@ -30,8 +30,6 @@ class ChatDataSource extends IChatDataSource {
   @override
   Future<List<UserModel>> getMessageSenders() async{
     final res = await _firestore.collection('messages').get();
-    showLog(messsage: res.size.toString());
-    showLog(messsage: res.docs.length.toString());
     return _firestore.collection(_collectionName).get().then((value) {
       showLog(messsage: value.docs.toString());
       return value.docs.map((e) => UserModel.fromMap(e.data())).toList();
