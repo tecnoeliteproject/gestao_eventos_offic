@@ -1,8 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:gestao_eventos/core/helpers/generic_functions.dart';
 import 'package:gestao_eventos/data/datasources/i_chat_datasource.dart';
 import 'package:gestao_eventos/data/models/chat_message_model.dart';
-import 'package:gestao_eventos/data/models/user_model.dart';
 import 'package:uuid/uuid.dart';
 
 class ChatDataSource extends IChatDataSource {
@@ -18,9 +16,13 @@ class ChatDataSource extends IChatDataSource {
         .collection(_collectionName)
         .orderBy('date_time', descending: true)
         .get();
-
-    print(res);
     return res.docs.map((e) => ChatMessageModel.fromJson(e.data())).toList();
+  }
+
+  @override
+  Future<List<String>> getMessageIDSenders() async {
+    final res = await _firestore.collection('messages').get();
+    return res.docs.map((e) => e.data()['sender_email'] as String).toList();
   }
 
   @override
@@ -34,11 +36,5 @@ class ChatDataSource extends IChatDataSource {
     } catch (e) {
       return false;
     }
-  }
-
-  @override
-  Future<List<String>> getMessageIDSenders() async {
-    final res = await _firestore.collection('messages').get();
-    return res.docs.map((e) => e.data()['sender_email'] as String).toList();
   }
 }
