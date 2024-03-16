@@ -1,9 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:gestao_eventos/core/helpers/constants.dart';
 import 'package:gestao_eventos/domain/entities/tipo_evento.dart';
+import 'package:gestao_eventos/presentation/painels/client/pages/tipo_evento_detail/cubit/image_widget_cubit.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class ImageWidget extends HookWidget {
@@ -30,9 +31,23 @@ class ImageWidget extends HookWidget {
           itemBuilder: (context, index) {
             final image = images[index];
 
-            return CachedNetworkImage(
-              imageUrl: image,
-              fit: BoxFit.cover,
+            return Builder(
+              builder: (context) {
+                final bloc = ImageWidgetCubit();
+
+                return GestureDetector(
+                  onTap: bloc.changeBoxFit,
+                  child: BlocBuilder<ImageWidgetCubit, ImageWidgetState>(
+                    bloc: bloc,
+                    builder: (context, state) {
+                      return CachedNetworkImage(
+                        imageUrl: image,
+                        fit: state.boxFit,
+                      );
+                    },
+                  ),
+                );
+              },
             );
           },
         ),
