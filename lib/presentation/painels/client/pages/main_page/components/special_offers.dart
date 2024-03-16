@@ -107,7 +107,7 @@ class SpecialOfferCard extends StatelessWidget {
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        TextSpan(text: '$numOfBrands Convidados')
+                        TextSpan(text: '$numOfBrands Lugares'),
                       ],
                     ),
                   ),

@@ -40,7 +40,7 @@ class DetailsSection extends StatelessWidget {
             ),
             const GutterTiny(),
             Text(
-              '13 convidados',
+              '13 lugares',
               style: Theme.of(context).textTheme.titleSmall,
             ),
             const GutterLarge(),
