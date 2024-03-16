@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/widgets.dart';
 import 'package:gestao_eventos/core/dependences/get_it.dart';
 import 'package:gestao_eventos/core/helpers/constants.dart';
