@@ -34,7 +34,7 @@ class _SignFormState extends State<SignForm> {
   void initState() {
     super.initState();
     _bloc = BlocProvider.of<SignInBloc>(context);
-    // _bloc.add(SigningInEvent(email: 'mauro@gmail.com', password: 'password'));
+    _bloc.add(SigningInEvent(email: 'mauro@gmail.com', password: 'password'));
   }
 
   void addError({String? error}) {
