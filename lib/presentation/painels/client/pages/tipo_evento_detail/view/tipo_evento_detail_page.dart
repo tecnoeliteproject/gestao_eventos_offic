@@ -5,7 +5,6 @@ import 'package:gestao_eventos/core/dependences/get_it.dart';
 
 import 'package:gestao_eventos/domain/entities/tipo_evento.dart';
 import 'package:gestao_eventos/presentation/painels/client/pages/tipo_evento_detail/bloc/bloc.dart';
-import 'package:gestao_eventos/presentation/painels/client/pages/tipo_evento_detail/cubit/image_widget_cubit.dart';
 import 'package:gestao_eventos/presentation/painels/client/pages/tipo_evento_detail/widgets/contratarServicoSection/contratar_servico_section.dart';
 import 'package:gestao_eventos/presentation/painels/client/pages/tipo_evento_detail/widgets/tipo_evento_detail_body.dart';
 

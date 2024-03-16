@@ -1,8 +1,5 @@
-import 'dart:developer';
-
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/foundation.dart';
 
 part 'descricao_form_cubit_state.dart';
 
@@ -23,7 +20,6 @@ class DescricaoFormCubit extends Cubit<DescricaoFormCubitState> {
 
   void onUpdate(String descricao) {
     emit(DescricaoFormCubitChanged(descricao));
-
   }
 
   String? validateDescricao(String? descricao) {
