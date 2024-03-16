@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gutter/flutter_gutter.dart';
+import 'package:gestao_eventos/presentation/painels/client/pages/tipo_evento_detail/widgets/detailsSection/details_section.dart';
 import 'package:gestao_eventos/presentation/painels/client/pages/tipo_evento_detail/widgets/headerSection/header_section_widget.dart';
 
 /// {@template tipo_evento_detail_body}
@@ -16,6 +18,8 @@ class TipoEventoDetailBody extends StatelessWidget {
       child: Column(
         children: [
           HeaderSection(),
+          Gutter(),
+          DetailsSection(),
         ],
       ),
     );

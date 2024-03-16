@@ -26,7 +26,7 @@ class HeaderDetails extends StatelessWidget {
         ),
         const Spacer(),
         _CustomDetailsButton(
-          onTap: () => Navigator.pop(context),
+          onTap: () {},
           icon: const Icon(
             Icons.favorite_border,
             color: Colors.black,
@@ -34,7 +34,7 @@ class HeaderDetails extends StatelessWidget {
         ),
         const Gutter(),
         _CustomDetailsButton(
-          onTap: () => Navigator.pop(context),
+          onTap: () {},
           icon: const Icon(
             Icons.share,
             color: Colors.black,
@@ -59,7 +59,7 @@ class _CustomDetailsButton extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         shape: BoxShape.circle,
-        color: Colors.white.withAlpha(200),
+        color: Colors.white.withAlpha(150),
       ),
       child: IconButton(
         onPressed: onTap,
