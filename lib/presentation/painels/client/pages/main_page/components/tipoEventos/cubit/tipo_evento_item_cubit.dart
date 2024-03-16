@@ -17,6 +17,7 @@ class TipoEventoItemCubit extends Cubit<TipoEventoItemState> {
     emit(TipoEventoItemLoading());
     try {
       final tipoEventos = await _tipoEventoUseCase.getTipoEventos();
+      tipoEventos.sort((a, b) => a.name.compareTo(b.name));
       emit(TipoEventoItemLoaded(tipoEventos: tipoEventos));
     } catch (e) {
       emit(TipoEventoItemError(error: e.toString()));
