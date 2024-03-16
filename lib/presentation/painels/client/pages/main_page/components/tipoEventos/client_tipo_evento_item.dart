@@ -22,7 +22,7 @@ class ClientTipoEventoItem extends StatelessWidget {
       child: GestureDetector(
         onTap: onPress,
         child: AspectRatio(
-          aspectRatio: 1.02,
+          aspectRatio: 3 / 4,
           child: SpecialOfferCard(
             category: tipoEvento.name,
             image: tipoEvento.image.url,
@@ -46,7 +46,7 @@ class SpecialOfferCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 20),
+      padding: const EdgeInsets.only(left: 8),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(20),
         child: Stack(
