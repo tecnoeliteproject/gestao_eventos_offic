@@ -3,9 +3,14 @@ import 'package:gestao_eventos/presentation/general_components/profile_page/comp
 import 'package:gestao_eventos/presentation/general_components/profile_page/components/profile_pic.dart';
 
 class ProfileAdminPage extends StatelessWidget {
-  const ProfileAdminPage({super.key, required this.onSigningOut});
-  final Function onSigningOut;
+  const ProfileAdminPage({
+    required this.onSigningOut,
+    super.key,
+  });
+
+  final Function? onSigningOut;
   static String routeName = '/profile';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,7 +31,8 @@ class ProfileAdminPage extends StatelessWidget {
             ProfileMenu(
               text: 'Sair',
               icon: 'assets/icons/Log out.svg',
-              press: () => onSigningOut,
+              // ignore: avoid_dynamic_calls
+              press: () => onSigningOut?.call(),
             ),
           ],
         ),
