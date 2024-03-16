@@ -24,9 +24,6 @@ class DescricaoFormCubit extends Cubit<DescricaoFormCubitState> {
   void onUpdate(String descricao) {
     emit(DescricaoFormCubitChanged(descricao));
 
-    if (kDebugMode) {
-      log(state.descricao);
-    }
   }
 
   String? validateDescricao(String? descricao) {

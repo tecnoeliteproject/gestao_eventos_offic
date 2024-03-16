@@ -23,10 +23,6 @@ class NameFormCubitCubit extends Cubit<NameFormCubitState> {
 
   void onUpdate(String name) {
     emit(NameFormCubitChanged(name));
-
-    if (kDebugMode) {
-      log(state.name);
-    }
   }
 
   String? validateName(String? name) {
