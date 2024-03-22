@@ -17,11 +17,14 @@ class ContratarServicoSection extends StatelessWidget {
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const LigarWidget(
-              icon: Icon(
+            LigarWidget(
+              icon: const Icon(
                 FontAwesomeIcons.message,
                 color: Colors.green,
               ),
+              onTap: () {
+                print('Ligar');
+              },
             ),
             const Gutter(),
             Expanded(
@@ -49,20 +52,23 @@ class LigarWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: const BoxDecoration(
-        shape: BoxShape.circle,
-        color: Colors.white,
-        border: Border.fromBorderSide(
-          BorderSide(
-            color: Colors.green,
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        decoration: const BoxDecoration(
+          shape: BoxShape.circle,
+          color: Colors.white,
+          border: Border.fromBorderSide(
+            BorderSide(
+              color: Colors.green,
+            ),
           ),
         ),
-      ),
-      child: IconButton(
-        onPressed: onTap,
-        icon: icon,
-        padding: EdgeInsets.zero,
+        child: IconButton(
+          onPressed: onTap,
+          icon: icon,
+          padding: EdgeInsets.zero,
+        ),
       ),
     );
   }
