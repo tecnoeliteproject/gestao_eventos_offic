@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:gestao_eventos/core/helpers/constants.dart';
 import 'package:gestao_eventos/domain/entities/chat_message.dart';
 import 'package:gestao_eventos/presentation/painels/admin/product_details/product_details.dart';
@@ -58,7 +59,7 @@ class _ClientChatState extends State<ClientChat> {
                 }
                 return ListView.builder(
                   itemCount: messages.length,
-                  shrinkWrap: true,
+                  // shrinkWrap: true,
                   padding: const EdgeInsets.only(top: 10, bottom: 10),
                   physics: const NeverScrollableScrollPhysics(),
                   itemBuilder: (context, index) {
@@ -138,24 +139,23 @@ class _ClientChatState extends State<ClientChat> {
                       if (state is GotClientMessagesSucessState) {
                         messages = state.messages;
                       }
-                      return FloatingActionButton(
-                        onPressed: () {
-                          if (_controller.text.isNotEmpty) {
-                            _bloc.add(
-                              SendMessageEvent(
-                                message: _controller.text,
-                                messages: messages,
-                              ),
-                            );
-                            _controller.clear();
+                      return RawKeyboardListener(
+                        focusNode: FocusNode(),
+                        onKey: (RawKeyEvent event) {
+                          if (event is RawKeyDownEvent &&
+                              event.logicalKey == LogicalKeyboardKey.enter) {
+                            _onSendMessage();
                           }
                         },
-                        backgroundColor: kPrimaryColor,
-                        elevation: 0,
-                        child: const Icon(
-                          Icons.send,
-                          color: Colors.white,
-                          size: 18,
+                        child: FloatingActionButton(
+                          onPressed: _onSendMessage,
+                          backgroundColor: kPrimaryColor,
+                          elevation: 0,
+                          child: const Icon(
+                            Icons.send,
+                            color: Colors.white,
+                            size: 18,
+                          ),
                         ),
                       );
                     },
@@ -167,5 +167,17 @@ class _ClientChatState extends State<ClientChat> {
         ],
       ),
     );
+  }
+
+  void _onSendMessage() {
+    if (_controller.text.isNotEmpty) {
+      _bloc.add(
+        SendMessageEvent(
+          message: _controller.text,
+          messages: messages,
+        ),
+      );
+      _controller.clear();
+    }
   }
 }
