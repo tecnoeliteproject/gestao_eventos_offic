@@ -11,19 +11,10 @@ import 'package:gestao_eventos/presentation/app/app.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-<<<<<<< HEAD
 
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-=======
-  
-  if (kIsWeb) {
-    await Firebase.initializeApp(
-      options: DefaultFirebaseOptions.currentPlatform,
-    );
-  }
->>>>>>> bc298f7 (adiciona a tela de tipos arquivados)
 
   await setupGetIt();
 
