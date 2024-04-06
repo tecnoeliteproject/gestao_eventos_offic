@@ -18,7 +18,7 @@ import 'package:gestao_eventos/presentation/app/app.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-
+  if (kIsWeb) {
     await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform,
     );
