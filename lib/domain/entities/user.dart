@@ -1,19 +1,18 @@
-
-class User{
+class User {
   User({
     this.email,
     this.password,
     this.id,
     this.name,
-    this.level
+    this.level,
   });
-  
+
   String? email;
   int? level;
   String? password;
   String? id;
   String? name;
-  
+
   static const int ADMIN = 0;
   static const int RECEPCIONIST = 1;
   static const int CLIENT = 2;
