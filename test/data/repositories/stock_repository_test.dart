@@ -3,6 +3,7 @@ import 'package:gestao_eventos/data/datasources/i_stock_datasource.dart';
 import 'package:gestao_eventos/data/models/stock_model.dart';
 import 'package:gestao_eventos/data/repositories/stock_repository.dart';
 import 'package:gestao_eventos/data/repositories_interfaces/i_stock_repository.dart';
+import 'package:gestao_eventos/domain/entities/material.dart';
 import 'package:gestao_eventos/domain/entities/stock.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:uuid/uuid.dart';
@@ -73,15 +74,19 @@ void main() {
 Stock _createFakeStockEntity() {
   return Stock(
     id: const Uuid().v4(),
-    materialId: const Uuid().v4(),
+    material: Material(
+      id: const Uuid().v4(),
+      nome: 'Cadeira',
+      descricao: 'Cadeira branca de quatro pernos',
+      quantidade: 5,
+      precoUnitario: 0,
+    ),
     operacao: 'entrada',
-    precoUnitario: 10,
-    quantidade: 5,
     data: DateTime.now(),
     motivo: 'Emprestimo a um cliente',
-    descricaoMaterial: 'Cadeira branca de quatro pernos',
+    obs: 'Cadeira branca de quatro pernos',
     localizacao: 'Armazem 2',
-    usuarioResponsavel: const Uuid().v4(),
+    usuarioResponsavelId: const Uuid().v4(),
     condicao: 'Bom',
   );
 }

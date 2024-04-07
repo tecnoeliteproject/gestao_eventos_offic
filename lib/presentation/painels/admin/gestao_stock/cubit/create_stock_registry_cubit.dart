@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:gestao_eventos/core/dependences/get_it.dart';
+import 'package:gestao_eventos/domain/entities/material.dart';
 import 'package:gestao_eventos/domain/entities/stock.dart';
 import 'package:gestao_eventos/domain/usecases_interfaces/i_stock_usecase.dart';
 import 'package:uuid/uuid.dart';
@@ -15,7 +16,7 @@ class CreateStockRegistryCubit extends Cubit<CreateStockRegistryState> {
   late final IStockUseCase _stockUseCase;
 
   Future<void> createStock() async {
-      emit(CreateStockRegistryLoading());
+    emit(CreateStockRegistryLoading());
     final stock = _createFakeStockEntity();
 
     final result = await _stockUseCase.createStock(stock);
@@ -30,16 +31,21 @@ class CreateStockRegistryCubit extends Cubit<CreateStockRegistryState> {
   Stock _createFakeStockEntity() {
     return Stock(
       id: const Uuid().v4(),
-      materialId: const Uuid().v4(),
+      material: Material(
+        id: const Uuid().v4(),
+        nome: 'Cadeira',
+        descricao: 'Cadeira branca de quatro pernos',
+        quantidade: 5,
+        precoUnitario: 0,
+      ),
       operacao: 'entrada',
-      precoUnitario: 10,
-      quantidade: 5,
       data: DateTime.now(),
       motivo: 'Emprestimo a um cliente',
-      descricaoMaterial: 'Cadeira branca de quatro pernos',
       localizacao: 'Armazem 2',
-      usuarioResponsavel: const Uuid().v4(),
+      usuarioResponsavelId: const Uuid().v4(),
+      clienteId: const Uuid().v4(),
       condicao: 'Bom',
+      obs: 'Cadeira branca de quatro pernos',
     );
   }
 }

@@ -12,7 +12,7 @@ class FirebaseStockDatasource implements IStockDatasource {
 
   late final FirebaseFirestore _firestore;
   // late final FirebaseStorage _storage;
-  final String _collectionName = 'tipoEventos';
+  final String _collectionName = 'stocks';
   // final String _imageStorageBucket = '/images/tipoEventos';
 
   @override

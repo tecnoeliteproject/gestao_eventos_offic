@@ -3,48 +3,46 @@
 
 import 'dart:convert';
 
+import 'package:gestao_eventos/data/models/material_model.dart';
 import 'package:gestao_eventos/domain/entities/stock.dart';
 
 class StockModel extends Stock {
   StockModel(
     this.id,
-    this.materialId,
+    this.material,
     this.operacao,
-    this.precoUnitario,
-    this.quantidade,
     this.data,
     this.motivo,
-    this.descricaoMaterial,
+    this.obs,
     this.localizacao,
-    this.usuarioResponsavel,
+    this.usuarioResponsavelId,
+    this.clienteId,
     this.condicao,
     this.fotoUrl,
   ) : super(
           id: id,
-          materialId: materialId,
+          material: material,
           operacao: operacao,
-          precoUnitario: precoUnitario,
-          quantidade: quantidade,
           data: data,
           motivo: motivo,
-          descricaoMaterial: descricaoMaterial,
+          obs: obs,
           localizacao: localizacao,
-          usuarioResponsavel: usuarioResponsavel,
+          usuarioResponsavelId: usuarioResponsavelId,
+          clienteId: clienteId,
           condicao: condicao,
           fotoUrl: fotoUrl,
         );
 
   final String id; // Identificador único do registo
-  final String materialId; // ID do material associado
+  final MaterialModel material; // ID do material associado
   final String operacao; // Tipo de operação (entrada ou saída)
-  final double precoUnitario; // Preço unitário ou por lote
-  final int quantidade; // Quantidade movimentada
   final DateTime data; // Data da operação
 
   final String? motivo; // Motivo específico da operação (opcional)
-  final String? descricaoMaterial; // Descrição detalhada do material
+  final String? obs; // Descrição detalhada do material
   final String? localizacao; // Local onde o material está armazenado
-  final String? usuarioResponsavel; // Pessoa responsável pela operação
+  final String? usuarioResponsavelId; // Pessoa responsável pela operação
+  final String? clienteId; // Pessoa responsável pela operação
   final String? condicao; // Estado do material
   final String? fotoUrl;
 
@@ -52,15 +50,14 @@ class StockModel extends Stock {
   factory StockModel.fromEntity(Stock stock) {
     return StockModel(
       stock.id,
-      stock.materialId,
+      MaterialModel.fromEntity(stock.material),
       stock.operacao,
-      stock.precoUnitario,
-      stock.quantidade,
       stock.data,
       stock.motivo,
-      stock.descricaoMaterial,
+      stock.obs,
       stock.localizacao,
-      stock.usuarioResponsavel,
+      stock.usuarioResponsavelId,
+      stock.clienteId,
       stock.condicao,
       stock.fotoUrl,
     );
@@ -70,15 +67,14 @@ class StockModel extends Stock {
   Stock toEntity() {
     return Stock(
       id: id,
-      materialId: materialId,
+      material: material,
       operacao: operacao,
-      precoUnitario: precoUnitario,
-      quantidade: quantidade,
       data: data,
       motivo: motivo,
-      descricaoMaterial: descricaoMaterial,
+      obs: obs,
       localizacao: localizacao,
-      usuarioResponsavel: usuarioResponsavel,
+      usuarioResponsavelId: usuarioResponsavelId,
+      clienteId: clienteId,
       condicao: condicao,
       fotoUrl: fotoUrl,
     );
@@ -86,29 +82,27 @@ class StockModel extends Stock {
 
   StockModel copyWith({
     String? id,
-    String? materialId,
+    MaterialModel? material,
     String? operacao,
-    double? precoUnitario,
-    int? quantidade,
     DateTime? data,
     String? motivo,
-    String? descricaoMaterial,
+    String? obs,
     String? localizacao,
-    String? usuarioResponsavel,
+    String? usuarioResponsavelId,
+    String? clienteId,
     String? condicao,
     String? fotoUrl,
   }) {
     return StockModel(
       id ?? this.id,
-      materialId ?? this.materialId,
+      material ?? this.material,
       operacao ?? this.operacao,
-      precoUnitario ?? this.precoUnitario,
-      quantidade ?? this.quantidade,
       data ?? this.data,
       motivo ?? this.motivo,
-      descricaoMaterial ?? this.descricaoMaterial,
+      obs ?? this.obs,
       localizacao ?? this.localizacao,
-      usuarioResponsavel ?? this.usuarioResponsavel,
+      usuarioResponsavelId ?? this.usuarioResponsavelId,
+      clienteId ?? this.clienteId,
       condicao ?? this.condicao,
       fotoUrl ?? this.fotoUrl,
     );
@@ -117,15 +111,14 @@ class StockModel extends Stock {
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'id': id,
-      'materialId': materialId,
+      'material': material.toMap(),
       'operacao': operacao,
-      'precoUnitario': precoUnitario,
-      'quantidade': quantidade,
       'data': data.millisecondsSinceEpoch,
       'motivo': motivo,
-      'descricaoMaterial': descricaoMaterial,
+      'obs': obs,
       'localizacao': localizacao,
-      'usuarioResponsavel': usuarioResponsavel,
+      'usuarioResponsavel': usuarioResponsavelId,
+      'clienteId': clienteId,
       'condicao': condicao,
       'fotoUrl': fotoUrl,
     };
@@ -134,18 +127,17 @@ class StockModel extends Stock {
   factory StockModel.fromMap(Map<String, dynamic> map) {
     return StockModel(
       map['id'] as String,
-      map['materialId'] as String,
+      MaterialModel.fromMap(map['material'] as Map<String, dynamic>),
       map['operacao'] as String,
-      map['precoUnitario'] as double,
-      map['quantidade'] as int,
       DateTime.fromMillisecondsSinceEpoch(map['data'] as int),
       map['motivo'] != null ? map['motivo'] as String : null,
-      map['descricaoMaterial'] != null
-          ? map['descricaoMaterial'] as String
-          : null,
+      map['obs'] != null ? map['obs'] as String : null,
       map['localizacao'] != null ? map['localizacao'] as String : null,
       map['usuarioResponsavel'] != null
           ? map['usuarioResponsavel'] as String
+          : null,
+      map['clienteId'] != null
+          ? map['clienteId'] as String
           : null,
       map['condicao'] != null ? map['condicao'] as String : null,
       map['fotoUrl'] != null ? map['fotoUrl'] as String : null,
@@ -159,7 +151,7 @@ class StockModel extends Stock {
 
   @override
   String toString() {
-    return 'StockModel(id: $id, materialId: $materialId, operacao: $operacao, precoUnitario: $precoUnitario, quantidade: $quantidade, data: $data, motivo: $motivo, descricaoMaterial: $descricaoMaterial, localizacao: $localizacao, usuarioResponsavel: $usuarioResponsavel, condicao: $condicao, fotoUrl: $fotoUrl)';
+    return 'StockModel(id: $id, material: $material, operacao: $operacao, data: $data, motivo: $motivo, obs: $obs, localizacao: $localizacao, usuarioResponsavel: $usuarioResponsavelId, condicao: $condicao, fotoUrl: $fotoUrl)';
   }
 
   @override
@@ -167,15 +159,14 @@ class StockModel extends Stock {
     if (identical(this, other)) return true;
 
     return other.id == id &&
-        other.materialId == materialId &&
+        other.material == material &&
         other.operacao == operacao &&
-        other.precoUnitario == precoUnitario &&
-        other.quantidade == quantidade &&
         other.data == data &&
         other.motivo == motivo &&
-        other.descricaoMaterial == descricaoMaterial &&
+        other.obs == obs &&
         other.localizacao == localizacao &&
-        other.usuarioResponsavel == usuarioResponsavel &&
+        other.usuarioResponsavelId == usuarioResponsavelId &&
+        other.clienteId == clienteId &&
         other.condicao == condicao &&
         other.fotoUrl == fotoUrl;
   }
@@ -183,15 +174,14 @@ class StockModel extends Stock {
   @override
   int get hashCode {
     return id.hashCode ^
-        materialId.hashCode ^
+        material.hashCode ^
         operacao.hashCode ^
-        precoUnitario.hashCode ^
-        quantidade.hashCode ^
         data.hashCode ^
         motivo.hashCode ^
-        descricaoMaterial.hashCode ^
+        obs.hashCode ^
         localizacao.hashCode ^
-        usuarioResponsavel.hashCode ^
+        usuarioResponsavelId.hashCode ^
+        clienteId.hashCode ^
         condicao.hashCode ^
         fotoUrl.hashCode;
   }
