@@ -19,8 +19,11 @@ class GestaoStockPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => GestaoStockBloc(),
-      child: const Scaffold(
-        body: GestaoStockView(),
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text('Gestão de Stock'),
+        ),
+        body: const GestaoStockView(),
       ),
     );
   }

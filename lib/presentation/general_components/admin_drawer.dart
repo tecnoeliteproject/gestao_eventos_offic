@@ -23,9 +23,8 @@ class AdminDrawer extends StatelessWidget {
               Navigator.pop(context);
               Navigator.push(context, TipoEventosPage.route());
             },
-            title: const Text('Gestão de eventos'),
-            leading: const Icon(FontAwesomeIcons.mendeley),
-            trailing: const Icon(Icons.chevron_right),
+            title: const Text('Gestão de serviços'),
+            leading: const Icon(FontAwesomeIcons.basketShopping),
           ),
           ListTile(
             onTap: () {
@@ -33,8 +32,7 @@ class AdminDrawer extends StatelessWidget {
               Navigator.push(context, GestaoStockPage.route());
             },
             title: const Text('Gestão de STOCK'),
-            leading: const Icon(FontAwesomeIcons.mendeley),
-            // trailing: const Icon(Icons.chevron_right),
+            leading: const Icon(FontAwesomeIcons.warehouse),
           ),
         ],
       ),

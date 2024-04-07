@@ -97,10 +97,12 @@ class TipoEventoItem extends StatelessWidget {
                         tipoEvento.name,
                       ),
                       overflow: TextOverflow.clip,
-                      style: const TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                      ),
+                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                            fontWeight: FontWeight.bold,
+                            color: Theme.of(context)
+                                .colorScheme
+                                .onSecondaryContainer,
+                          ),
                     ),
                     const Spacer(),
                     ClipRRect(
