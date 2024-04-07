@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:gestao_eventos/presentation/painels/admin/gestao_stock/gestao_stock.dart';
 import 'package:gestao_eventos/presentation/painels/admin/tipo_eventos/tipo_eventos.dart';
 
 class AdminDrawer extends StatelessWidget {
@@ -18,23 +19,20 @@ class AdminDrawer extends StatelessWidget {
             child: Center(child: Text('Painel administrativo')),
           ),
           ListTile(
-            title: const Text('Home'),
-            onTap: () {
-              Navigator.pop(context);
-            },
-          ),
-          ListTile(
-            title: const Text('Users'),
-            onTap: () {
-              Navigator.pop(context);
-            },
-          ),
-          ListTile(
             onTap: () {
               Navigator.pop(context);
               Navigator.push(context, TipoEventosPage.route());
             },
-            title: const Text('Tipos de eventos'),
+            title: const Text('Gestão de eventos'),
+            leading: const Icon(FontAwesomeIcons.mendeley),
+            trailing: const Icon(Icons.chevron_right),
+          ),
+          ListTile(
+            onTap: () {
+              Navigator.pop(context);
+              Navigator.push(context, GestaoStockPage.route());
+            },
+            title: const Text('Gestão de STOCK'),
             leading: const Icon(FontAwesomeIcons.mendeley),
             trailing: const Icon(Icons.chevron_right),
           ),
