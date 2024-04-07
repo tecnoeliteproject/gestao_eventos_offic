@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gestao_eventos/presentation/painels/admin/gestao_stock/bloc/bloc.dart';
+import 'package:gestao_eventos/presentation/painels/admin/gestao_stock/cubit/create_stock_registry_cubit.dart';
 import 'package:gestao_eventos/presentation/painels/admin/gestao_stock/widgets/gestao_stock_body.dart';
 
 /// {@template gestao_stock_page}
@@ -17,13 +18,31 @@ class GestaoStockPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => GestaoStockBloc(),
-      child: Scaffold(
-        appBar: AppBar(
-          title: const Text('Gestão de Stock'),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => GestaoStockBloc(),
         ),
-        body: const GestaoStockView(),
+        BlocProvider(
+          create: (context) => CreateStockRegistryCubit(),
+        ),
+      ],
+      child: Builder(
+        builder: (context) {
+          return Scaffold(
+            appBar: AppBar(
+              title: const Text('Gestão de Stock'),
+            ),
+            body: const GestaoStockView(),
+            floatingActionButton: FloatingActionButton(
+              onPressed: () {
+                BlocProvider.of<CreateStockRegistryCubit>(context)
+                    .createStock();
+              },
+              child: const Icon(Icons.add),
+            ),
+          );
+        },
       ),
     );
   }
