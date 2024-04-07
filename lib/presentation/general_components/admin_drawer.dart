@@ -34,7 +34,7 @@ class AdminDrawer extends StatelessWidget {
             },
             title: const Text('Gestão de STOCK'),
             leading: const Icon(FontAwesomeIcons.mendeley),
-            trailing: const Icon(Icons.chevron_right),
+            // trailing: const Icon(Icons.chevron_right),
           ),
         ],
       ),

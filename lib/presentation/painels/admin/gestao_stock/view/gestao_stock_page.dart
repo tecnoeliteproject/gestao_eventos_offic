@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gestao_eventos/presentation/painels/admin/gestao_stock/bloc/bloc.dart';
 import 'package:gestao_eventos/presentation/painels/admin/gestao_stock/widgets/gestao_stock_body.dart';
@@ -11,7 +12,7 @@ class GestaoStockPage extends StatelessWidget {
 
   /// The static route for GestaoStockPage
   static Route<dynamic> route() {
-    return MaterialPageRoute<dynamic>(builder: (_) => const GestaoStockPage());
+    return CupertinoPageRoute<dynamic>(builder: (_) => const GestaoStockPage());
   }
 
   @override
@@ -22,7 +23,7 @@ class GestaoStockPage extends StatelessWidget {
         body: GestaoStockView(),
       ),
     );
-  }    
+  }
 }
 
 /// {@template gestao_stock_view}
