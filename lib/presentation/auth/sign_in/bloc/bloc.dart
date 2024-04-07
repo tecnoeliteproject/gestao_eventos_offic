@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:gestao_eventos/core/dependences/get_it.dart';
 import 'package:gestao_eventos/core/error/auth_exceptions.dart';
 import 'package:gestao_eventos/data/repositories/firebase_auth_repository.dart';
 import 'package:gestao_eventos/domain/usecases/auth_uc.dart';
@@ -46,5 +47,6 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
 
   void initDependencies() {
     _uc = AuthUC(repository: FirebaseAuthRepository());
+    getIt.registerSingleton<IAuthUC>(_uc);
   }
 }

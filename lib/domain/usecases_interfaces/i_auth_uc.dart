@@ -12,4 +12,6 @@ abstract class IAuthUC {
   Future<List<User>> getAllUsers();
   
   Future<void> changeUserPermissionLevelEvent(String email, int level);
+
+  Future<User?> getUserByEmail(String email);
 }

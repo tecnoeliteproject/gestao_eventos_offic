@@ -5,7 +5,7 @@ class User{
     this.password,
     this.id,
     this.name,
-    this.level
+    this.level,
   });
   
   String? email;

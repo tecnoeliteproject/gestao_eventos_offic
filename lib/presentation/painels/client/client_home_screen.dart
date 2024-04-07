@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gestao_eventos/core/dependences/get_it.dart';
 import 'package:gestao_eventos/core/helpers/constants.dart';
+import 'package:gestao_eventos/domain/entities/user.dart';
+import 'package:gestao_eventos/domain/usecases_interfaces/i_auth_uc.dart';
 import 'package:gestao_eventos/presentation/auth/sign_in/bloc/bloc.dart';
 import 'package:gestao_eventos/presentation/auth/sign_in/bloc/sign_in_event.dart';
 import 'package:gestao_eventos/presentation/auth/sign_in/bloc/sign_in_state.dart';
@@ -24,19 +27,22 @@ class ClientHomeScreen extends StatefulWidget {
 class _ClientHomeScreenState extends State<ClientHomeScreen> {
   late HomeCubit _homeCubit;
   late SignInBloc _signInBloc;
+  late User userSender;
 
   @override
-  void initState() {
-    super.initState();
+  void initState() async{
     _homeCubit = BlocProvider.of<HomeCubit>(context);
     _signInBloc = BlocProvider.of<SignInBloc>(context);
+
+    userSender = (await getIt.get<IAuthUC>().getCurrentUser())!;
     initPages();
+    super.initState();
   }
 
   void initPages() {
     pages = [
       const MainPage(),
-      ClientChat(),
+      ClientChat(userSender: userSender,),
       ProfilePage(
         onSigningOut: () {
           _signInBloc.add(SigningOutEvent());

@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
+import 'package:gestao_eventos/core/helpers/generic_functions.dart';
 import 'package:gestao_eventos/data/datasources/remoto/firebase/chat_datasource.dart';
 import 'package:gestao_eventos/data/repositories/chat_repository.dart';
 import 'package:gestao_eventos/data/repositories/firebase_auth_repository.dart';
@@ -25,8 +26,8 @@ class ChannelsBloc extends Bloc<ChannelsEvent, ChannelsState> {
     on<GetChannelsEvent>((event, emit) async {
       emit(GettingChannelsState());
       try {
-        final res = await _usecase.getMessageSenders();
-        emit(GotChannelsState(users: res));
+        final res = await _usecase.getHeadChannels();
+        emit(GotChannelsState(chatMessage: res));
       } catch (e) {
         emit(ErrorOnGetChannelsState(messages: e.toString()));
       }

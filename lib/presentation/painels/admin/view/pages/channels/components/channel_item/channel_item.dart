@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class ChannelItem extends StatefulWidget{
-  ChannelItem({required this.name,required this.messageText,required this.time,required this.isMessageRead});
+  ChannelItem({required this.name, required this.messageText, required this.time, required this.isMessageRead, super.key});
   String name;
   String messageText;
   String time;
@@ -11,13 +11,15 @@ class ChannelItem extends StatefulWidget{
 }
 
 class _ChannelItemState extends State<ChannelItem> {
+  _ChannelItemState();
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: (){
       },
       child: Container(
-        padding: EdgeInsets.only(left: 16,right: 16,top: 10,bottom: 10),
+        padding: const EdgeInsets.only(left: 16,right: 16,top: 10,bottom: 10),
         child: Row(
           children: <Widget>[
             Expanded(
@@ -27,16 +29,16 @@ class _ChannelItemState extends State<ChannelItem> {
                     maxRadius: 30,
                     child: Icon(Icons.person),
                   ),
-                  SizedBox(width: 16,),
+                  const SizedBox(width: 16,),
                   Expanded(
                     child: Container(
                       color: Colors.transparent,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          Text(widget.name, style: TextStyle(fontSize: 16),),
-                          SizedBox(height: 6,),
-                          Text(widget.messageText,style: TextStyle(fontSize: 13,color: Colors.grey.shade600, fontWeight: widget.isMessageRead?FontWeight.bold:FontWeight.normal),),
+                          Text(widget.name, style: const TextStyle(fontSize: 16),),
+                          const SizedBox(height: 6,),
+                          Text(widget.messageText, style: TextStyle(fontSize: 13, color: Colors.grey.shade600, fontWeight: widget.isMessageRead?FontWeight.bold:FontWeight.normal),),
                         ],
                       ),
                     ),
@@ -44,7 +46,7 @@ class _ChannelItemState extends State<ChannelItem> {
                 ],
               ),
             ),
-            Text(widget.time,style: TextStyle(fontSize: 12,fontWeight: widget.isMessageRead?FontWeight.bold:FontWeight.normal),),
+            Text(widget.time,style: TextStyle(fontSize: 12,fontWeight: widget.isMessageRead?FontWeight.bold:FontWeight.normal),)
           ],
         ),
       ),

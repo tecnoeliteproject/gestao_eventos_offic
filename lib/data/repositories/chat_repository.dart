@@ -24,4 +24,9 @@ class ChatRepository extends IChatRepository {
   Future<List<String>> getMessageIDSenders() {
     return _dataSource.getMessageIDSenders();
   }
+  
+  @override
+  Future<List<ChatMessage>> getAllMessages() async{
+    return (await _dataSource.getAllMessages()).map((e) => e.toEntity()).toList();
+  }
 }

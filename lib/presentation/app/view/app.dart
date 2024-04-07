@@ -40,10 +40,9 @@ class App extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => ManageUsersBloc(GettingUsersState()),
-        ),BlocProvider(
+        ),
+        BlocProvider(
           create: (context) => AdminChatMessageBloc(AdminMessageInitialState()),
-        ),BlocProvider(
-          create: (context) => ChannelsBloc(ChannelsInitialState()),
         ),
       ],
       child: GlobalLoaderOverlay(

@@ -37,4 +37,13 @@ class ChatDataSource extends IChatDataSource {
       return false;
     }
   }
+  
+  @override
+  Future<List<ChatMessageModel>> getAllMessages() async{
+    final res = await _firestore
+        .collection(_collectionName)
+        .orderBy('date_time', descending: true)
+        .get();
+    return res.docs.map((e) => ChatMessageModel.fromJson(e.data())).toList();
+  }
 }

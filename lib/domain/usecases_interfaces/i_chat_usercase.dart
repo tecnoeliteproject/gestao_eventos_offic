@@ -4,5 +4,6 @@ import 'package:gestao_eventos/domain/entities/user.dart';
 abstract class IChatUsecase {
   Future<bool> sendMessage(ChatMessage chatMessage);
   Future<List<ChatMessage>> getMessages(String senderEmail);  
+  Future<List<ChatMessage>> getHeadChannels();  
   Future<List<User>> getMessageSenders();
 }

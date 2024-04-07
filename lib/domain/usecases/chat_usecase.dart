@@ -1,7 +1,3 @@
-import 'dart:math';
-
-import 'package:gestao_eventos/core/helpers/generic_functions.dart';
-import 'package:gestao_eventos/data/models/user_model.dart';
 import 'package:gestao_eventos/data/repositories_interfaces/i_chat_repository.dart';
 import 'package:gestao_eventos/domain/entities/chat_message.dart';
 import 'package:gestao_eventos/domain/entities/user.dart';
@@ -32,12 +28,29 @@ class ChatUseCase extends IChatUsecase {
 
   @override
   Future<List<User>> getMessageSenders() async{
-    var list = <User>[];
+    final list = <User>[];
     final messageSenders = await _repository.getMessageIDSenders();
     final allUsers = await _iAuthUC.getAllUsers();
-    messageSenders.forEach((element1) {
+    for (final element1 in messageSenders) {
       list.add(allUsers.firstWhere((element) => element.email == element1));
-    });
+    }
     return list;
+  }
+  
+  @override
+  Future<List<ChatMessage>> getHeadChannels() async {
+    final list = <ChatMessage>[];
+    final allMassages = await _repository.getAllMessages();
+    for (final element in allMassages) {
+      if(!_containsMessageSender(list, element)){
+        element.sender = await _iAuthUC.getUserByEmail(element.senderEmail!);
+        list.add(element);
+      }
+    }
+    return list;
+  }
+
+  bool _containsMessageSender(List<ChatMessage> list, ChatMessage element) {
+    return list.any((element1) => element1.senderEmail == element.senderEmail);
   }
 }

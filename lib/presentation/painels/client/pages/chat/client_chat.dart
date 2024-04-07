@@ -2,19 +2,27 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:gestao_eventos/core/helpers/constants.dart';
 import 'package:gestao_eventos/domain/entities/chat_message.dart';
+import 'package:gestao_eventos/domain/entities/user.dart';
 import 'package:gestao_eventos/presentation/painels/admin/product_details/product_details.dart';
 import 'package:gestao_eventos/presentation/painels/client/pages/chat/bloc/client_chat_message_bloc.dart';
 
 class ClientChat extends StatefulWidget {
-  const ClientChat({super.key});
+
+  static const String routeName = '/chat_screen';
+
+  final User userSender;
+  const ClientChat({super.key, required this.userSender});
 
   @override
   State<StatefulWidget> createState() {
-    return _ClientChatState();
+    return _ClientChatState(userSender: userSender);
   }
 }
 
 class _ClientChatState extends State<ClientChat> {
+
+  final User userSender;
+  _ClientChatState({required this.userSender});
   @override
   void initState() {
     super.initState();
@@ -23,7 +31,7 @@ class _ClientChatState extends State<ClientChat> {
   }
 
   void initDependencies() {
-    _bloc = ClientChatMessageBloc();
+    _bloc = ClientChatMessageBloc(userSender: userSender);
     _controller = TextEditingController();
   }
 

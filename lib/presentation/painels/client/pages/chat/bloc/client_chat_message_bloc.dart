@@ -5,6 +5,7 @@ import 'package:gestao_eventos/data/datasources/remoto/firebase/chat_datasource.
 import 'package:gestao_eventos/data/repositories/chat_repository.dart';
 import 'package:gestao_eventos/data/repositories/firebase_auth_repository.dart';
 import 'package:gestao_eventos/domain/entities/chat_message.dart';
+import 'package:gestao_eventos/domain/entities/user.dart';
 import 'package:gestao_eventos/domain/usecases/auth_uc.dart';
 import 'package:gestao_eventos/domain/usecases/chat_usecase.dart';
 import 'package:gestao_eventos/domain/usecases_interfaces/i_auth_uc.dart';
@@ -14,8 +15,10 @@ part 'client_chat_message_event.dart';
 part 'client_chat_message_state.dart';
 
 class ClientChatMessageBloc extends Bloc<ClientChatMessageEvent, ClientChatMessageState> {
+  
+  final User userSender;
 
-  ClientChatMessageBloc() : super(GettingClientMessagesState()) {
+  ClientChatMessageBloc({required this.userSender}) : super(GettingClientMessagesState()) {
     initDependencies();
     initAllEvents();
   }
@@ -24,7 +27,7 @@ class ClientChatMessageBloc extends Bloc<ClientChatMessageEvent, ClientChatMessa
     on<GetClientMessagesEvent>((event, emit) async{
       emit(GettingClientMessagesState());
       try {
-        final result = await _usecase.getMessages((await _authUC.getCurrentUser())!.email!);
+        final result = await _usecase.getMessages(userSender.email!);
         emit(GotClientMessagesSucessState(messages: result));
       } catch (e) {
         emit(ErrorOnGetClientMessagesState(message: 'Erro ao buscar mensagens'));
