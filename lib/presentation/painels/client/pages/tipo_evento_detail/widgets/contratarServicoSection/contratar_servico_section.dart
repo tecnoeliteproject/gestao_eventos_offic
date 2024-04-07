@@ -4,7 +4,6 @@ import 'package:flutter_gutter/flutter_gutter.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:gestao_eventos/core/helpers/constants.dart';
-import 'package:gestao_eventos/presentation/painels/client/pages/chat/client_chat.dart';
 import 'package:gestao_eventos/presentation/painels/client/pages/chat_screen/view/chat_screen_page.dart';
 
 class ContratarServicoSection extends StatelessWidget {
