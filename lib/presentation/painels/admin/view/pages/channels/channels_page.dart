@@ -37,10 +37,36 @@ class ChannelsPageSatate extends State<ChannelsPage> {
   List<ChatMessage> messages = [];
   @override
   Widget build(BuildContext context) {
+<<<<<<< HEAD
     return BlocListener<ChannelsBloc, ChannelsState>(
       bloc: _bloc,
       listener: (context, state) {
         
+=======
+    return BlocBuilder<ChannelsBloc, ChannelsState>(
+      builder: (context, state) {
+        if (state is GettingChannelsState) {
+          return LinearProgressIndicator();
+        }if (state is GotChannelsState) {
+          users = state.users;
+        }if (state is ErrorOnGetChannelsState) {
+          return Text(state.messages);
+        }
+        return ListView.builder(
+          itemCount: users.length,
+          shrinkWrap: true,
+          padding: const EdgeInsets.only(top: 16),
+          physics: const NeverScrollableScrollPhysics(),
+          itemBuilder: (context, index) {
+            return ChannelItem(
+              name: users[index].name ?? 'Sem nome',
+              messageText: users[index].email ?? 'Sem email',
+              time: DateTime.now().toString(),
+              isMessageRead: (index == 0 || index == 3) ? true : false,
+            );
+          },
+        );
+>>>>>>> 815a16ba0b676b72e6b68cd0785b2589c328a61c
       },
       child: BlocBuilder<ChannelsBloc, ChannelsState>(
         bloc: _bloc,
