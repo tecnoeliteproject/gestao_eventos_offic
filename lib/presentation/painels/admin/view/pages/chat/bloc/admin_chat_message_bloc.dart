@@ -13,54 +13,69 @@ import 'package:gestao_eventos/domain/usecases_interfaces/i_chat_usercase.dart';
 part 'admin_chat_message_event.dart';
 part 'admin_chat_message_state.dart';
 
-class AdminChatMessageBloc extends Bloc<AdminChatMessageEvent, AdminChatMessageState> {
-
-  AdminChatMessageBloc(AdminMessageInitialState adminMessageInitialState) : super(GettingAdminMessagesState()) {
+class AdminChatMessageBloc
+    extends Bloc<AdminChatMessageEvent, AdminChatMessageState> {
+  AdminChatMessageBloc(
+    AdminMessageInitialState super.adminMessageInitialState,
+  ) {
     initDependencies();
     initAllEvents();
   }
 
   void initAllEvents() {
-    on<GetAdminMessagesEvent>((event, emit) async{
+    on<GetAdminMessagesEvent>((event, emit) async {
       emit(GettingAdminMessagesState());
       try {
         final result = await _usecase.getMessages(event.senderEmail);
         emit(GotAdminMessagesSucessState(messages: result));
       } catch (e) {
         emit(ErrorOnGetAdminMessagesState(message: 'Erro ao buscar mensagens'));
-      }    
+      }
     });
 
-    on<SendAdminMessageEvent>((event, emit) async{
+    on<SendAdminMessageEvent>((event, emit) async {
       emit(SendingMessageState());
       try {
-        final chatMessage = ChatMessage(message: event.message, dateTime: DateTime.now(),messageType: MessageType.receiver);
-        final result = await _usecase.sendMessage(chatMessage);
+        final chatMessage = ChatMessage(
+          message: event.message,
+          dateTime: DateTime.now(),
+          messageType: MessageType.receiver,
+        );
         event.messages.add(chatMessage);
         event.messages.sort((a, b) => a.dateTime.compareTo(b.dateTime));
-        emit(SentMessageSucessState(message: chatMessage, messages: event.messages));
+        emit(
+          SentMessageSucessState(
+            message: chatMessage,
+            messages: event.messages,
+          ),
+        );
       } catch (e) {
         emit(ErrorOnSendMessageState(message: 'Erro ao enviar mensagem'));
       }
     });
 
-    on<GetAdminMessageSendersEvent>((event, emit) async{
+    on<GetAdminMessageSendersEvent>((event, emit) async {
       emit(GettingAdminMessageSendersState());
       try {
         final result = await _usecase.getMessageSenders();
         emit(GotMessageSendersState(users: result));
       } catch (e) {
         emit(ErrorOnSendMessageState(message: 'Erro ao buscar convesas'));
-      }    
+      }
     });
 
-    on<GotoChatEvent>((event, emit) async{
+    on<GotoChatEvent>((event, emit) async {
       emit(GotoChatState(user: event.user));
     });
   }
 
   void initDependencies() {
-    _usecase = ChatUseCase(repository: ChatRepository(dataSource: ChatDataSource(firestore:FirebaseFirestore.instance)), authUC: AuthUC(repository: FirebaseAuthRepository()));
+    _usecase = ChatUseCase(
+      repository: ChatRepository(
+        dataSource: ChatDataSource(firestore: FirebaseFirestore.instance),
+      ),
+      authUC: AuthUC(repository: FirebaseAuthRepository()),
+    );
   }
 
   late IChatUsecase _usecase;

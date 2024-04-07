@@ -1,6 +1,5 @@
 
 import 'package:gestao_eventos/domain/entities/chat_message.dart';
-import 'package:gestao_eventos/domain/entities/user.dart';
 
 abstract class IChatRepository {
   
