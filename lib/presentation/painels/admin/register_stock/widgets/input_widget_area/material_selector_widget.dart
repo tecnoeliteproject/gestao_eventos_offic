@@ -28,8 +28,6 @@ class _MaterialSelectorWidgetState extends State<MaterialSelectorWidget> {
 
   @override
   void initState() {
-    super.initState();
-
     value = widget.materiais.first.nome;
     options = widget.materiais
         .map(
@@ -40,6 +38,8 @@ class _MaterialSelectorWidgetState extends State<MaterialSelectorWidget> {
           ),
         )
         .toList();
+
+    super.initState();
   }
 
   @override
@@ -74,7 +74,7 @@ class _MaterialSelectorWidgetState extends State<MaterialSelectorWidget> {
         modalFilter: true,
         modalFilterAuto: true,
         choiceItems: options,
-        onChange: (state) => setState(() => value = state.value),
+        onChange: (state) => print,
         tileBuilder: (context, value) {
           return S2Tile.fromState(
             value,

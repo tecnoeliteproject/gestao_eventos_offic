@@ -2,6 +2,7 @@ import 'package:faker/faker.dart';
 import 'package:flutter/material.dart';
 import 'package:gestao_eventos/domain/entities/material_item.dart';
 import 'package:gestao_eventos/presentation/painels/admin/register_stock/widgets/input_widget_area/material_selector_widget.dart';
+import 'package:gestao_eventos/presentation/painels/admin/register_stock/widgets/input_widget_area/tipo_operacao_widget.dart';
 import 'package:uuid/uuid.dart';
 
 /*
@@ -42,9 +43,12 @@ class InputWidgetArea extends StatelessWidget {
         MaterialSelectorWidget(
           title: 'Materiais',
           placeHolder: 'Selecione o material',
-          materiais:
-              List.generate(90, (index) => createFakeMaterialEntity()).toList(),
+          materiais: List.generate(
+            90,
+            (index) => createFakeMaterialEntity(),
+          ).toList(),
         ),
+        const TipoOperacaoWidget(),
       ],
     );
   }
