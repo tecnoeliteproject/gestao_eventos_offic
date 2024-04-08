@@ -1,5 +1,5 @@
-class Material {
-  Material({
+class MaterialItem {
+  MaterialItem({
     required this.id,
     required this.nome,
     required this.descricao,

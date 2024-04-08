@@ -74,7 +74,7 @@ void main() {
 Stock _createFakeStockEntity() {
   return Stock(
     id: const Uuid().v4(),
-    material: Material(
+    material: MaterialItem(
       id: const Uuid().v4(),
       nome: 'Cadeira',
       descricao: 'Cadeira branca de quatro pernos',

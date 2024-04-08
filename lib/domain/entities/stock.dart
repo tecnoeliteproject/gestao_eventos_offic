@@ -16,7 +16,7 @@ class Stock {
   });
 
   final String id; // Identificador único do registo
-  final Material material; // ID do material associado
+  final MaterialItem material; // ID do material associado
   final String operacao; // Tipo de operação (entrada ou saída)
   final DateTime data; // Data da operação
 

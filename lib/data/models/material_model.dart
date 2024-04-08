@@ -3,7 +3,7 @@ import 'dart:convert';
 
 import 'package:gestao_eventos/domain/entities/material.dart';
 
-class MaterialModel extends Material {
+class MaterialModel extends MaterialItem {
   MaterialModel({
     required this.id,
     required this.nome,
@@ -26,7 +26,7 @@ class MaterialModel extends Material {
 
   // from entity
 
-  factory MaterialModel.fromEntity(Material material) {
+  factory MaterialModel.fromEntity(MaterialItem material) {
     return MaterialModel(
       id: material.id,
       nome: material.nome,
@@ -37,8 +37,8 @@ class MaterialModel extends Material {
   }
 
   // to entity
-  Material toEntity() {
-    return Material(
+  MaterialItem toEntity() {
+    return MaterialItem(
       id: id,
       nome: nome,
       descricao: descricao,
