@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gutter/flutter_gutter.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:gestao_eventos/presentation/painels/admin/gestao_stock/gestao_stock.dart';
 import 'package:gestao_eventos/presentation/painels/admin/tipo_eventos/tipo_eventos.dart';
@@ -26,6 +27,7 @@ class AdminDrawer extends StatelessWidget {
             title: const Text('Gestão de serviços'),
             leading: const Icon(FontAwesomeIcons.basketShopping),
           ),
+          const GutterSmall(),
           ListTile(
             onTap: () {
               Navigator.pop(context);
