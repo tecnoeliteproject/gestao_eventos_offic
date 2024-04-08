@@ -1,4 +1,4 @@
-import 'package:gestao_eventos/domain/entities/material.dart';
+import 'package:gestao_eventos/domain/entities/material_item.dart';
 
 class Stock {
   Stock({

@@ -1,7 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first, overridden_fields, annotate_overrides
 import 'dart:convert';
 
-import 'package:gestao_eventos/domain/entities/material.dart';
+import 'package:gestao_eventos/domain/entities/material_item.dart';
 
 class MaterialModel extends MaterialItem {
   MaterialModel({

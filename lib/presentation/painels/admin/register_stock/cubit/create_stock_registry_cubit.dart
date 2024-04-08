@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:gestao_eventos/core/dependences/get_it.dart';
-import 'package:gestao_eventos/domain/entities/material.dart';
+import 'package:gestao_eventos/domain/entities/material_item.dart';
 import 'package:gestao_eventos/domain/entities/stock.dart';
 import 'package:gestao_eventos/domain/usecases_interfaces/i_stock_usecase.dart';
 import 'package:uuid/uuid.dart';

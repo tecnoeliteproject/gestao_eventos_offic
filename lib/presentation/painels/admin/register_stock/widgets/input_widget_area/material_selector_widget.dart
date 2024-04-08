@@ -4,7 +4,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_awesome_select/flutter_awesome_select.dart';
 import 'package:gestao_eventos/core/helpers/constants.dart';
-import 'package:gestao_eventos/domain/entities/material.dart';
+import 'package:gestao_eventos/domain/entities/material_item.dart';
 
 class MaterialSelectorWidget extends StatefulWidget {
   const MaterialSelectorWidget({

@@ -3,7 +3,7 @@ import 'package:gestao_eventos/data/datasources/i_stock_datasource.dart';
 import 'package:gestao_eventos/data/models/stock_model.dart';
 import 'package:gestao_eventos/data/repositories/stock_repository.dart';
 import 'package:gestao_eventos/data/repositories_interfaces/i_stock_repository.dart';
-import 'package:gestao_eventos/domain/entities/material.dart';
+import 'package:gestao_eventos/domain/entities/material_item.dart';
 import 'package:gestao_eventos/domain/entities/stock.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:uuid/uuid.dart';
