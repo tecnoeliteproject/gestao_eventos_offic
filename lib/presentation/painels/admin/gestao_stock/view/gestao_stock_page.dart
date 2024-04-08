@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gestao_eventos/presentation/painels/admin/gestao_stock/bloc/bloc.dart';
-import 'package:gestao_eventos/presentation/painels/admin/gestao_stock/cubit/create_stock_registry_cubit.dart';
 import 'package:gestao_eventos/presentation/painels/admin/gestao_stock/widgets/gestao_stock_body.dart';
+import 'package:gestao_eventos/presentation/painels/admin/register_stock/view/register_stock_page.dart';
 
 /// {@template gestao_stock_page}
 /// A description for GestaoStockPage
@@ -23,9 +23,6 @@ class GestaoStockPage extends StatelessWidget {
         BlocProvider(
           create: (context) => GestaoStockBloc(),
         ),
-        BlocProvider(
-          create: (context) => CreateStockRegistryCubit(),
-        ),
       ],
       child: Builder(
         builder: (context) {
@@ -36,8 +33,7 @@ class GestaoStockPage extends StatelessWidget {
             body: const GestaoStockView(),
             floatingActionButton: FloatingActionButton(
               onPressed: () {
-                BlocProvider.of<CreateStockRegistryCubit>(context)
-                    .createStock();
+                Navigator.of(context).push(RegisterStockPage.route());
               },
               child: const Icon(Icons.add),
             ),
