@@ -10,7 +10,6 @@ import 'package:gestao_eventos/presentation/painels/admin/bloc/admin_event.dart'
 import 'package:gestao_eventos/presentation/painels/admin/bloc/admin_state.dart';
 import 'package:gestao_eventos/presentation/painels/admin/bloc/bloc.dart';
 import 'package:gestao_eventos/presentation/painels/admin/view/pages/channels/channels_page.dart';
-import 'package:gestao_eventos/presentation/painels/admin/view/pages/chat/admin_chat.dart';
 import 'package:gestao_eventos/presentation/painels/admin/view/pages/users/components/profile_page.dart';
 import 'package:gestao_eventos/presentation/painels/admin/view/pages/users/users_page.dart';
 
@@ -41,13 +40,12 @@ class _AdminScreenState extends State<AdminScreen> {
   void initPages() {
     pages = [
       const UsersPage(),
-      ChannelsPage(users: const [],),
+      ChannelsPage(messages: const [],),
       ProfileAdminPage(
         onSigningOut: () {
           _signInBloc.add(SigningOutEvent());
         },
       ),
-      AdminChat(),
     ];
   }
 

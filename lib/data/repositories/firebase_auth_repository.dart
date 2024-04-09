@@ -102,12 +102,12 @@ class FirebaseAuthRepository implements IAuthRepository {
 
   @override
   Future<UserModel?> getUserByEmail(String email) async {
-    final data = await _usersReference.doc(email).get();
-    final res = data.data();
-    if (res == null) {
-      return null;
-    }
-    return res;
+    final res = await _usersReference
+        .where('email', isEqualTo: email)
+        .limit(1)
+        .get();
+    if (res.docs.isEmpty) return null;
+    return UserModel.fromMap(res.docs.first.data().toMap());
   }
 
   @override

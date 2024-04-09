@@ -4,5 +4,6 @@ abstract class IChatDataSource {
   
   Future<bool> sendMessage(ChatMessageModel chatMessage);
   Future<List<ChatMessageModel>> getMessages(String senderEmail);  
+  Future<List<ChatMessageModel>> getAllConversations();  
   Future<List<String>> getMessageIDSenders();  
 }

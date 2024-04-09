@@ -72,4 +72,9 @@ class AuthUC implements IAuthUC {
   Future<bool> removeAccountUser() {
     return _repository.removeAccountUser();
   }
+  
+  @override
+  Future<User?> getUserByEmail(String email) async{
+    return UserModel.fromEntity((await _repository.getUserByEmail(email))!);
+  }
 }
