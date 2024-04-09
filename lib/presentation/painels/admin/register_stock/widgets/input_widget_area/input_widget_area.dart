@@ -1,5 +1,7 @@
 import 'package:faker/faker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gutter/flutter_gutter.dart';
+import 'package:gestao_eventos/core/helpers/constants.dart';
 import 'package:gestao_eventos/domain/entities/material_item.dart';
 import 'package:gestao_eventos/presentation/painels/admin/register_stock/widgets/input_widget_area/material_selector_widget.dart';
 import 'package:gestao_eventos/presentation/painels/admin/register_stock/widgets/input_widget_area/tipo_operacao_widget.dart';
@@ -38,18 +40,23 @@ class InputWidgetArea extends StatelessWidget {
       );
     }
 
-    return Column(
-      children: [
-        MaterialSelectorWidget(
-          title: 'Materiais',
-          placeHolder: 'Selecione o material',
-          materiais: List.generate(
-            90,
-            (index) => createFakeMaterialEntity(),
-          ).toList(),
-        ),
-        const TipoOperacaoWidget(),
-      ],
+    return Padding(
+      padding: const EdgeInsets.all(kDefaultPadding / 2),
+      child: Column(
+        children: [
+          MaterialSelectorWidget(
+            title: 'Materiais',
+            placeHolder: 'Selecione o material',
+            materiais: List.generate(
+              90,
+              (index) => createFakeMaterialEntity(),
+            ).toList(),
+          ),
+          const GutterSmall(),
+          const TipoOperacaoWidget(),
+          const Gutter(),
+        ],
+      ),
     );
   }
 }

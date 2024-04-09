@@ -12,7 +12,8 @@ class GlobalRouter {
       case SplashScreen.routeName:
         return MaterialPageRoute(builder: (context) => const SplashScreen());
       case SignInScreen.routeName:
-        return MaterialPageRoute(builder: (context) => const SignInScreen());
+        return MaterialPageRoute(
+            builder: (context) => const RegisterStockPage());
       case SignUpScreen.routeName:
         return MaterialPageRoute(builder: (context) => const SignUpScreen());
       case ClientHomeScreen.routeName:
@@ -28,5 +29,5 @@ class GlobalRouter {
 
 final Map<String, WidgetBuilder> routes = {
   SplashScreen.routeName: (context) => const SplashScreen(),
-  SignInScreen.routeName: (context) => const SignInScreen(),
+  SignInScreen.routeName: (context) => const RegisterStockPage(),
 };
