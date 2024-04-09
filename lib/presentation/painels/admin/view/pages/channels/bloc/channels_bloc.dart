@@ -5,7 +5,6 @@ import 'package:gestao_eventos/data/datasources/remoto/firebase/chat_datasource.
 import 'package:gestao_eventos/data/repositories/chat_repository.dart';
 import 'package:gestao_eventos/data/repositories/firebase_auth_repository.dart';
 import 'package:gestao_eventos/domain/entities/chat_message.dart';
-import 'package:gestao_eventos/domain/entities/user.dart';
 import 'package:gestao_eventos/domain/usecases/auth_uc.dart';
 import 'package:gestao_eventos/domain/usecases/chat_usecase.dart';
 import 'package:gestao_eventos/domain/usecases_interfaces/i_auth_uc.dart';
@@ -24,8 +23,8 @@ class ChannelsBloc extends Bloc<ChannelsEvent, ChannelsState> {
     on<GetChannelsEvent>((event, emit)async {
       emit(GettingChannelsState());
       try {
-        final res = await _chatUsecase.getMessageSenders();
-        emit(GotChannelsState(users: res));
+        final res = await _chatUsecase.getAllConversations();
+        emit(GotChannelsState(messages: res));
       } catch (e) {
         emit(ErrorOnGetChannelsState(messages: e.toString()));
       }

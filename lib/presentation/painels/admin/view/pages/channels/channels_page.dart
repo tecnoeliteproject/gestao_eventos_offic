@@ -1,21 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:gestao_eventos/domain/entities/user.dart';
+import 'package:gestao_eventos/core/helpers/date_time.dart';
+import 'package:gestao_eventos/domain/entities/chat_message.dart';
 import 'package:gestao_eventos/presentation/painels/admin/view/pages/channels/bloc/channels_bloc.dart';
 import 'package:gestao_eventos/presentation/painels/admin/view/pages/channels/components/channel_item.dart';
 
 class ChannelsPage extends StatefulWidget {
-  ChannelsPage({required this.users});
+  ChannelsPage({required this.messages});
 
-  final List<User> users;
+  final List<ChatMessage> messages;
   @override
   State<ChannelsPage> createState() {
-    return ChannelsPageSatate(users: users);
+    return ChannelsPageSatate(messages: messages);
   }
 }
 
 class ChannelsPageSatate extends State<ChannelsPage> {
-  ChannelsPageSatate({required this.users});
+  ChannelsPageSatate({required this.messages});
 
   @override
   void initState() {
@@ -26,7 +27,7 @@ class ChannelsPageSatate extends State<ChannelsPage> {
 
   late ChannelsBloc _bloc;
 
-  List<User> users = [];
+  List<ChatMessage> messages = [];
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ChannelsBloc, ChannelsState>(
@@ -34,20 +35,20 @@ class ChannelsPageSatate extends State<ChannelsPage> {
         if (state is GettingChannelsState) {
           return const LinearProgressIndicator();
         }if (state is GotChannelsState) {
-          users = state.users;
+          messages = state.messages;
         }if (state is ErrorOnGetChannelsState) {
           return Text(state.messages);
         }
         return ListView.builder(
-          itemCount: users.length,
+          itemCount: messages.length,
           shrinkWrap: true,
           padding: const EdgeInsets.only(top: 16),
           physics: const NeverScrollableScrollPhysics(),
           itemBuilder: (context, index) {
             return ChannelItem(
-              name: users[index].name ?? 'Sem nome',
-              messageText: users[index].email ?? 'Sem email',
-              time: DateTime.now().toString(),
+              name: messages[index].sender?.name??'Usuário sem nome',
+              messageText: messages[index].message,
+              time: DataTimeHelper.dataToText(messages[index].dateTime),
               isMessageRead: (index == 0 || index == 3) ? true : false,
             );
           },

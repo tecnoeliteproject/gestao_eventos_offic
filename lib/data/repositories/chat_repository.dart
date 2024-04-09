@@ -22,4 +22,9 @@ class ChatRepository extends IChatRepository {
   Future<List<String>> getMessageIDSenders() {
     return _dataSource.getMessageIDSenders();
   }
+  
+  @override
+  Future<List<ChatMessageModel>> getAllConversations() {
+    return _dataSource.getAllConversations();
+  }
 }
