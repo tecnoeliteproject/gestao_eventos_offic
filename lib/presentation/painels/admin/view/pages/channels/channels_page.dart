@@ -32,7 +32,7 @@ class ChannelsPageSatate extends State<ChannelsPage> {
     return BlocBuilder<ChannelsBloc, ChannelsState>(
       builder: (context, state) {
         if (state is GettingChannelsState) {
-          return LinearProgressIndicator();
+          return const LinearProgressIndicator();
         }if (state is GotChannelsState) {
           users = state.users;
         }if (state is ErrorOnGetChannelsState) {

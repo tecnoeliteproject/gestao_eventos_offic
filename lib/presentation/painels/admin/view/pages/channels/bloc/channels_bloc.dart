@@ -24,7 +24,7 @@ class ChannelsBloc extends Bloc<ChannelsEvent, ChannelsState> {
     on<GetChannelsEvent>((event, emit)async {
       emit(GettingChannelsState());
       try {
-        final res = await _usecase.getMessageSenders();
+        final res = await _chatUsecase.getMessageSenders();
         emit(GotChannelsState(users: res));
       } catch (e) {
         emit(ErrorOnGetChannelsState(messages: e.toString()));
@@ -34,9 +34,9 @@ class ChannelsBloc extends Bloc<ChannelsEvent, ChannelsState> {
 
   void initDependencies() {
     _authUC = AuthUC(repository: FirebaseAuthRepository());
-    _usecase = ChatUseCase(repository: ChatRepository(dataSource: ChatDataSource(firestore:FirebaseFirestore.instance)), authUC: _authUC);
+    _chatUsecase = ChatUseCase(repository: ChatRepository(dataSource: ChatDataSource(firestore:FirebaseFirestore.instance)), authUC: _authUC);
   }
 
   late IAuthUC _authUC;
-  late IChatUsecase _usecase;
+  late IChatUsecase _chatUsecase;
 }

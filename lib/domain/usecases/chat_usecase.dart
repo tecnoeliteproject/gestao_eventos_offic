@@ -40,4 +40,5 @@ class ChatUseCase extends IChatUsecase {
     });
     return list;
   }
+  
 }
