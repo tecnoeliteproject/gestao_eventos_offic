@@ -16,7 +16,6 @@ class DataTimeHelper {
     }
   }
 
-
   static String obterTempoDecorrido(DateTime data) {
     // Calcula a diferença entre a data atual e a data informada.
     Duration diferenca = DateTime.now().difference(data);
