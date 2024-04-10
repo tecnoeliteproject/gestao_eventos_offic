@@ -9,7 +9,7 @@ import 'package:gestao_eventos/presentation/painels/client/pages/chat/bloc/clien
 
 class ClientChat extends StatefulWidget {
   ClientChat({super.key, this.user});
-  
+
   final User? user;
 
   @override
@@ -44,7 +44,7 @@ class _ClientChatState extends State<ClientChat> {
       appBar: AppBar(
         title: Visibility(
           visible: user != null,
-          child: ChatHead(user: user??User()),
+          child: ChatHead(user: user ?? User()),
         ),
       ),
       body: Stack(
@@ -81,17 +81,27 @@ class _ClientChatState extends State<ClientChat> {
                         bottom: 10,
                       ),
                       child: Align(
-                        alignment:
-                            (messages[index].messageType == MessageType.receiver
+                        alignment: messages[index].sender == null
+                            ? (messages[index].messageType ==
+                                    MessageType.receiver
                                 ? Alignment.topLeft
-                                : Alignment.topRight),
+                                : Alignment.topRight)
+                            : (messages[index].messageType ==
+                                    MessageType.receiver
+                                ? Alignment.topRight
+                                : Alignment.topLeft),
                         child: Container(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(20),
-                            color: (messages[index].messageType ==
+                            color: 
+                            messages[index].sender == null?
+                            (messages[index].messageType ==
                                     MessageType.receiver
                                 ? Colors.grey.shade200
-                                : kChatColor),
+                                : kChatColor):(messages[index].messageType ==
+                                    MessageType.receiver
+                                ? kChatColor
+                                : Colors.grey.shade200),
                           ),
                           padding: const EdgeInsets.all(16),
                           child: Text(
@@ -183,10 +193,7 @@ class _ClientChatState extends State<ClientChat> {
     if (_controller.text.isNotEmpty) {
       _bloc.add(
         SendMessageEvent(
-          message: _controller.text,
-          messages: messages,
-          user: user
-        ),
+            message: _controller.text, messages: messages, user: user),
       );
       _controller.clear();
     }
