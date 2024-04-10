@@ -53,8 +53,16 @@ class InputWidgetArea extends StatelessWidget {
             ).toList(),
           ),
           const GutterSmall(),
-          const TipoOperacaoWidget(),
-          const Gutter(),
+          MaterialSelectorWidget(
+            title: 'Clientes',
+            placeHolder: 'Selecione o cliente',
+            materiais: List.generate(
+              90,
+              (index) => createFakeMaterialEntity(),
+            ).toList(),
+          ),
+          const GutterSmall(),
+          const InputWidgetArea(),
         ],
       ),
     );
