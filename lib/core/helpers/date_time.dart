@@ -24,24 +24,24 @@ class DataTimeHelper {
     int segundos = diferenca.inSeconds;
 
     // Define as unidades de tempo.
-    const Map<int, String> unidadesTempo = {
-      60: "segundos",
-      3600: "minutos",
-      86400: "horas",
-      2592000: "dias",
-      31536000: "meses",
-      315360000: "anos",
+    const unidadesTempo = <int, String>{
+      60: 'segundos',
+      3600: 'minutos',
+      86400: 'horas',
+      2592000: 'dias',
+      31536000: 'meses',
+      315360000: 'anos',
     };
 
     // Percorre as unidades de tempo e encontra a mais adequada.
     for (int divisor in unidadesTempo.keys) {
       if (segundos < divisor) {
         // Retorna o tempo decorrido na unidade de tempo mais adequada.
-        return "${segundos ~/ divisor} ${unidadesTempo[divisor]} atrás";
+        return '${segundos ~/ divisor} ${unidadesTempo[divisor]} atrás';
       }
     }
 
     // A data informada é no futuro.
-    return "no futuro";
+    return 'no futuro';
   }
 }

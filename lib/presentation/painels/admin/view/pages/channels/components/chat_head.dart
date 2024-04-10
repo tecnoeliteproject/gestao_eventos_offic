@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:gestao_eventos/domain/entities/user.dart';
 
-class ChannelItem extends StatefulWidget{
-  ChannelItem({required this.name,required this.messageText,required this.time,required this.isMessageRead});
-  String name;
-  String messageText;
-  String time;
-  bool isMessageRead;
+class ChatHead extends StatefulWidget{
+  ChatHead({required this.user});
+  User user;
   @override
-  _ChannelItemState createState() => _ChannelItemState();
+  _ChatHeadState createState() => _ChatHeadState();
 }
 
-class _ChannelItemState extends State<ChannelItem> {
+class _ChatHeadState extends State<ChatHead> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -31,9 +29,7 @@ class _ChannelItemState extends State<ChannelItem> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        Text(widget.name, style: TextStyle(fontSize: 16),),
-                        SizedBox(height: 6,),
-                        Text(widget.messageText,style: TextStyle(fontSize: 13,color: Colors.grey.shade600, fontWeight: widget.isMessageRead?FontWeight.bold:FontWeight.normal),),
+                        Text(widget.user.name??'Sem nome', style: TextStyle(fontSize: 16),),
                       ],
                     ),
                   ),
@@ -41,7 +37,6 @@ class _ChannelItemState extends State<ChannelItem> {
               ],
             ),
           ),
-          Text(widget.time,style: TextStyle(fontSize: 12,fontWeight: widget.isMessageRead?FontWeight.bold:FontWeight.normal),),
         ],
       ),
     );
