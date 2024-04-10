@@ -8,6 +8,8 @@ sealed class ClientChatMessageEvent extends Equatable {
 }
 
 class GetClientMessagesEvent extends ClientChatMessageEvent {
+  final User? user;
+  const GetClientMessagesEvent({this.user});
 }
 class SendMessageEvent extends ClientChatMessageEvent {
   final String message;

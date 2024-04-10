@@ -15,6 +15,7 @@ class ChatDataSource extends IChatDataSource {
     final res = await _firestore
         .collection(_collectionName)
         .orderBy('date_time', descending: true)
+        .where('sender_email', isEqualTo: senderEmail)
         .get();
     return res.docs.map((e) => ChatMessageModel.fromJson(e.data())).toList();
   }

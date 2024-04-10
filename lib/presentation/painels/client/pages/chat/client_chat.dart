@@ -25,7 +25,7 @@ class _ClientChatState extends State<ClientChat> {
   void initState() {
     super.initState();
     initDependencies();
-    _bloc.add(GetClientMessagesEvent());
+    _bloc.add(GetClientMessagesEvent(user: user));
   }
 
   void initDependencies() {

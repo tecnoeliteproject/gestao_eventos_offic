@@ -18,8 +18,8 @@ class _ChatHeadState extends State<ChatHead> {
           maxRadius: 30,
           child: Icon(Icons.person),
         ),
-        SizedBox(width: 16,),
-        Text(widget.user.name??'Sem nome', style: TextStyle(fontSize: 16),)
+        const SizedBox(width: 16,),
+        Text(widget.user.name??'Sem nome', style: const TextStyle(fontSize: 16),)
       ],
     );
   }

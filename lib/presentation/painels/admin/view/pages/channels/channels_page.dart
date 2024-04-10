@@ -51,7 +51,6 @@ class ChannelsPageSatate extends State<ChannelsPage> {
           itemBuilder: (context, index) {
             return InkWell(
               onTap: () {
-                showLog(messsage: 'messsage');
                 Navigator.push(context, MaterialPageRoute(
                   builder: (context) {
                     return ClientChat(user: messages[index].sender,);
