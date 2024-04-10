@@ -81,27 +81,11 @@ class _ClientChatState extends State<ClientChat> {
                         bottom: 10,
                       ),
                       child: Align(
-                        alignment: messages[index].sender == null
-                            ? (messages[index].messageType ==
-                                    MessageType.receiver
-                                ? Alignment.topLeft
-                                : Alignment.topRight)
-                            : (messages[index].messageType ==
-                                    MessageType.receiver
-                                ? Alignment.topRight
-                                : Alignment.topLeft),
+                        alignment: alinharMensagem(index, user: user),
                         child: Container(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(20),
-                            color: 
-                            messages[index].sender == null?
-                            (messages[index].messageType ==
-                                    MessageType.receiver
-                                ? Colors.grey.shade200
-                                : kChatColor):(messages[index].messageType ==
-                                    MessageType.receiver
-                                ? kChatColor
-                                : Colors.grey.shade200),
+                            color: colorirMensagem(index, user: user),
                           ),
                           padding: const EdgeInsets.all(16),
                           child: Text(
@@ -187,6 +171,28 @@ class _ClientChatState extends State<ClientChat> {
         ],
       ),
     );
+  }
+
+  Color colorirMensagem(int index, {User? user}) {
+    if (user != null) {
+      return (messages[index].messageType == MessageType.receiver
+          ? kChatColor
+          : Colors.grey.shade200);
+    }
+    return (messages[index].messageType == MessageType.receiver
+        ? Colors.grey.shade200
+        : kChatColor);
+  }
+
+  Alignment alinharMensagem(int index, {User? user}) {
+    if (user != null) {
+      return (messages[index].messageType == MessageType.receiver
+          ? Alignment.topRight
+          : Alignment.topLeft);
+    }
+    return (messages[index].messageType == MessageType.receiver
+        ? Alignment.topLeft
+        : Alignment.topRight);
   }
 
   void _onSendMessage() {
