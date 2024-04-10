@@ -185,6 +185,7 @@ class _ClientChatState extends State<ClientChat> {
         SendMessageEvent(
           message: _controller.text,
           messages: messages,
+          user: user
         ),
       );
       _controller.clear();

@@ -14,5 +14,6 @@ class GetClientMessagesEvent extends ClientChatMessageEvent {
 class SendMessageEvent extends ClientChatMessageEvent {
   final String message;
   final List<ChatMessage> messages;
-  const SendMessageEvent({required this.messages, required this.message});
+  final User? user;
+  const SendMessageEvent({this.user,required this.messages, required this.message});
 }

@@ -18,11 +18,6 @@ class ChatUseCase extends IChatUsecase {
 
   @override
   Future<bool> sendMessage(ChatMessage chatMessage)async {
-    if(chatMessage.messageType == MessageType.sender){
-      chatMessage.senderEmail =(await _iAuthUC.getCurrentUser())!.email;
-    }else{
-      chatMessage.receiverEmail =(await _iAuthUC.getCurrentUser())!.email;
-    }
     return _repository.sendMessage(chatMessage);
   }
   
