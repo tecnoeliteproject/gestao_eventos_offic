@@ -54,7 +54,7 @@ class ChannelsPageSatate extends State<ChannelsPage> {
                 showLog(messsage: 'messsage');
                 Navigator.push(context, MaterialPageRoute(
                   builder: (context) {
-                    return const ClientChat();
+                    return ClientChat(user: messages[index].sender,);
                   },
                 ));
               },

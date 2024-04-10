@@ -2,19 +2,25 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:gestao_eventos/core/helpers/constants.dart';
 import 'package:gestao_eventos/domain/entities/chat_message.dart';
+import 'package:gestao_eventos/domain/entities/user.dart';
 import 'package:gestao_eventos/presentation/painels/admin/product_details/product_details.dart';
+import 'package:gestao_eventos/presentation/painels/admin/view/pages/channels/components/chat_head.dart';
 import 'package:gestao_eventos/presentation/painels/client/pages/chat/bloc/client_chat_message_bloc.dart';
 
 class ClientChat extends StatefulWidget {
-  const ClientChat({super.key});
+  ClientChat({super.key, this.user});
+  
+  final User? user;
 
   @override
   State<StatefulWidget> createState() {
-    return _ClientChatState();
+    return _ClientChatState(user: user);
   }
 }
 
 class _ClientChatState extends State<ClientChat> {
+  _ClientChatState({this.user});
+
   @override
   void initState() {
     super.initState();
@@ -30,12 +36,16 @@ class _ClientChatState extends State<ClientChat> {
   late ClientChatMessageBloc _bloc;
   late TextEditingController _controller;
   List<ChatMessage> messages = [];
+  final User? user;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Seu Chat'),
+        title: Visibility(
+          visible: user != null,
+          child: ChatHead(user: user??User()),
+        ),
       ),
       body: Stack(
         children: <Widget>[
