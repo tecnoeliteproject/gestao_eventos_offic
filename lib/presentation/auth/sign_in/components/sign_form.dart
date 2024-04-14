@@ -1,5 +1,3 @@
-// ignore_for_file: lines_longer_than_80_chars
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gestao_eventos/core/helpers/constants.dart';
@@ -34,8 +32,8 @@ class _SignFormState extends State<SignForm> {
   void initState() {
     super.initState();
     _bloc = BlocProvider.of<SignInBloc>(context);
-    // _bloc.add(SigningInEvent(email: 'admin@gmail.com', password: '11111111'));
-    _bloc.add(SigningInEvent(email: 'jady@gmail.com', password: '11111111'));
+    _bloc.add(SigningInEvent(email: 'admin@gmail.com', password: '11111111'));
+    // _bloc.add(SigningInEvent(email: 'jady@gmail.com', password: '11111111'));
   }
 
   void addError({String? error}) {

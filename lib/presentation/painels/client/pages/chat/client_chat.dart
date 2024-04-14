@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
 import 'package:gestao_eventos/core/helpers/constants.dart';
 import 'package:gestao_eventos/domain/entities/chat_message.dart';
 import 'package:gestao_eventos/domain/entities/user.dart';
@@ -114,13 +115,31 @@ class _ClientChatState extends State<ClientChat> {
                         ClientChatMessageState>(
                       bloc: _bloc,
                       builder: (context, state) {
-                        return TextField(
-                          controller: _controller,
-                          decoration: const InputDecoration(
-                            hintText: 'Escrever mensagem',
-                            hintStyle: TextStyle(color: Colors.black54),
-                            border: InputBorder.none,
-                          ),
+                        return Row(
+                          children: [
+                            InkWell(
+                              onTap: () {
+                                _bloc.add(ChooseFileEvent());
+                              },
+                              child: const Icon(
+                                Icons.attach_file,
+                                size: 18,
+                              ),
+                            ),
+                            const SizedBox(
+                              width: 15,
+                            ),
+                            Flexible(
+                              child: TextField(
+                                controller: _controller,
+                                decoration: const InputDecoration(
+                                  hintText: 'Escrever mensagem',
+                                  hintStyle: TextStyle(color: Colors.black54),
+                                  border: InputBorder.none,
+                                ),
+                              ),
+                            ),
+                          ],
                         );
                       },
                     ),

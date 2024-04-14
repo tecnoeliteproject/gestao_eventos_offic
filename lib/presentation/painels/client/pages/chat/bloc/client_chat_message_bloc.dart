@@ -23,49 +23,61 @@ class ClientChatMessageBloc
 
   void initAllEvents() {
     on<GetClientMessagesEvent>((event, emit) async {
-      emit(GettingClientMessagesState());
-      late String email;
-      try {
-        if (event.user != null) {
-          email = event.user!.email!;
-        } else {
-          email = (await _authUC.getCurrentUser())!.email!;
-        }
-        final result = await _usecase.getMessages(email);
-        emit(GotClientMessagesSucessState(messages: result));
-      } catch (e) {
-        emit(
-            ErrorOnGetClientMessagesState(message: 'Erro ao buscar mensagens'));
-      }
+      await _onGetMessages(emit, event);
     });
 
     on<SendMessageEvent>((event, emit) async {
-      emit(SendingMessageState());
-      String? email;
-      MessageType? messageType;
-      try {
-        if (event.user != null) {
-          email = event.user!.email!;
-          messageType = MessageType.receiver;
-        } else {
-          email = (await _authUC.getCurrentUser())!.email!;
-          messageType = MessageType.sender;
-        }
-        final chatMessage = ChatMessage(
-            message: event.message,
-            dateTime: DateTime.now(),
-            messageType: messageType,
-            senderEmail: email,
-            receiverEmail: email);
-        await _usecase.sendMessage(chatMessage);
-        event.messages.add(chatMessage);
-        event.messages.sort((a, b) => a.dateTime.compareTo(b.dateTime));
-        emit(SentMessageSucessState(
-            message: chatMessage, messages: event.messages));
-      } catch (e) {
-        emit(ErrorOnSendMessageState(message: 'Erro ao enviar mensagem'));
-      }
+      await _onSendMessage(emit, event);
     });
+
+    on<ChooseFileEvent>((event, emit) async {
+      
+    });
+  }
+
+  Future<void> _onSendMessage(Emitter<ClientChatMessageState> emit, SendMessageEvent event) async {
+    emit(SendingMessageState());
+    String? email;
+    MessageType? messageType;
+    try {
+      if (event.user != null) {
+        email = event.user!.email!;
+        messageType = MessageType.receiver;
+      } else {
+        email = (await _authUC.getCurrentUser())!.email!;
+        messageType = MessageType.sender;
+      }
+      final chatMessage = ChatMessage(
+          message: event.message,
+          dateTime: DateTime.now(),
+          messageType: messageType,
+          senderEmail: email,
+          receiverEmail: email);
+      await _usecase.sendMessage(chatMessage);
+      event.messages.add(chatMessage);
+      event.messages.sort((a, b) => a.dateTime.compareTo(b.dateTime));
+      emit(SentMessageSucessState(
+          message: chatMessage, messages: event.messages));
+    } catch (e) {
+      emit(ErrorOnSendMessageState(message: 'Erro ao enviar mensagem'));
+    }
+  }
+
+  Future<void> _onGetMessages(Emitter<ClientChatMessageState> emit, GetClientMessagesEvent event) async {
+    emit(GettingClientMessagesState());
+    late String email;
+    try {
+      if (event.user != null) {
+        email = event.user!.email!;
+      } else {
+        email = (await _authUC.getCurrentUser())!.email!;
+      }
+      final result = await _usecase.getMessages(email);
+      emit(GotClientMessagesSucessState(messages: result));
+    } catch (e) {
+      emit(
+          ErrorOnGetClientMessagesState(message: 'Erro ao buscar mensagens'));
+    }
   }
 
   void initDependencies() {
