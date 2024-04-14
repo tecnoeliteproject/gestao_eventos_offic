@@ -40,6 +40,9 @@ class ClientChatMessageBloc
       if (bytesFromPicker == null) {
         return;
       }
+
+      final bytes = bytesFromPicker.files.first.bytes;
+      emit(ChoosenFileState(file: bytes!));
     });
   }
 

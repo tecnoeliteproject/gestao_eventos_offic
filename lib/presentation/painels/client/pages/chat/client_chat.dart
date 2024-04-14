@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
@@ -7,6 +9,7 @@ import 'package:gestao_eventos/domain/entities/user.dart';
 import 'package:gestao_eventos/presentation/painels/admin/product_details/product_details.dart';
 import 'package:gestao_eventos/presentation/painels/admin/view/pages/channels/components/chat_head.dart';
 import 'package:gestao_eventos/presentation/painels/client/pages/chat/bloc/client_chat_message_bloc.dart';
+import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 
 class ClientChat extends StatefulWidget {
   ClientChat({super.key, this.user});
@@ -41,153 +44,183 @@ class _ClientChatState extends State<ClientChat> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Visibility(
-          visible: user != null,
-          child: ChatHead(user: user ?? User()),
-        ),
-      ),
-      body: Stack(
-        children: <Widget>[
-          Align(
-            alignment: Alignment.topLeft,
-            child: BlocBuilder<ClientChatMessageBloc, ClientChatMessageState>(
-              bloc: _bloc,
-              builder: (context, state) {
-                if (state is GettingClientMessagesState) {
-                  return const Center(child: CircularProgressIndicator());
-                }
-                if (state is ErrorOnGetClientMessagesState) {
-                  return Center(child: Text(state.message));
-                }
-                if (state is GotClientMessagesSucessState) {
-                  messages = state.messages;
-                }
-
-                if (messages.isEmpty) {
-                  return const Center(child: Text('Sem mensagens'));
-                }
-                return ListView.builder(
-                  itemCount: messages.length,
-                  // shrinkWrap: true,
-                  padding: const EdgeInsets.only(top: 10, bottom: 10),
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemBuilder: (context, index) {
-                    return Container(
-                      padding: const EdgeInsets.only(
-                        left: 14,
-                        right: 14,
-                        top: 10,
-                        bottom: 10,
-                      ),
-                      child: Align(
-                        alignment: alinharMensagem(index, user: user),
-                        child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            color: colorirMensagem(index, user: user),
-                          ),
-                          padding: const EdgeInsets.all(16),
-                          child: Text(
-                            messages[index].message,
-                            style: const TextStyle(fontSize: 15),
-                          ),
-                        ),
-                      ),
-                    );
-                  },
-                );
-              },
-            ),
-          ),
-          Align(
-            alignment: Alignment.bottomLeft,
-            child: Container(
-              margin: const EdgeInsets.all(20),
-              height: 60,
-              width: double.infinity,
-              color: Colors.white,
-              child: Row(
-                children: <Widget>[
-                  Expanded(
-                    child: BlocBuilder<ClientChatMessageBloc,
-                        ClientChatMessageState>(
-                      bloc: _bloc,
-                      builder: (context, state) {
-                        return Row(
-                          children: [
-                            InkWell(
-                              onTap: () {
-                                _bloc.add(ChooseFileEvent());
-                              },
-                              child: const Icon(
-                                Icons.attach_file,
-                                size: 18,
-                              ),
-                            ),
-                            const SizedBox(
-                              width: 15,
-                            ),
-                            Flexible(
-                              child: TextField(
-                                controller: _controller,
-                                decoration: const InputDecoration(
-                                  hintText: 'Escrever mensagem',
-                                  hintStyle: TextStyle(color: Colors.black54),
-                                  border: InputBorder.none,
-                                ),
-                              ),
-                            ),
-                          ],
-                        );
+    return BlocListener<ClientChatMessageBloc, ClientChatMessageState>(
+      bloc: _bloc,
+      listener: (context, state) {
+        if (state is ChoosenFileState) {
+          Navigator.push(context, MaterialPageRoute(builder: (context) {
+            return Scaffold(
+              appBar: AppBar(
+                leading: const Icon(Icons.close),
+                title: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    InkWell(
+                      onTap: (){
+                        
                       },
-                    ),
-                  ),
-                  const SizedBox(
-                    width: 15,
-                  ),
-                  BlocBuilder<ClientChatMessageBloc, ClientChatMessageState>(
-                    bloc: _bloc,
-                    builder: (context, state) {
-                      if (state is SendingMessageState) {
-                        return const CircularProgressIndicator();
-                      }
-                      if (state is ErrorOnSendMessageState) {
-                        return Text(state.message);
-                      }
-                      if (state is SentMessageSucessState) {
-                        _controller.clear();
-                      }
-                      if (state is GotClientMessagesSucessState) {
-                        messages = state.messages;
-                      }
-                      return RawKeyboardListener(
-                        focusNode: FocusNode(),
-                        onKey: (RawKeyEvent event) {
-                          if (event is RawKeyDownEvent &&
-                              event.logicalKey == LogicalKeyboardKey.enter) {
-                            _onSendMessage();
-                          }
-                        },
-                        child: FloatingActionButton(
-                          onPressed: _onSendMessage,
-                          backgroundColor: kPrimaryColor,
-                          elevation: 0,
-                          child: const Icon(
-                            Icons.send,
-                            color: Colors.white,
-                            size: 18,
+                      child: Icon(Icons.send)),
+                  ],
+                ),
+              ),
+              body: Center(
+                child: Container(
+                  color: Colors.deepOrange,
+                  height: 400,
+                  child: SfPdfViewer.memory(state.file),
+                ),
+              ));
+          }));
+        }
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          title: Visibility(
+            visible: user != null,
+            child: ChatHead(user: user ?? User()),
+          ),
+        ),
+        body: Stack(
+          children: <Widget>[
+            Align(
+              alignment: Alignment.topLeft,
+              child: BlocBuilder<ClientChatMessageBloc, ClientChatMessageState>(
+                bloc: _bloc,
+                builder: (context, state) {
+                  if (state is GettingClientMessagesState) {
+                    return const Center(child: CircularProgressIndicator());
+                  }
+                  if (state is ErrorOnGetClientMessagesState) {
+                    return Center(child: Text(state.message));
+                  }
+                  if (state is GotClientMessagesSucessState) {
+                    messages = state.messages;
+                  }
+
+                  if (messages.isEmpty) {
+                    return const Center(child: Text('Sem mensagens'));
+                  }
+                  return ListView.builder(
+                    itemCount: messages.length,
+                    // shrinkWrap: true,
+                    padding: const EdgeInsets.only(top: 10, bottom: 10),
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemBuilder: (context, index) {
+                      return Container(
+                        padding: const EdgeInsets.only(
+                          left: 14,
+                          right: 14,
+                          top: 10,
+                          bottom: 10,
+                        ),
+                        child: Align(
+                          alignment: alinharMensagem(index, user: user),
+                          child: Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              color: colorirMensagem(index, user: user),
+                            ),
+                            padding: const EdgeInsets.all(16),
+                            child: Text(
+                              messages[index].message,
+                              style: const TextStyle(fontSize: 15),
+                            ),
                           ),
                         ),
                       );
                     },
-                  ),
-                ],
+                  );
+                },
               ),
             ),
-          ),
-        ],
+            Align(
+              alignment: Alignment.bottomLeft,
+              child: Container(
+                margin: const EdgeInsets.all(20),
+                height: 60,
+                width: double.infinity,
+                color: Colors.white,
+                child: Row(
+                  children: <Widget>[
+                    Expanded(
+                      child: BlocBuilder<ClientChatMessageBloc,
+                          ClientChatMessageState>(
+                        bloc: _bloc,
+                        builder: (context, state) {
+                          return Row(
+                            children: [
+                              InkWell(
+                                onTap: () {
+                                  _bloc.add(ChooseFileEvent());
+                                },
+                                child: const Icon(
+                                  Icons.attach_file,
+                                  size: 18,
+                                ),
+                              ),
+                              const SizedBox(
+                                width: 15,
+                              ),
+                              Flexible(
+                                child: TextField(
+                                  controller: _controller,
+                                  decoration: const InputDecoration(
+                                    hintText: 'Escrever mensagem',
+                                    hintStyle: TextStyle(color: Colors.black54),
+                                    border: InputBorder.none,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          );
+                        },
+                      ),
+                    ),
+                    const SizedBox(
+                      width: 15,
+                    ),
+                    BlocBuilder<ClientChatMessageBloc, ClientChatMessageState>(
+                      bloc: _bloc,
+                      builder: (context, state) {
+                        if (state is SendingMessageState) {
+                          return const CircularProgressIndicator();
+                        }
+                        if (state is ErrorOnSendMessageState) {
+                          return Text(state.message);
+                        }
+                        if (state is SentMessageSucessState) {
+                          _controller.clear();
+                        }
+                        if (state is GotClientMessagesSucessState) {
+                          messages = state.messages;
+                        }
+                        return RawKeyboardListener(
+                          focusNode: FocusNode(),
+                          onKey: (RawKeyEvent event) {
+                            if (event is RawKeyDownEvent &&
+                                event.logicalKey == LogicalKeyboardKey.enter) {
+                              _onSendMessage();
+                            }
+                          },
+                          child: FloatingActionButton(
+                            onPressed: _onSendMessage,
+                            backgroundColor: kPrimaryColor,
+                            elevation: 0,
+                            child: const Icon(
+                              Icons.send,
+                              color: Colors.white,
+                              size: 18,
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -214,7 +247,11 @@ class _ClientChatState extends State<ClientChat> {
         : Alignment.topRight);
   }
 
-  void _onSendMessage() {
+  void _onSendMessage({Uint8List? file}) {
+    if (file != null) {
+      _bloc.add(SendFileEvent(file: file, messages: messages, user: user));
+      return;
+    }
     if (_controller.text.isNotEmpty) {
       _bloc.add(
         SendMessageEvent(

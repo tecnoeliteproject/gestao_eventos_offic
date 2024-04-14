@@ -33,3 +33,9 @@ class ErrorOnSendMessageState extends ClientChatMessageState {
 
   final String message;
 }
+
+class ChoosenFileState extends ClientChatMessageState {
+  ChoosenFileState({required this.file});
+
+  final Uint8List file;
+}

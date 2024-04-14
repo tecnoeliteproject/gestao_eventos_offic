@@ -13,6 +13,12 @@ class GetClientMessagesEvent extends ClientChatMessageEvent {
 }
 
 class ChooseFileEvent extends ClientChatMessageEvent {}
+class SendFileEvent extends ClientChatMessageEvent {
+  final Uint8List file;
+  final List<ChatMessage> messages;
+  final User? user;
+  const SendFileEvent({this.user, required this.messages, required this.file});
+}
 
 class SendMessageEvent extends ClientChatMessageEvent {
   final String message;
