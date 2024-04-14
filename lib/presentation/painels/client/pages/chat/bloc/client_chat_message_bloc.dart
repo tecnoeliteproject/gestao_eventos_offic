@@ -1,6 +1,9 @@
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
+import 'package:file_picker/file_picker.dart';
+import 'package:flutter/foundation.dart';
+import 'package:gestao_eventos/core/helpers/custom_image_picker.dart';
 import 'package:gestao_eventos/data/datasources/remoto/firebase/chat_datasource.dart';
 import 'package:gestao_eventos/data/repositories/chat_repository.dart';
 import 'package:gestao_eventos/data/repositories/firebase_auth_repository.dart';
@@ -31,11 +34,17 @@ class ClientChatMessageBloc
     });
 
     on<ChooseFileEvent>((event, emit) async {
-      
+      final bytesFromPicker =
+          await FilePicker.platform.pickFiles(allowedExtensions: ['pdf'], type: FileType.custom, allowMultiple: false);
+
+      if (bytesFromPicker == null) {
+        return;
+      }
     });
   }
 
-  Future<void> _onSendMessage(Emitter<ClientChatMessageState> emit, SendMessageEvent event) async {
+  Future<void> _onSendMessage(
+      Emitter<ClientChatMessageState> emit, SendMessageEvent event) async {
     emit(SendingMessageState());
     String? email;
     MessageType? messageType;
@@ -63,7 +72,8 @@ class ClientChatMessageBloc
     }
   }
 
-  Future<void> _onGetMessages(Emitter<ClientChatMessageState> emit, GetClientMessagesEvent event) async {
+  Future<void> _onGetMessages(Emitter<ClientChatMessageState> emit,
+      GetClientMessagesEvent event) async {
     emit(GettingClientMessagesState());
     late String email;
     try {
@@ -75,8 +85,7 @@ class ClientChatMessageBloc
       final result = await _usecase.getMessages(email);
       emit(GotClientMessagesSucessState(messages: result));
     } catch (e) {
-      emit(
-          ErrorOnGetClientMessagesState(message: 'Erro ao buscar mensagens'));
+      emit(ErrorOnGetClientMessagesState(message: 'Erro ao buscar mensagens'));
     }
   }
 
