@@ -3,10 +3,13 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_awesome_select/flutter_awesome_select.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:gestao_eventos/core/helpers/constants.dart';
 import 'package:gestao_eventos/domain/entities/material_item.dart';
+import 'package:gestao_eventos/presentation/painels/admin/register_stock/cubit/material_selector_cubit.dart';
 
-class MaterialSelectorWidget extends StatefulWidget {
+class MaterialSelectorWidget extends HookWidget {
   const MaterialSelectorWidget({
     required this.title,
     required this.placeHolder,
@@ -19,31 +22,50 @@ class MaterialSelectorWidget extends StatefulWidget {
   final List<MaterialItem> materiais;
 
   @override
-  State<MaterialSelectorWidget> createState() => _MaterialSelectorWidgetState();
-}
+  Widget build(BuildContext context) {
+    final valueState = useState('');
 
-class _MaterialSelectorWidgetState extends State<MaterialSelectorWidget> {
-  late final List<S2Choice<String>> options;
-  late String value;
+    return BlocBuilder(
+      bloc: context.read<MaterialSelectorCubit>()..getAllMaterials(),
+      builder: (c, state) {
+        if (state is MaterialSelectorLoading) {
+          return const Center(child: CircularProgressIndicator());
+        }
 
-  @override
-  void initState() {
-    value = widget.materiais.first.nome;
-    options = widget.materiais
-        .map(
-          (e) => S2Choice<String>(
-            value: e.id,
-            title: e.nome,
-            subtitle: e.descricao,
-          ),
-        )
-        .toList();
+        if (state is MaterialSelectorError) {
+          return const Center(
+            child: Text('Ocorreu um erro ao carregar a lista de materiais'),
+          );
+        }
 
-    super.initState();
+        if (state is MaterialSelectorLoaded) {
+          final materiais = state.materials;
+
+          return _buildInputField(
+            context,
+            materiais
+                .map(
+                  (e) => S2Choice<String>(
+                    value: e.id,
+                    title: e.nome,
+                    subtitle: e.descricao,
+                  ),
+                )
+                .toList(),
+            valueState,
+          );
+        }
+
+        return const SizedBox();
+      },
+    );
   }
 
-  @override
-  Widget build(BuildContext context) {
+  Widget _buildInputField(
+    BuildContext context,
+    List<S2Choice<String>> options,
+    ValueNotifier<String> materialState,
+  ) {
     return Padding(
       padding: const EdgeInsets.all(kDefaultPadding / 2),
       child: ClipRRect(
@@ -56,8 +78,8 @@ class _MaterialSelectorWidgetState extends State<MaterialSelectorWidget> {
             borderRadius: BorderRadius.circular(6),
           ),
           child: SmartSelect<String>.single(
-            selectedValue: value,
-            placeholder: widget.placeHolder,
+            selectedValue: materialState.value,
+            placeholder: placeHolder,
             choiceDivider: true,
             choiceEmptyBuilder: (context, value) {
               return const Center(
@@ -67,7 +89,7 @@ class _MaterialSelectorWidgetState extends State<MaterialSelectorWidget> {
             modalConfig: S2ModalConfig(
               useFilter: true,
               filterHint: 'Pesquisar',
-              title: widget.title,
+              title: 'Materiais',
               headerStyle: S2ModalHeaderStyle(
                 textStyle: TextStyle(
                   color: Theme.of(context).textTheme.bodyLarge?.color,
@@ -77,7 +99,9 @@ class _MaterialSelectorWidgetState extends State<MaterialSelectorWidget> {
             modalFilter: true,
             modalFilterAuto: true,
             choiceItems: options,
-            onChange: (state) => print,
+            onChange: (state) {
+              materialState.value = state.value;
+            },
             tileBuilder: (context, value) {
               return S2Tile.fromState(
                 value,

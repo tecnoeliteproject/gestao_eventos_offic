@@ -11,6 +11,8 @@ final class MaterialSelectorInitial extends MaterialSelectorState {}
 
 final class MaterialSelectorLoading extends MaterialSelectorState {}
 
+final class MaterialSelectorEmpty extends MaterialSelectorState {}
+
 final class MaterialSelectorLoaded extends MaterialSelectorState {
   const MaterialSelectorLoaded(this.materials);
 

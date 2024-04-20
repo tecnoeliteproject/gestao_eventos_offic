@@ -3,8 +3,8 @@ import 'dart:convert';
 
 import 'package:gestao_eventos/domain/entities/material_item.dart';
 
-class MaterialModel extends MaterialItem {
-  MaterialModel({
+class MaterialItemModel extends MaterialItem {
+  MaterialItemModel({
     required this.id,
     required this.nome,
     required this.descricao,
@@ -26,8 +26,8 @@ class MaterialModel extends MaterialItem {
 
   // from entity
 
-  factory MaterialModel.fromEntity(MaterialItem material) {
-    return MaterialModel(
+  factory MaterialItemModel.fromEntity(MaterialItem material) {
+    return MaterialItemModel(
       id: material.id,
       nome: material.nome,
       descricao: material.descricao,
@@ -47,14 +47,14 @@ class MaterialModel extends MaterialItem {
     );
   }
 
-  MaterialModel copyWith({
+  MaterialItemModel copyWith({
     String? id,
     String? nome,
     String? descricao,
     int? quantidade,
     double? precoUnitario,
   }) {
-    return MaterialModel(
+    return MaterialItemModel(
       id: id ?? this.id,
       nome: nome ?? this.nome,
       descricao: descricao ?? this.descricao,
@@ -73,8 +73,8 @@ class MaterialModel extends MaterialItem {
     };
   }
 
-  factory MaterialModel.fromMap(Map<String, dynamic> map) {
-    return MaterialModel(
+  factory MaterialItemModel.fromMap(Map<String, dynamic> map) {
+    return MaterialItemModel(
       id: map['id'] as String,
       nome: map['nome'] as String,
       descricao: map['descricao'] as String,
@@ -85,8 +85,8 @@ class MaterialModel extends MaterialItem {
 
   String toJson() => json.encode(toMap());
 
-  factory MaterialModel.fromJson(String source) =>
-      MaterialModel.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory MaterialItemModel.fromJson(String source) =>
+      MaterialItemModel.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
   String toString() {
@@ -94,7 +94,7 @@ class MaterialModel extends MaterialItem {
   }
 
   @override
-  bool operator ==(covariant MaterialModel other) {
+  bool operator ==(covariant MaterialItemModel other) {
     if (identical(this, other)) return true;
 
     return other.id == id &&

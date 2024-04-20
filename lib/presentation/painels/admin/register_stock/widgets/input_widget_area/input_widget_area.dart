@@ -4,7 +4,6 @@ import 'package:flutter_gutter/flutter_gutter.dart';
 import 'package:gestao_eventos/core/helpers/constants.dart';
 import 'package:gestao_eventos/domain/entities/material_item.dart';
 import 'package:gestao_eventos/presentation/painels/admin/register_stock/widgets/input_widget_area/material_selector_widget.dart';
-import 'package:gestao_eventos/presentation/painels/admin/register_stock/widgets/input_widget_area/tipo_operacao_widget.dart';
 import 'package:uuid/uuid.dart';
 
 /*

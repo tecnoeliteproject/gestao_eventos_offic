@@ -3,10 +3,11 @@ import 'package:gestao_eventos/domain/entities/material_item.dart';
 class Stock {
   Stock({
     required this.id,
-    required this.material,
+    required this.materialId,
     required this.operacao,
     required this.data,
     this.motivo,
+    this.material,
     this.obs,
     this.localizacao,
     this.usuarioResponsavelId,
@@ -16,7 +17,8 @@ class Stock {
   });
 
   final String id; // Identificador único do registo
-  final MaterialItem material; // ID do material associado
+  final String materialId; // ID do material associado
+  final MaterialItem? material; // ID do material associado
   final String operacao; // Tipo de operação (entrada ou saída)
   final DateTime data; // Data da operação
 

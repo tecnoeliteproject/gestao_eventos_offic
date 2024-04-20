@@ -1,7 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:gestao_eventos/core/dependences/get_it.dart';
-import 'package:gestao_eventos/domain/entities/material_item.dart';
 import 'package:gestao_eventos/domain/entities/stock.dart';
 import 'package:gestao_eventos/domain/usecases_interfaces/i_stock_usecase.dart';
 import 'package:uuid/uuid.dart';
@@ -31,13 +30,7 @@ class CreateStockRegistryCubit extends Cubit<CreateStockRegistryState> {
   Stock _createFakeStockEntity() {
     return Stock(
       id: const Uuid().v4(),
-      material: MaterialItem(
-        id: const Uuid().v4(),
-        nome: 'Cadeira',
-        descricao: 'Cadeira branca de quatro pernos',
-        quantidade: 5,
-        precoUnitario: 0,
-      ),
+      materialId: const Uuid().v4(),
       operacao: 'entrada',
       data: DateTime.now(),
       motivo: 'Emprestimo a um cliente',

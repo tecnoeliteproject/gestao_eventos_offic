@@ -2,22 +2,26 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:gestao_eventos/core/dependences/get_it.dart';
 import 'package:gestao_eventos/domain/entities/material_item.dart';
-import 'package:gestao_eventos/domain/usecases_interfaces/i_stock_usecase.dart';
+import 'package:gestao_eventos/domain/usecases_interfaces/i_material_usecase.dart';
 
 part 'material_selector_state.dart';
 
 class MaterialSelectorCubit extends Cubit<MaterialSelectorState> {
   MaterialSelectorCubit() : super(MaterialSelectorInitial()) {
-    _stockUseCase = getIt<IStockUseCase>();
+    _materialUsecase = getIt();
   }
 
-  late final IStockUseCase _stockUseCase;
+  late final IMaterialUsecase _materialUsecase;
 
   void getAllMaterials() {
     emit(MaterialSelectorLoading());
 
-    _stockUseCase.getAllStocks().then((value) {
-      emit(MaterialSelectorLoaded(value.map((e) => e.material).toList()));
+    _materialUsecase.getAllMaterials().then((value) {
+      value.sort((a, b) => a.nome.compareTo(b.nome));
+      if (value.isEmpty) {
+        emit(MaterialSelectorEmpty());
+      }
+      emit(MaterialSelectorLoaded(value.toList()));
     }).catchError((Object e) {
       emit(MaterialSelectorError(e.toString()));
     });
