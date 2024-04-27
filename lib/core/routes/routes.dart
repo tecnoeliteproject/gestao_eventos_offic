@@ -13,12 +13,14 @@ class GlobalRouter {
         return MaterialPageRoute(builder: (context) => const SplashScreen());
       case SignInScreen.routeName:
         return MaterialPageRoute(
-            builder: (context) => const RegisterStockPage());
+          builder: (context) => const SignInScreen(),
+        );
       case SignUpScreen.routeName:
         return MaterialPageRoute(builder: (context) => const SignUpScreen());
       case ClientHomeScreen.routeName:
         return MaterialPageRoute(
-            builder: (context) => const ClientHomeScreen());
+          builder: (context) => const ClientHomeScreen(),
+        );
       case AdminScreen.routeName:
         return MaterialPageRoute(builder: (context) => const AdminScreen());
       default:

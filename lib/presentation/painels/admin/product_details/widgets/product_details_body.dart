@@ -41,9 +41,9 @@ class _AppBar extends StatelessWidget {
           padding: const EdgeInsets.only(right: 8),
           child: IconButton(
             onPressed: () {
-              Navigator.of(context).push(
-                EditTipoEventoPage.route(tipoEvento),
-              );
+              // Navigator.of(context).push(
+              //   EditTipoEventoPage.route(tipoEvento),
+              // );
             },
             icon: const Icon(Icons.edit),
           ),

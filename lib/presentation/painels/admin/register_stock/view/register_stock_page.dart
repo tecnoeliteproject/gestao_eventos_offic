@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:gestao_eventos/core/dependences/get_it.dart';
 import 'package:gestao_eventos/presentation/painels/admin/register_stock/bloc/bloc.dart';
 import 'package:gestao_eventos/presentation/painels/admin/register_stock/cubit/create_stock_registry_cubit.dart';
+import 'package:gestao_eventos/presentation/painels/admin/register_stock/cubit/material_selector_cubit.dart';
 import 'package:gestao_eventos/presentation/painels/admin/register_stock/widgets/register_stock_body.dart';
 
 class RegisterStockPage extends StatelessWidget {
@@ -22,6 +24,9 @@ class RegisterStockPage extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => CreateStockRegistryCubit(),
+        ),
+        BlocProvider(
+          create: (context) => getIt<MaterialSelectorCubit>(),
         ),
       ],
       child: Scaffold(

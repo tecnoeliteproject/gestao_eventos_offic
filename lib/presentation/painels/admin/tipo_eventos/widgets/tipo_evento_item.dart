@@ -1,10 +1,8 @@
 // ignore_for_file: inference_failure_on_instance_creation
 
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:gestao_eventos/domain/entities/tipo_evento.dart';
-import 'package:gestao_eventos/presentation/painels/admin/edit_tipo_evento/edit_tipo_evento.dart';
 import 'package:gestao_eventos/presentation/painels/admin/product_details/view/product_details_page.dart';
 
 import 'package:gestao_eventos/presentation/painels/admin/tipo_eventos/widgets/confirm_arquivar_tipo_evento_dialog.dart';
@@ -60,9 +58,7 @@ class TipoEventoItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    if (kDebugMode) {
-      print(size);
-    }
+
     return GestureDetector(
       onTap: () => _onTap(context),
       child: Card(
@@ -111,9 +107,9 @@ class TipoEventoItem extends StatelessWidget {
                         child: const Icon(Icons.more_vert),
                         onSelected: (value) {
                           if (value == _PopupIdMenuItem.editar.index) {
-                            Navigator.of(context).push(
-                              EditTipoEventoPage.route(tipoEvento),
-                            );
+                            // Navigator.of(context).push(
+                            //   EditTipoEventoPage.route(tipoEvento),
+                            // );
                           }
 
                           if (value == _PopupIdMenuItem.arquivar.index) {

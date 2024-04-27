@@ -9,7 +9,7 @@ class RegisterStockBody extends StatelessWidget {
     return const SingleChildScrollView(
       child: Column(
         children: [
-          InputWidgetArea(),
+          // InputWidgetArea(),
         ],
       ),
     );

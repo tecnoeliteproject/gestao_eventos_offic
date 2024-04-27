@@ -20,11 +20,11 @@ class CreateTipoEventoBloc
     on<AddTipoEventoEvent>(_onAddTipoEventoEvent);
   }
 
-  late final ITipoEventoUseCase _tipoEventoUseCase;
-  late final NameFormCubitCubit _nameFormCubitCubit;
-  late final DescricaoFormCubit _descricaoFormCubit;
-  late final ImagemFormCubit _imagemFormCubit;
-  late final ImagensDeExemploFormCubit _imagensDeExemploFormCubit;
+  late ITipoEventoUseCase _tipoEventoUseCase;
+  late NameFormCubitCubit _nameFormCubitCubit;
+  late DescricaoFormCubit _descricaoFormCubit;
+  late ImagemFormCubit _imagemFormCubit;
+  late ImagensDeExemploFormCubit _imagensDeExemploFormCubit;
 
   FutureOr<void> _onAddTipoEventoEvent(
     AddTipoEventoEvent event,

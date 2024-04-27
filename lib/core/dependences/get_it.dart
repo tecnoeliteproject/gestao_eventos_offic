@@ -21,6 +21,7 @@ import 'package:gestao_eventos/domain/usecases_interfaces/i_tipo_evento_usecase.
 import 'package:gestao_eventos/presentation/painels/admin/create_tipo_evento/bloc/create_tipo_evento_bloc.dart';
 import 'package:gestao_eventos/presentation/painels/admin/edit_tipo_evento/bloc/edit_tipo_evento_bloc.dart';
 import 'package:gestao_eventos/presentation/painels/admin/product_details/product_details.dart';
+import 'package:gestao_eventos/presentation/painels/admin/register_stock/cubit/material_selector_cubit.dart';
 import 'package:gestao_eventos/presentation/painels/admin/tipo_eventos/bloc/tipo_eventos_bloc.dart';
 import 'package:gestao_eventos/presentation/painels/admin/tipo_eventos/cubit/archived_list_tipo_eventos_cubit.dart';
 import 'package:get_it/get_it.dart';
@@ -60,6 +61,7 @@ Future<void> setupGetIt() async {
     ..registerLazySingleton<IMaterialUsecase>(
       () => MaterialUsecase(getIt()),
     )
+    ..registerLazySingleton(MaterialSelectorCubit.new)
     // Blocs
 
     ..registerLazySingleton(TipoEventosBloc.new)

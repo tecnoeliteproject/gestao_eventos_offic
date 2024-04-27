@@ -35,10 +35,10 @@ class SignInScreen extends StatelessWidget {
                   const SizedBox(height: 16),
                   const SignForm(),
                   const SizedBox(height: 16),
-                  SocalCard(
-                    icon: 'assets/icons/google-icon.svg',
-                    press: () {},
-                  ),
+                  // SocalCard(
+                  //   icon: 'assets/icons/google-icon.svg',
+                  //   press: () {},
+                  // ),
                   const SizedBox(height: 20),
                   const NoAccountText(),
                 ],
