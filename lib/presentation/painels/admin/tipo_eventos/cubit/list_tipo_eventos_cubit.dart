@@ -28,8 +28,12 @@ class ListTipoEventosCubit extends Cubit<ListTipoEventosState> {
 
     try {
       final result = await _tipoEventosUseCase.getTipoEventos();
+      final list = result.reversed.toList()
+        ..sort(
+          (a, b) => a.name.compareTo(b.name),
+        );
 
-      emit(ListTipoEventosSuccess(result.reversed.toList()));
+      emit(ListTipoEventosSuccess(list));
     } catch (e) {
       log(e.toString());
       emit(ListTipoEventosError());
