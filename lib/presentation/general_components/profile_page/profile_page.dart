@@ -3,8 +3,8 @@ import 'package:gestao_eventos/presentation/general_components/profile_page/comp
 import 'package:gestao_eventos/presentation/general_components/profile_page/components/profile_pic.dart';
 
 class ProfilePage extends StatelessWidget {
-  const ProfilePage({super.key, required this.onSigningOut});
-  final Function onSigningOut;
+  const ProfilePage({required this.onSigningOut, super.key});
+  final Function? onSigningOut;
   static String routeName = '/profile';
   @override
   Widget build(BuildContext context) {
@@ -42,7 +42,7 @@ class ProfilePage extends StatelessWidget {
               text: 'Sair',
               icon: 'assets/icons/Log out.svg',
               press: () {
-                onSigningOut();
+                onSigningOut!();
               },
             ),
           ],

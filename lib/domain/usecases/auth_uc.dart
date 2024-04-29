@@ -2,6 +2,7 @@ import 'package:gestao_eventos/data/models/user_model.dart';
 import 'package:gestao_eventos/data/repositories_interfaces/i_auth_repository.dart';
 import 'package:gestao_eventos/domain/entities/user.dart';
 import 'package:gestao_eventos/domain/usecases_interfaces/i_auth_uc.dart';
+import 'package:uuid/uuid.dart';
 
 class AuthUC implements IAuthUC {
   AuthUC({required IAuthRepository repository}) : _repository = repository;
@@ -36,7 +37,14 @@ class AuthUC implements IAuthUC {
   Future<User> signUp(String name, String email, String password) async {
     await _repository.signUp(email, password);
     return UserModel.toEntity(
-      await _repository.createUser(UserModel(email: email, level: User.CLIENT, name: name)),
+      await _repository.createUser(
+        UserModel(
+          id: const Uuid().v4(),
+          email: email,
+          level: User.CLIENT,
+          name: name,
+        ),
+      ),
     );
   }
 

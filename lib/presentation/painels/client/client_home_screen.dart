@@ -5,10 +5,11 @@ import 'package:gestao_eventos/presentation/auth/sign_in/bloc/bloc.dart';
 import 'package:gestao_eventos/presentation/auth/sign_in/bloc/sign_in_event.dart';
 import 'package:gestao_eventos/presentation/auth/sign_in/bloc/sign_in_state.dart';
 import 'package:gestao_eventos/presentation/auth/sign_in/view/sign_in_screen.dart';
+import 'package:gestao_eventos/presentation/general_components/profile_page/profile_page.dart';
 import 'package:gestao_eventos/presentation/painels/client/cubit/home_cubit.dart';
 import 'package:gestao_eventos/presentation/painels/client/pages/chat/client_chat.dart';
+import 'package:gestao_eventos/presentation/painels/client/pages/chat_message/chat_message.dart';
 import 'package:gestao_eventos/presentation/painels/client/pages/main_page/main_page.dart';
-import 'package:gestao_eventos/presentation/general_components/profile_page/profile_page.dart';
 
 const Color inActiveIconColor = Color(0xFFB6B6B6);
 
@@ -34,13 +35,11 @@ class _ClientHomeScreenState extends State<ClientHomeScreen> {
   }
 
   void initPages() {
-    pages = [
+    pages = const [
       const MainPage(),
-      ClientChat(),
+      ChatMessagePage(),
       ProfilePage(
-        onSigningOut: () {
-          _signInBloc.add(SigningOutEvent());
-        },
+        onSigningOut: null,
       ),
     ];
   }

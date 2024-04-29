@@ -65,8 +65,11 @@ final otpInputDecoration = InputDecoration(
 OutlineInputBorder outlineInputBorder() {
   return OutlineInputBorder(
     borderRadius: BorderRadius.circular(16),
-    borderSide: const BorderSide(color: kTextColor),
   );
 }
 
 const double kDefaultpadding = 20;
+
+const streamChatClientToken =
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkI'
+    'joiMTIxMzkzNCJ9.iqG7bhzETTARwNH8LT1gkAeN0B2JGRuiMFJT5TTFYk4';
