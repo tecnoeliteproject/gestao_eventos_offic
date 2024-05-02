@@ -1,5 +1,3 @@
-// ignore_for_file: inference_failure_on_instance_creation
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -145,6 +143,17 @@ class TipoEventoItem extends StatelessWidget {
                                   _tipoEventoIsArchived
                                       ? Icons.unarchive
                                       : Icons.archive,
+                                ),
+                              ),
+                            ),
+                            const PopupMenuItem(
+                              value: 9,
+                              child: ListTile(
+                                title: Text(
+                                  'Eliminar',
+                                ),
+                                leading: Icon(
+                                  Icons.delete,
                                 ),
                               ),
                             ),

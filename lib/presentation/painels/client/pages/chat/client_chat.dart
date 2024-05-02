@@ -1,8 +1,5 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
 import 'package:gestao_eventos/core/helpers/constants.dart';
 import 'package:gestao_eventos/domain/entities/chat_message.dart';
 import 'package:gestao_eventos/domain/entities/user.dart';
@@ -51,15 +48,20 @@ class _ClientChatState extends State<ClientChat> {
           Navigator.push(context, MaterialPageRoute(builder: (context) {
             return Scaffold(
               appBar: AppBar(
-                leading: const Icon(Icons.close),
+                leading: InkWell(
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                  child: const Icon(Icons.close)),
                 title: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     InkWell(
                       onTap: (){
-                        
+                        Navigator.pop(context);
+                        _onSendMessage(file: state.file);
                       },
-                      child: Icon(Icons.send)),
+                      child: const Icon(Icons.send),),
                   ],
                 ),
               ),
@@ -69,8 +71,8 @@ class _ClientChatState extends State<ClientChat> {
                   height: 400,
                   child: SfPdfViewer.memory(state.file),
                 ),
-              ));
-          }));
+              ),);
+          },),);
         }
       },
       child: Scaffold(
@@ -255,7 +257,7 @@ class _ClientChatState extends State<ClientChat> {
     if (_controller.text.isNotEmpty) {
       _bloc.add(
         SendMessageEvent(
-            message: _controller.text, messages: messages, user: user),
+            message: _controller.text, messages: messages, user: user,),
       );
       _controller.clear();
     }

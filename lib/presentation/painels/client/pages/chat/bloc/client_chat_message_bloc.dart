@@ -3,7 +3,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
-import 'package:gestao_eventos/core/helpers/custom_image_picker.dart';
 import 'package:gestao_eventos/data/datasources/remoto/firebase/chat_datasource.dart';
 import 'package:gestao_eventos/data/repositories/chat_repository.dart';
 import 'package:gestao_eventos/data/repositories/firebase_auth_repository.dart';
@@ -33,9 +32,15 @@ class ClientChatMessageBloc
       await _onSendMessage(emit, event);
     });
 
+    on<SendFileEvent>((event, emit) async {
+      await _onSendFile(emit, event);
+    });
+
     on<ChooseFileEvent>((event, emit) async {
-      final bytesFromPicker =
-          await FilePicker.platform.pickFiles(allowedExtensions: ['pdf'], type: FileType.custom, allowMultiple: false);
+      final bytesFromPicker = await FilePicker.platform.pickFiles(
+          allowedExtensions: ['pdf'],
+          type: FileType.custom,
+          allowMultiple: false);
 
       if (bytesFromPicker == null) {
         return;
@@ -92,6 +97,39 @@ class ClientChatMessageBloc
     }
   }
 
+
+  _onSendFile(Emitter<ClientChatMessageState> emit, SendFileEvent event) async {
+    emit(SendingMessageState());
+    String? email;
+    MessageType? messageType;
+    // try {
+      if (event.user != null) {
+        email = event.user!.email!;
+        messageType = MessageType.receiver;
+      } else {
+        email = (await _authUC.getCurrentUser())!.email!;
+        messageType = MessageType.sender;
+      }
+      final chatMessage = ChatMessage(
+          message: 'FICHEIRO PDF',
+          dateTime: DateTime.now(),
+          messageType: messageType,
+          file: event.file,
+          fileName: 'ficheiro.pdf',
+          isFile: true,
+          senderEmail: email,
+          receiverEmail: email);
+      await _usecase.sendMessage(chatMessage);
+      event.messages.add(chatMessage);
+      event.messages.sort((a, b) => a.dateTime.compareTo(b.dateTime));
+      emit(SentMessageSucessState(
+          message: chatMessage, messages: event.messages));
+    // } catch (e) {
+    //   emit(ErrorOnSendMessageState(message: 'Erro ao enviar mensagem'));
+    // }
+  }
+  
+  
   void initDependencies() {
     _authUC = AuthUC(repository: FirebaseAuthRepository());
     _usecase = ChatUseCase(
