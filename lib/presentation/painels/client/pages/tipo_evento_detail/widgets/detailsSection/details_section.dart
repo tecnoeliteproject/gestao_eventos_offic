@@ -20,29 +20,9 @@ class DetailsSection extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                _Preco(),
-                GutterSmall(),
-                ClassificacaoDoEvento(),
-              ],
-            ),
-            const Gutter(),
+            _BaseInformation(tipoEvento: tipoEvento),
+            const GutterLarge(),
             const EventTagsList(),
-            const Gutter(),
-            Text(
-              tipoEvento.name,
-              style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                    fontWeight: FontWeight.bold,
-                    color: Theme.of(context).colorScheme.onSecondaryContainer,
-                  ),
-            ),
-            const GutterTiny(),
-            Text(
-              '13 lugares',
-              style: Theme.of(context).textTheme.titleSmall,
-            ),
             const GutterLarge(),
             Text(
               'Sobre o evento',
@@ -63,20 +43,38 @@ class DetailsSection extends StatelessWidget {
   }
 }
 
-class _Preco extends StatelessWidget {
-  const _Preco();
+class _BaseInformation extends StatelessWidget {
+  const _BaseInformation({
+    required this.tipoEvento,
+  });
+
+  final TipoEvento tipoEvento;
 
   @override
   Widget build(BuildContext context) {
-    return Align(
-      alignment: Alignment.topLeft,
-      child: Text(
-        '56.000,00 Kz',
-        style: Theme.of(context).textTheme.titleLarge?.copyWith(
-              fontWeight: FontWeight.bold,
-              color: Theme.of(context).colorScheme.onSecondaryContainer,
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      crossAxisAlignment: CrossAxisAlignment.end,
+      children: [
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              tipoEvento.name,
+              style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                    fontWeight: FontWeight.bold,
+                    color: Theme.of(context).colorScheme.onSecondaryContainer,
+                  ),
             ),
-      ),
+            const GutterTiny(),
+            Text(
+              '13 lugares',
+              style: Theme.of(context).textTheme.titleSmall,
+            ),
+          ],
+        ),
+        const ClassificacaoDoEvento(),
+      ],
     );
   }
 }
