@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gestao_eventos/core/dependences/get_it.dart';
@@ -11,10 +13,17 @@ class CreateNewChannelCubit extends Cubit<CreateNewChannelState> {
   Future<void> createNewChannel(String channelName) async {
     final client = getIt<StreamChatClient>();
 
+    log(client.state.currentUser!.id);
+
     final chState = await client.createChannel(
       'messaging',
       channelId: const Uuid().v4(),
-      channelData: {'name': channelName},
+      channelData: {
+        'name': channelName,
+        'members': [
+          client.state.currentUser!.id,
+        ],
+      },
     );
 
     if (chState.channel != null) {

@@ -2,9 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gestao_eventos/core/dependences/get_it.dart';
-import 'package:gestao_eventos/data/repositories/firebase_auth_repository.dart';
 import 'package:gestao_eventos/domain/entities/user.dart';
-import 'package:gestao_eventos/domain/usecases/auth_uc.dart';
 import 'package:gestao_eventos/presentation/painels/client/pages/chat_message/cubit/create_new_channel_cubit.dart';
 import 'package:gestao_eventos/presentation/painels/client/pages/chat_message/view/channel_page.dart';
 import 'package:stream_chat_flutter/stream_chat_flutter.dart' hide User;
@@ -26,7 +24,14 @@ class _ChatMessageBodyState extends State<ChatMessageBody> {
   void initState() {
     client = getIt<StreamChatClient>();
     currentUser = getIt<User>();
-    channelListController = StreamChannelListController(client: client);
+    channelListController = StreamChannelListController(
+      client: client,
+      filter: Filter.in_(
+        'members',
+        [StreamChat.of(context).currentUser!.id],
+      ),
+      channelStateSort: const [SortOption('last_message_at')],
+    );
 
     super.initState();
   }
@@ -52,14 +57,12 @@ class _ChatMessageBodyState extends State<ChatMessageBody> {
   }
 
   StreamBuilder<List<Channel>> _buildBody() {
-    filters = [];
-    if (currentUser != null && currentUser!.level == User.CLIENT) {
-      filters.add(Filter.in_('members', [currentUser!.id!]));
-    }
-
     return StreamBuilder<List<Channel>>(
       stream: client.queryChannels(
-        filter: Filter.and(filters),
+        filter: Filter.in_(
+          'members',
+          [StreamChat.of(context).currentUser!.id],
+        ),
       ),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {

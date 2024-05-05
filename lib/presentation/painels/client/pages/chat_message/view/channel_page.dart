@@ -8,17 +8,25 @@ class ChannelPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      appBar: StreamChannelHeader(
-        showConnectionStateTile: true,
-      ),
-      body: Column(
-        children: <Widget>[
-          Expanded(
-            child: StreamMessageListView(),
-          ),
-          StreamMessageInput(),
-        ],
+    return StreamChatTheme(
+      data: StreamChatThemeData(),
+      child: Scaffold(
+        appBar: StreamChannelHeader(showConnectionStateTile: true),
+        body: Column(
+          children: <Widget>[
+            Expanded(
+              child: StreamMessageListView(
+                messageBuilder:
+                    (context, messageDetails, messageList, defaultWidget) {
+                  return defaultWidget.copyWith(
+                    reverse: true,
+                  );
+                },
+              ),
+            ),
+            StreamMessageInput(),
+          ],
+        ),
       ),
     );
   }

@@ -44,7 +44,6 @@ class ChatMessageView extends StatelessWidget {
       bloc: context.read<ChatMessageBloc>()
         ..add(const CustomChatMessageEvent()),
       builder: (context, state) {
-        print(state);
         if (state is ChatMessageLoading) {
           return const Center(
             child: CircularProgressIndicator(),
