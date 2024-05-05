@@ -18,19 +18,9 @@ class ContratarServicoSection extends StatelessWidget {
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            LigarWidget(
-              icon: const Icon(
-                FontAwesomeIcons.message,
-                color: Colors.green,
-              ),
-              onTap: () {
-                _openChatScreen(context);
-              },
-            ),
-            const Gutter(),
             Expanded(
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () => _openChatScreen(context),
                 child: const Text('Contratar Serviço'),
               ),
             ),
