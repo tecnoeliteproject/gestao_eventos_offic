@@ -19,14 +19,15 @@ Future<StreamChatClient> _createChatClient() async {
 
   await client.connectUser(
     User(
-      id: user.id!,
+      id: user.id ?? user.name!.replaceAll(' ', ''),
       extraData: const {
-        'image':
-            'https://getstream.io/random_png/?id=cool-shadow-7&amp;name=Cool+shadow',
+        'image': 'https://getstream.io/random_png/'
+            '?id=cool-shadow-7&amp;name=Cool+shadow',
       },
     ),
     streamChatClientToken,
     connectWebSocket: false,
   );
+  print(client.state.currentUser?.id);
   return client;
 }

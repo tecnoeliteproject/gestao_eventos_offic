@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:gestao_eventos/core/dependences/get_it.dart';
 import 'package:gestao_eventos/core/helpers/constants.dart';
 import 'package:gestao_eventos/core/helpers/keyboard.dart';
 import 'package:gestao_eventos/domain/entities/permission_level.dart';
@@ -37,7 +36,7 @@ class _SignFormState extends State<SignForm> {
     _bloc = BlocProvider.of<SignInBloc>(context);
     // _bloc.add(
     //   SigningInEvent(
-    //     email: 'emilianojamba@gmail.com',
+    //     email: 'job@gmail.com',
     //     password: 'password',
     //   ),
     // );
