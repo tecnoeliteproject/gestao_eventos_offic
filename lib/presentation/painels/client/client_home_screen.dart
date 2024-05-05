@@ -35,11 +35,11 @@ class _ClientHomeScreenState extends State<ClientHomeScreen> {
   }
 
   void initPages() {
-    pages = const [
+    pages = [
       const MainPage(),
       ChatMessagePage(),
       ProfilePage(
-        onSigningOut: null,
+        onSigningOut: () => _signInBloc.add(SigningOutEvent()),
       ),
     ];
   }
