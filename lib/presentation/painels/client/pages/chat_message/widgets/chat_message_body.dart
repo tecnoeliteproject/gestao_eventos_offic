@@ -1,11 +1,13 @@
+// ignore_for_file: inference_failure_on_instance_creation
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gestao_eventos/core/dependences/get_it.dart';
-import 'package:gestao_eventos/domain/entities/user.dart';
+import 'package:gestao_eventos/domain/entities/user.dart' as localUser;
 import 'package:gestao_eventos/presentation/painels/client/pages/chat_message/cubit/create_new_channel_cubit.dart';
 import 'package:gestao_eventos/presentation/painels/client/pages/chat_message/view/channel_page.dart';
-import 'package:stream_chat_flutter/stream_chat_flutter.dart' hide User;
+import 'package:stream_chat_flutter/stream_chat_flutter.dart';
 
 class ChatMessageBody extends StatefulWidget {
   const ChatMessageBody({super.key});
@@ -15,31 +17,47 @@ class ChatMessageBody extends StatefulWidget {
 }
 
 class _ChatMessageBodyState extends State<ChatMessageBody> {
-  late User? currentUser;
+  late localUser.User? currentUser;
   late List<Filter> filters;
   late final StreamChatClient client;
   late final StreamChannelListController channelListController;
+  final _membersChatFilter = <Object>[];
 
   @override
   void initState() {
     client = getIt<StreamChatClient>();
-    currentUser = getIt<User>();
+    currentUser = getIt<localUser.User>();
+    _populateChatFilter();
+
     channelListController = StreamChannelListController(
       client: client,
-      filter: Filter.in_(
-        'members',
-        [StreamChat.of(context).currentUser!.id],
-      ),
+      filter: _chatFilter(),
       channelStateSort: const [SortOption('last_message_at')],
     );
 
     super.initState();
   }
 
+  Filter? _chatFilter() {
+    final filter = _membersChatFilter.isNotEmpty
+        ? Filter.in_(
+            'members',
+            _membersChatFilter,
+          )
+        : null;
+    return filter;
+  }
+
   @override
   void dispose() {
     channelListController.dispose();
     super.dispose();
+  }
+
+  void _populateChatFilter() {
+    if (currentUser != null && currentUser!.level != localUser.User.ADMIN) {
+      _membersChatFilter.add(StreamChat.of(context).currentUser!.id);
+    }
   }
 
   @override
@@ -50,56 +68,48 @@ class _ChatMessageBodyState extends State<ChatMessageBody> {
       },
       buildWhen: (_, current) => current is CreateNewChanneSuccess,
       builder: (context, state) => Scaffold(
-        body: _buildBody(),
-        floatingActionButton: _buildFAB(context),
-      ),
-    );
-  }
+        body: StreamBuilder<List<Channel>>(
+          stream: client.queryChannels(
+            filter: _chatFilter(),
+          ),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            }
 
-  StreamBuilder<List<Channel>> _buildBody() {
-    return StreamBuilder<List<Channel>>(
-      stream: client.queryChannels(
-        filter: Filter.in_(
-          'members',
-          [StreamChat.of(context).currentUser!.id],
-        ),
-      ),
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        }
+            if (snapshot.hasError) {
+              return Center(
+                child: Text('Ocorreu um erro: ${snapshot.error}'),
+              );
+            }
 
-        if (snapshot.hasError) {
-          return Center(
-            child: Text('Ocorreu um erro: ${snapshot.error}'),
-          );
-        }
+            if (snapshot.connectionState == ConnectionState.done) {
+              if (snapshot.hasData) {
+                channelListController.channels = snapshot.data!;
+              }
+            }
 
-        if (snapshot.connectionState == ConnectionState.done) {
-          if (snapshot.hasData) {
-            channelListController.channels = snapshot.data!;
-          }
-        }
-
-        return StreamChannelListView(
-          controller: channelListController,
-          onChannelTap: (channel) {
-            Navigator.of(context).push(
-              CupertinoPageRoute(
-                builder: (_) => StreamChat(
-                  client: client,
-                  child: StreamChannel(
-                    channel: channel,
-                    child: const ChannelPage(),
+            return StreamChannelListView(
+              controller: channelListController,
+              onChannelTap: (channel) {
+                Navigator.of(context).push(
+                  CupertinoPageRoute(
+                    builder: (_) => StreamChannel(
+                      channel: channel,
+                      child: ChannelPage(
+                        client: client,
+                      ),
+                    ),
                   ),
-                ),
-              ),
+                );
+              },
             );
           },
-        );
-      },
+        ),
+        floatingActionButton: _buildFAB(context),
+      ),
     );
   }
 

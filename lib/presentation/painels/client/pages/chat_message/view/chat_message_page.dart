@@ -33,31 +33,38 @@ class ChatMessagePage extends StatelessWidget {
   }
 }
 
-class ChatMessageView extends StatelessWidget {
+class ChatMessageView extends StatefulWidget {
   const ChatMessageView({super.key});
 
   @override
+  State<ChatMessageView> createState() => _ChatMessageViewState();
+}
+
+class _ChatMessageViewState extends State<ChatMessageView> {
+  @override
+  void initState() {
+    context.read<ChatMessageBloc>().add(const CustomChatMessageEvent());
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final client = getIt<StreamChatClient>();
+    return StreamChat(
+      client: getIt<StreamChatClient>(),
+      child: BlocBuilder<ChatMessageBloc, ChatMessageState>(
+        builder: (context, state) {
+          if (state is ChatMessageLoading) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
 
-    return BlocBuilder<ChatMessageBloc, ChatMessageState>(
-      bloc: context.read<ChatMessageBloc>()
-        ..add(const CustomChatMessageEvent()),
-      builder: (context, state) {
-        if (state is ChatMessageLoading) {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        }
-
-        return StreamChat(
-          client: client,
-          child: StreamChatTheme(
+          return StreamChatTheme(
             data: StreamChatThemeData(),
             child: const ChatMessageBody(),
-          ),
-        );
-      },
+          );
+        },
+      ),
     );
   }
 }

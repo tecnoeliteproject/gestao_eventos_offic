@@ -1,5 +1,4 @@
 import 'package:gestao_eventos/core/dependences/get_it.dart';
-import 'package:gestao_eventos/core/helpers/constants.dart';
 import 'package:gestao_eventos/domain/entities/user.dart' as entity;
 import 'package:stream_chat_flutter/stream_chat_flutter.dart';
 
@@ -12,22 +11,22 @@ Future<void> setupChatClientGetIt() async {
 
 Future<StreamChatClient> _createChatClient() async {
   final client = StreamChatClient(
-    'xzrky8h47aj6',
-    logLevel: Level.INFO,
+    'vtp8f5kugtt4',
+    connectTimeout: const Duration(seconds: 10),
   );
   final user = getIt<entity.User>();
 
   await client.connectUser(
     User(
-      id: user.id ?? user.name!.replaceAll(' ', ''),
-      extraData: const {
-        'image': 'https://getstream.io/random_png/'
-            '?id=cool-shadow-7&amp;name=Cool+shadow',
-      },
+      id: _getUserId(user),
+      name: user.name ?? 'Guest',
+      role: user.level == 0 ? 'admin' : 'user',
     ),
-    streamChatClientToken,
-    connectWebSocket: false,
+    client.devToken(_getUserId(user)).rawValue,
   );
-  print(client.state.currentUser?.id);
+
   return client;
 }
+
+String _getUserId(entity.User user) =>
+    user.id ?? user.name!.replaceAll(' ', '');

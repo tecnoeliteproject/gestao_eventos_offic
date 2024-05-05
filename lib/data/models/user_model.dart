@@ -5,29 +5,33 @@ class UserModel extends User {
 
   factory UserModel.fromEntity(User entity) {
     return UserModel(
-        email: entity.email,
-        level: entity.level,
-        password: entity.password,
-        id: entity.id,
-        name: entity.name);
+      email: entity.email,
+      level: entity.level,
+      password: entity.password,
+      id: entity.id,
+      name: entity.name,
+    );
   }
 
   factory UserModel.toEntity(UserModel model) {
     return UserModel(
-        email: model.email,
-        level: model.level,
-        password: model.password,
-        id: model.id,
-        name: model.name);
+      email: model.email,
+      level: model.level,
+      password: model.password,
+      id: model.id,
+      name: model.name,
+    );
   }
 
   factory UserModel.fromMap(Map<String, dynamic> map) {
+    print(map);
     return UserModel(
-        email: (map['email'] ?? '') as String,
-        level: (map['level'] ?? 0) as int,
-        password: (map['password'] ?? '') as String,
-        id: (map['id'] ?? '') as String,
-        name: (map['name'] ?? '') as String);
+      email: (map['email'] ?? '') as String,
+      level: (map['level'] ?? 0) as int,
+      password: (map['password'] ?? '') as String,
+      id: (map['id']) as String,
+      name: (map['name'] ?? '') as String,
+    );
   }
 
   Map<String, dynamic> toMap() {
@@ -36,7 +40,7 @@ class UserModel extends User {
       'level': level,
       'password': password,
       'id': id,
-      'name': name
+      'name': name,
     };
   }
 
@@ -53,7 +57,7 @@ class UserModel extends User {
     }
     return 'Cliente';
   }
-  
+
   static int textToNivel(String text) {
     if (text == 'Adminstrador') {
       return NIVEL_ADMIN;

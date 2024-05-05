@@ -20,12 +20,12 @@ class ChatMessageBloc extends Bloc<ChatMessageEvent, ChatMessageState> {
     Emitter<ChatMessageState> emit,
   ) async {
     emit(const ChatMessageLoading());
-    final user = getIt<localUser.User>();
-    final client = getIt<StreamChatClient>();
-    await client.connectUser(
-      User(id: user.id!),
-      streamChatClientToken,
-    );
+    // final user = getIt<localUser.User>();
+    // final client = getIt<StreamChatClient>();
+    // await client.connectUser(
+    //   User(id: user.id!),
+    //   streamChatClientToken,
+    // );
     emit(const ChatMessageSuccess());
   }
 }

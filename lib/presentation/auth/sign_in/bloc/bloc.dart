@@ -8,9 +8,10 @@ import 'package:gestao_eventos/domain/usecases/auth_uc.dart';
 import 'package:gestao_eventos/domain/usecases_interfaces/i_auth_uc.dart';
 import 'package:gestao_eventos/presentation/auth/sign_in/bloc/sign_in_event.dart';
 import 'package:gestao_eventos/presentation/auth/sign_in/bloc/sign_in_state.dart';
+import 'package:stream_chat_flutter/stream_chat_flutter.dart' hide User;
 
 class SignInBloc extends Bloc<SignInEvent, SignInState> {
-  SignInBloc(SignInInitialState initialState) : super(initialState) {
+  SignInBloc(SignInInitialState super.initialState) {
     initDependencies();
     initAllEvents();
   }
@@ -36,6 +37,9 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
     SigningOutEvent event,
   ) async {
     await _uc.signOut();
+    getIt
+      ..unregister<User>()
+      ..unregister<StreamChatClient>();
     emit(SigningOutState());
   }
 

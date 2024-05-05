@@ -13,6 +13,7 @@ import 'package:gestao_eventos/presentation/painels/admin/view/pages/channels/ch
 import 'package:gestao_eventos/presentation/painels/admin/view/pages/chat/admin_chat.dart';
 import 'package:gestao_eventos/presentation/painels/admin/view/pages/users/components/profile_page.dart';
 import 'package:gestao_eventos/presentation/painels/admin/view/pages/users/users_page.dart';
+import 'package:gestao_eventos/presentation/painels/client/pages/chat_message/chat_message.dart';
 
 const Color inActiveIconColor = Color(0xFFB6B6B6);
 
@@ -41,13 +42,13 @@ class _AdminScreenState extends State<AdminScreen> {
   void initPages() {
     pages = [
       const UsersPage(),
-      ChannelsPage(users: const [],),
+      const ChatMessagePage(),
       ProfileAdminPage(
         onSigningOut: () {
           _signInBloc.add(SigningOutEvent());
         },
       ),
-      AdminChat(),
+      // AdminChat(),
     ];
   }
 
